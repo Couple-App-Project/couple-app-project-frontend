@@ -19,7 +19,6 @@ const ScreenSignUp = () => {
 
   const heandleSignUp = () => {
     const userSignUp = { email, password: pwd, name, birthday };
-    console.log(userSignUp);
   };
 
   return (
