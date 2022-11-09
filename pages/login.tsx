@@ -9,7 +9,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput((prevInput) => {
       return { ...prevInput, [e.target.name]: e.target.value };
     });
@@ -28,7 +28,7 @@ export default function Login() {
             type="email"
             name="email"
             value={userInput.email}
-            onChange={changeInput}
+            onChange={onChangeInput}
           />
         </label>
         <br />
@@ -39,7 +39,7 @@ export default function Login() {
             type="password"
             name="password"
             value={userInput.password}
-            onChange={changeInput}
+            onChange={onChangeInput}
           />
         </label>
         <br />
