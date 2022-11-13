@@ -1,3 +1,4 @@
+import router from "next/router";
 import styled from "styled-components";
 import Profile from "../components/Profile";
 
@@ -12,7 +13,9 @@ const ProfileSection = styled.section`
 export default function ScreenHome() {
   return (
     <>
-      <CalenderButton>🗓</CalenderButton>
+      <CalenderButton onClick={() => router.push("/calendar")}>
+        🗓
+      </CalenderButton>
       <br />
 
       <ProfileSection>
