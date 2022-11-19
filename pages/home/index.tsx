@@ -1,5 +1,5 @@
-import ScreenHome from "../../feature/Home/screen/ScreenHome";
+import ScreenHome from 'feature/home/screen/ScreenHome';
 
 export default function Home() {
-  return <ScreenHome />;
+    return <ScreenHome />;
 }

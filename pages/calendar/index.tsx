@@ -1,4 +1,5 @@
-import ScreenCalender from "../../feature/Calender/screen/ScreenCalendar";
+import ScreenCalender from 'feature/calender/screen/ScreenCalendar';
+
 export default function Calendar() {
-  return <ScreenCalender />;
+    return <ScreenCalender />;
 }
