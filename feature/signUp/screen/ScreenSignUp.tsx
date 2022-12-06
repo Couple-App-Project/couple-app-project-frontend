@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import useInput from '../hooks/useInput';
 import useErrorField from '../hooks/useErrorField';
 
 const ScreenSignUp = () => {
+    const router = useRouter();
+
     const [email, onChangeEmail] = useInput('');
     const [pwd, onChangePwd] = useInput('');
     const [pwdConfirm, onChangePwdConfirm] = useInput('');
@@ -42,6 +45,7 @@ const ScreenSignUp = () => {
         } else {
             const userSignUp = { email, password: pwd, name, birthday };
             console.log(userSignUp);
+            router.push('/coupleinfo');
         }
     };
 
