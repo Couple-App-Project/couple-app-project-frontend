@@ -28,4 +28,10 @@ export default OnboardingSlider;
 
 const SliderWrap = styled.section`
     position: relative;
+    margin-bottom: 80px;
+
+    & .slick-dots {
+        position: static;
+        bottom: 0px;
+    }
 `;

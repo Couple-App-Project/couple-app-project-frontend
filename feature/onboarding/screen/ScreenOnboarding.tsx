@@ -28,10 +28,11 @@ const ScreenOnboarding = () => {
 
 export default ScreenOnboarding;
 
-const OnboardingWrap = styled.div``;
+const OnboardingWrap = styled.article``;
 
 const SliderItems = styled.div`
     width: 100%;
+
     & > span {
         position: unset !important;
         & .slider-img {
