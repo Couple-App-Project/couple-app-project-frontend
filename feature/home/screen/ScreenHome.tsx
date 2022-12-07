@@ -8,9 +8,23 @@ const CalenderButton = styled.button`
 const ProfileSection = styled.section`
     display: flex;
     justify-content: center;
+
+    & > p {
+        text-align: center;
+    }
+`;
+const ScheduleSummary = styled.p`
+    text-align: center;
 `;
 
 export default function ScreenHome() {
+    const myProfile = { type: '본인', name: '소윤', birthday: '1996-05-27' };
+    const yourProfile = {
+        type: '상대방',
+        name: '윤소',
+        birthday: '1996-03-27',
+    };
+
     return (
         <>
             <CalenderButton onClick={() => router.push('/calendar')}>
@@ -19,18 +33,12 @@ export default function ScreenHome() {
             <br />
 
             <ProfileSection>
-                <Profile />
+                <Profile profile={myProfile} />
                 <p>D+333</p>
-                <Profile />
+                <Profile profile={yourProfile} />
             </ProfileSection>
 
-            <p>n개의 일정</p>
-
-            <style jsx>{`
-                p {
-                    text-align: center;
-                }
-            `}</style>
+            <ScheduleSummary>n개의 일정</ScheduleSummary>
         </>
     );
 }

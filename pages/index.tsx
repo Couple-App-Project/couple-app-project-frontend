@@ -3,7 +3,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
+import router from 'next/router';
+
 const Home: NextPage = () => {
+    if (typeof window !== 'undefined') {
+        const isToken = sessionStorage.getItem('refresh');
+        isToken ? router.push('/home') : router.push('/login');
+    }
+
     return (
         <div className={styles.container}>
             <Head>
