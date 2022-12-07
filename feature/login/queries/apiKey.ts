@@ -1,9 +1,5 @@
-import axios from 'axios';
+import instance from 'utils/api';
 import { LoginForm } from 'types/interface';
-
-const instance = axios.create({
-    baseURL: '',
-});
 
 export const apis = {
     login: (loginForm: LoginForm) =>

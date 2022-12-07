@@ -8,7 +8,9 @@ const ProfileArticle = styled.article`
     align-items: center;
 `;
 
-export default function Profile() {
+export default function Profile(props: any) {
+    const { profile } = props;
+
     return (
         <ProfileArticle>
             <Image
@@ -18,8 +20,8 @@ export default function Profile() {
                 height={100}
                 style={{ borderRadius: '50%' }}
             />
-            <p>소윤</p>
-            <p>22.11.13</p>
+            <p>{profile.name}</p>
+            <p>{profile.birthday}</p>
         </ProfileArticle>
     );
 }
