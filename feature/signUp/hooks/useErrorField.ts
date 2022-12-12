@@ -45,7 +45,7 @@ const useErrorField = (initialValue: FieldErrState): UseErrField => {
 
     const errorHandler = (
         e: React.ChangeEvent<HTMLInputElement>,
-        pwd?: string
+        pwd: string,
     ) => {
         isError[e.target.name](e.target.value, pwd);
     };
