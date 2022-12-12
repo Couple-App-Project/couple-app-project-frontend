@@ -1,4 +1,4 @@
-import ScreenRegister from 'feature/calender/screen/ScreenCalendar';
+import ScreenRegister from 'feature/calender/screen/ScreenRegister';
 
 export default function Register() {
     return <ScreenRegister />;
