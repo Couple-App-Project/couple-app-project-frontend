@@ -25,7 +25,7 @@ const ScreenCoupleCode = () => {
     };
 
     return (
-        <CoupleInfoWrap>
+        <CoupleCodeWrapper>
             <form>
                 <div>
                     <label>내 커플 코드</label>
@@ -53,10 +53,10 @@ const ScreenCoupleCode = () => {
                     start
                 </button>
             </form>
-        </CoupleInfoWrap>
+        </CoupleCodeWrapper>
     );
 };
 
 export default ScreenCoupleCode;
 
-const CoupleInfoWrap = styled.div``;
+const CoupleCodeWrapper = styled.div``;
