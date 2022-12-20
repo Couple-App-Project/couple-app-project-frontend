@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
-import { UseInput } from '../types/useInputType';
+import { UseInputType } from '../types/UseInputType';
 
-const useInput = (initialValue: string): UseInput => {
+const useInput = (initialValue: string): UseInputType => {
     const [value, setValue] = useState(initialValue);
 
     const handler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

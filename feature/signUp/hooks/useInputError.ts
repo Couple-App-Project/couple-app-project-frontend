@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { UseErrField } from '../types/useErrorFieldType';
-import type { FieldErrState } from '../types/fieldErrtype';
-import type { IsError } from '../types/isErrorType';
+import type { UseInputErrorType } from '../types/UseInputErrorType';
+import type { UseInputErrorStateType } from '../types/UseInputErrorStateType';
+import type { IsErrorType } from '../types/IsErrorType';
 import { emailCheck, pwdCheck } from '../modules/variables/regExp';
 
-const useErrorField = (initialValue: FieldErrState): UseErrField => {
+const useInputError = (
+    initialValue: UseInputErrorStateType,
+): UseInputErrorType => {
     const [fieldErr, setFieldErr] = useState(initialValue);
 
-    const isError: IsError = {
+    const isError: IsErrorType = {
         email: (value: string): void => {
             if (!emailCheck(value)) {
                 setFieldErr((prev) => {
@@ -30,7 +32,7 @@ const useErrorField = (initialValue: FieldErrState): UseErrField => {
                 });
             }
         },
-        pwdConfirm: (value: string, pwd: string): void => {
+        pwdConfirm: (value: string, pwd?: string): void => {
             if (pwd !== value) {
                 setFieldErr((prev) => {
                     return { ...prev, pwdConfirm: true };
@@ -45,7 +47,7 @@ const useErrorField = (initialValue: FieldErrState): UseErrField => {
 
     const errorHandler = (
         e: React.ChangeEvent<HTMLInputElement>,
-        pwd: string,
+        pwd?: string,
     ) => {
         isError[e.target.name](e.target.value, pwd);
     };
@@ -53,4 +55,4 @@ const useErrorField = (initialValue: FieldErrState): UseErrField => {
     return [fieldErr, errorHandler];
 };
 
-export default useErrorField;
+export default useInputError;
