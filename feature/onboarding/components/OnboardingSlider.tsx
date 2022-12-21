@@ -1,13 +1,12 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import type { SliderProps } from '../types/sliderPropsType';
+import type { SliderPropsType } from '../types/SliderPropsType';
 import styled from 'styled-components';
 
-const OnboardingSlider = ({ children, className }: SliderProps) => {
+const OnboardingSlider = ({ children, className }: SliderPropsType) => {
     const settings = {
         dots: true,
-        fade: true,
         infinite: true,
         speed: 300,
         slidesToShow: 1,
@@ -18,15 +17,15 @@ const OnboardingSlider = ({ children, className }: SliderProps) => {
     };
 
     return (
-        <SliderWrap className={className}>
+        <SliderWrapper className={className}>
             <Slider {...settings}>{children}</Slider>
-        </SliderWrap>
+        </SliderWrapper>
     );
 };
 
 export default OnboardingSlider;
 
-const SliderWrap = styled.section`
+const SliderWrapper = styled.section`
     position: relative;
     margin-bottom: 80px;
 

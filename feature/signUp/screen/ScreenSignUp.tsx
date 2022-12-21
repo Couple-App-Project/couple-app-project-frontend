@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useInput from '../hooks/useInput';
-import useErrorField from '../hooks/useErrorField';
+import useInputError from '../hooks/useInputError';
 
 const ScreenSignUp = () => {
     const router = useRouter();
@@ -28,7 +28,7 @@ const ScreenSignUp = () => {
         });
     };
 
-    const [fieldErr, errorHandler] = useErrorField({
+    const [fieldErr, errorHandler] = useInputError({
         email: false,
         pwd: false,
         pwdConfirm: false,
