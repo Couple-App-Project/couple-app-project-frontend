@@ -8,6 +8,7 @@ const Input = styled.input`
 `;
 
 const ScreenSettings = () => {
+    // TODO: 하나로 합치거나 불필요한 코드 줄일 방법
     const [profile, setProfile] = useState(cat);
     const [name, setName] = useState('애칭!');
     const [birthday, setBirthday] = useState('2000-01-01');
@@ -43,11 +44,14 @@ const ScreenSettings = () => {
         getDday(newAnniversary);
     };
 
+    // TODO: 이미지 컴포넌트 따로 빼보기
+    // @ts-ignore
     const setPreview = (e) => {
         const file = e.target.files[0];
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
+            // @ts-ignore
             setProfile(reader.result);
         };
     };
