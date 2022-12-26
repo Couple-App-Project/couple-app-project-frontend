@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import userAction from '../queries/action';
-
-// const queryClient = new QueryClient();
+import useMutationLogin from 'feature/login/queries/mutationFn/mutationFn'
 
 export default function ScreenLogin() {
     const router = useRouter();
+    const mutation = useMutationLogin();
 
     const [userInput, setUserInput] = useState({
         email: '',
@@ -20,7 +18,7 @@ export default function ScreenLogin() {
     };
     const handleLogin = () => {
         // TODO: userAction.login(userInput) 했을 때 요청 바로 가는 문제
-        // userAction.login(userInput);
+        mutation.mutate(userInput)
         router.push('/');
     };
 
