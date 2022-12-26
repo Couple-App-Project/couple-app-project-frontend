@@ -2,7 +2,7 @@ import axios from 'axios';
 import router from 'next/router';
 
 const instance = axios.create({
-    baseURL: '',
+    baseURL: 'http://ec2-13-125-192-62.ap-northeast-2.compute.amazonaws.com:3000',
     // headers: {
     //     Authorization: `Bearer ${sessionStorage.getItem('access')}`,
     // },
