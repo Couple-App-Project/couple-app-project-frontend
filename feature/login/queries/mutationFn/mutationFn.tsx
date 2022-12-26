@@ -5,13 +5,8 @@ import { apis } from '../apiKey';
 const useMutationLogin = () => {
     const mutation = useMutation({
         mutationFn: apis.login,
-        onSuccess: async (data: any) => {
-            // TODO: userData 스토어 저장
-            // data.userData
-            console.log('success',data)
-            // sessionStorage.setItem('access', data.accessToken);
-            // sessionStorage.setItem('refresh', data.refreshToken);
-            // queryClient.invalidateQueries({ queryKey: ['login'] });
+        onSuccess: async (response: any) => {
+            sessionStorage.setItem('access', response.data.access_token);
         },
         onError: async () => {
             console.log('error')
