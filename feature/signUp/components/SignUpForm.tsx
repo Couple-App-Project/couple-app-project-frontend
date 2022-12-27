@@ -39,8 +39,8 @@ const SignUpFrom = ({
                     <input
                         id="password"
                         type="password"
-                        name="pwd"
-                        value={userInfo.pwd}
+                        name="password"
+                        value={userInfo.password}
                         onChange={(e) => {
                             onChangeInfo(e);
                             errorHandler(e);
@@ -50,7 +50,7 @@ const SignUpFrom = ({
                             errorHandler(e);
                         }}
                     />
-                    {fieldFocus.pwd && fieldErr.pwd && (
+                    {fieldFocus.password && fieldErr.password && (
                         <p>
                             영문자, 숫자, 특수문자 조합으로 8~20자리를
                             입력해주세요.
@@ -66,11 +66,11 @@ const SignUpFrom = ({
                         value={userInfo.pwdConfirm}
                         onChange={(e) => {
                             onChangeInfo(e);
-                            errorHandler(e, userInfo.pwd);
+                            errorHandler(e, userInfo.password);
                         }}
                         onFocus={(e) => {
                             focusHandler(e);
-                            errorHandler(e, userInfo.pwd);
+                            errorHandler(e, userInfo.password);
                         }}
                     />
                     {fieldFocus.pwdConfirm && fieldErr.pwdConfirm && (
@@ -89,17 +89,19 @@ const SignUpFrom = ({
                 <div className="formbox">
                     {Object.entries(GENDER_LIST).map((el, i) => {
                         return (
-                            <>
+                            <div key={i}>
                                 <input
                                     type="radio"
                                     id={el[0]}
                                     value={el[1].value}
                                     name="gender"
                                     onChange={(e) => onChangeInfo(e)}
-                                    defaultChecked
+                                    defaultChecked={
+                                        el[0] === 'male' ? true : false
+                                    }
                                 />
                                 <label htmlFor={el[0]}>{el[1].text}</label>
-                            </>
+                            </div>
                         );
                     })}
                 </div>

@@ -10,7 +10,7 @@ interface FormPropsType {
     fieldErr: UseInputErrorStateType;
     errorHandler: (
         e: React.ChangeEvent<HTMLInputElement>,
-        pwd?: string | undefined,
+        password?: string | undefined,
     ) => void;
     sendSignUp: (e: React.FormEvent<HTMLFormElement>) => void;
 }

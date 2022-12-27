@@ -9,17 +9,14 @@ const ScreenSignUp = () => {
 
     const [userInfo, setUserInfo] = useState({
         email: '',
-        pwd: '',
+        password: '',
         pwdConfirm: '',
         name: '',
         birthDay: '',
-        gender: '',
+        gender: 'M',
     });
 
-    console.log(userInfo);
-
     const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
         setUserInfo((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
@@ -27,7 +24,7 @@ const ScreenSignUp = () => {
 
     const [fieldFocus, setFieldFocus] = useState({
         email: false,
-        pwd: false,
+        password: false,
         pwdConfirm: false,
     });
 
@@ -42,22 +39,15 @@ const ScreenSignUp = () => {
 
     const [fieldErr, errorHandler] = useInputError({
         email: false,
-        pwd: false,
+        password: false,
         pwdConfirm: false,
     });
 
     const sendSignUp = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (
-            Object.values(fieldErr).includes(true) ||
-            userInfo.name === '' ||
-            userInfo.birthDay === ''
-        ) {
-            alert('올바른 값을 입력해 주세요!');
-        } else {
-            const { pwdConfirm, ...userData } = userInfo;
-            createSignUp(userData);
-        }
+
+        const { pwdConfirm, ...userData } = userInfo;
+        createSignUp(userData);
     };
 
     return (

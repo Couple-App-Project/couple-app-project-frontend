@@ -1,6 +1,6 @@
 interface UserInfoStateType {
     email: string;
-    pwd: string;
+    password: string;
     pwdConfirm: string;
     name: string;
     birthDay: string;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import type { UseInputErrorType } from '../types/UseInputErrorType';
 import type { UseInputErrorStateType } from '../types/UseInputErrorStateType';
 import type { IsErrorType } from '../types/IsErrorType';
-import { emailCheck, pwdCheck } from '../modules/variables/regExp';
+import { emailCheck, passwordCheck } from '../modules/variables/regExp';
 
 const useInputError = (
     initialValue: UseInputErrorStateType,
@@ -21,19 +21,19 @@ const useInputError = (
                 });
             }
         },
-        pwd: (value: string): void => {
-            if (!pwdCheck(value)) {
+        password: (value: string): void => {
+            if (!passwordCheck(value)) {
                 setFieldErr((prev) => {
-                    return { ...prev, pwd: true };
+                    return { ...prev, password: true };
                 });
             } else {
                 setFieldErr((prev) => {
-                    return { ...prev, pwd: false };
+                    return { ...prev, password: false };
                 });
             }
         },
-        pwdConfirm: (value: string, pwd?: string): void => {
-            if (pwd !== value) {
+        pwdConfirm: (value: string, password?: string): void => {
+            if (password !== value) {
                 setFieldErr((prev) => {
                     return { ...prev, pwdConfirm: true };
                 });
@@ -47,9 +47,9 @@ const useInputError = (
 
     const errorHandler = (
         e: React.ChangeEvent<HTMLInputElement>,
-        pwd?: string,
+        password?: string,
     ) => {
-        isError[e.target.name](e.target.value, pwd);
+        isError[e.target.name](e.target.value, password);
     };
 
     return [fieldErr, errorHandler];

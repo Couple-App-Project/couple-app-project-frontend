@@ -1,6 +1,6 @@
 interface FieldFocusStateType {
     email: boolean;
-    pwd: boolean;
+    password: boolean;
     pwdConfirm: boolean;
 }
 

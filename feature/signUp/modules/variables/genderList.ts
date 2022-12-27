@@ -1,5 +1,5 @@
 const GENDER_LIST = {
-    men: { value: 'M', text: '남성' },
+    male: { value: 'M', text: '남성' },
     female: { value: 'F', text: '여성' },
     other: { value: 'O', text: '그외' },
 };
