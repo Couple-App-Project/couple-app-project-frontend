@@ -2,7 +2,7 @@ import axios from 'axios';
 import router from 'next/router';
 
 const instance = axios.create({
-    baseURL: '',
+    baseURL: process.env.NEXT_PUBLIC_API_KEY,
     // headers: {
     //     Authorization: `Bearer ${sessionStorage.getItem('access')}`,
     // },
@@ -43,7 +43,7 @@ instance.interceptors.response.use(
                     console.log(error);
                 });
         }
-    }
+    },
 );
 
 export default instance;
