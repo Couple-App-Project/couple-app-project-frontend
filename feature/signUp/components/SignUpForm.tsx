@@ -1,4 +1,5 @@
 import type { FormPropsType } from '../types/FormPropsType';
+import GENDER_LIST from '../modules/variables/genderList';
 
 const SignUpFrom = ({
     userInfo,
@@ -86,31 +87,21 @@ const SignUpFrom = ({
                     />
                 </div>
                 <div className="formbox">
-                    <input
-                        type="radio"
-                        id="male"
-                        value="M"
-                        name="gender"
-                        onChange={(e) => onChangeInfo(e)}
-                        defaultChecked
-                    />
-                    <label htmlFor="male">남성</label>
-                    <input
-                        type="radio"
-                        id="female"
-                        value="F"
-                        name="gender"
-                        onChange={(e) => onChangeInfo(e)}
-                    />
-                    <label htmlFor="female">여성</label>
-                    <input
-                        type="radio"
-                        id="other"
-                        value="O"
-                        name="gender"
-                        onChange={(e) => onChangeInfo(e)}
-                    />
-                    <label htmlFor="other">그외</label>
+                    {Object.entries(GENDER_LIST).map((el, i) => {
+                        return (
+                            <>
+                                <input
+                                    type="radio"
+                                    id={el[0]}
+                                    value={el[1].value}
+                                    name="gender"
+                                    onChange={(e) => onChangeInfo(e)}
+                                    defaultChecked
+                                />
+                                <label htmlFor={el[0]}>{el[1].text}</label>
+                            </>
+                        );
+                    })}
                 </div>
                 <div className="formbox">
                     <label htmlFor="birthday">생년월일</label>
