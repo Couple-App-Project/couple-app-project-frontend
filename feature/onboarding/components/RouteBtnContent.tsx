@@ -5,20 +5,20 @@ const RouteBtnContent = () => {
     const router = useRouter();
 
     return (
-        <RouteBtnWrap>
+        <RouteBtnWrapper>
             <button type="button" onClick={() => router.push('/login')}>
                 로그인
             </button>
             <button type="button" onClick={() => router.push('/signup')}>
                 회원가입
             </button>
-        </RouteBtnWrap>
+        </RouteBtnWrapper>
     );
 };
 
 export default RouteBtnContent;
 
-const RouteBtnWrap = styled.div`
+const RouteBtnWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,18 +1,20 @@
-import '../styles/globals.css';
+import React from 'react';
 import type { AppProps } from 'next/app';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { RecoilRoot } from 'recoil';
+import '../styles/globals.css';
 
 const queryClient = new QueryClient();
 
-// import { RecoilRoot } from 'recoil';
-
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        // <RecoilRoot>
         <QueryClientProvider client={queryClient}>
-            <Component {...pageProps} />
+            <ReactQueryDevtools />
+            <RecoilRoot>
+                <Component {...pageProps} />
+            </RecoilRoot>
         </QueryClientProvider>
-        // </RecoilRoot>
     );
 }
 

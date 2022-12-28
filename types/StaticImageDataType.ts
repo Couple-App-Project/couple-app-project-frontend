@@ -1,8 +1,8 @@
-type StaticImageData = {
+type StaticImageDataType = {
     src: string;
     height: number;
     width: number;
     placeholder?: string;
 };
 
-export type { StaticImageData };
+export type { StaticImageDataType };
