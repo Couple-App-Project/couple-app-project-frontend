@@ -5,9 +5,9 @@ export const emailCheck = (email: string) => {
     return _reg.test(email);
 };
 
-export const pwdCheck = (pwd: string) => {
+export const passwordCheck = (password: string) => {
     const _reg =
         /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{1,50}).{8,20}$/;
 
-    return _reg.test(pwd);
+    return _reg.test(password);
 };

@@ -1,6 +1,6 @@
 interface UseInputErrorStateType {
     email: boolean;
-    pwd: boolean;
+    password: boolean;
     pwdConfirm: boolean;
 }
 
