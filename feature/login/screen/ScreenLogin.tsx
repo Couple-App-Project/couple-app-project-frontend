@@ -1,13 +1,9 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-// import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import userAction from '../queries/action';
-
-// const queryClient = new QueryClient();
+import useMutationLogin from 'feature/login/queries/mutationFn/mutationFn'
 
 export default function ScreenLogin() {
-    const router = useRouter();
+    const mutation = useMutationLogin();
 
     const [userInput, setUserInput] = useState({
         email: '',
@@ -19,14 +15,11 @@ export default function ScreenLogin() {
         });
     };
     const handleLogin = () => {
-        // TODO: userAction.login(userInput) 했을 때 요청 바로 가는 문제
-        // userAction.login(userInput);
-        router.push('/');
+        mutation.mutate(userInput)
     };
 
     return (
         <>
-            {/* <QueryClientProvider client={queryClient}> */}
             <form onSubmit={(e) => e.preventDefault()}>
                 <label>
                     이메일
@@ -53,11 +46,9 @@ export default function ScreenLogin() {
                 <button onClick={handleLogin}>로그인</button>
             </form>
 
-            {/* TODO : Link 주소 회원가입 페이지로 변경하기 */}
-            <Link href="/">
+            <Link href="/signup">
                 <button>회원가입</button>
             </Link>
-            {/* </QueryClientProvider> */}
         </>
     );
 }
