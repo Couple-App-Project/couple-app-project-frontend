@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
 import { apis } from '../apiKey';
 import { statusType } from 'utils/enum';
@@ -7,8 +7,7 @@ import { statusType } from 'utils/enum';
 const useMutationLogin = () => {
     const router = useRouter();
 
-    const mutation = useMutation({
-        mutationFn: apis.login,
+    const { mutate } = useMutation(apis.login, {
         onSuccess: async (response: any) => {
             sessionStorage.setItem('access', response.data.access_token);
             router.push('/home');
@@ -21,7 +20,7 @@ const useMutationLogin = () => {
         // }
     });
 
-    return mutation;
+    return mutate;
 };
 
 export default useMutationLogin;
