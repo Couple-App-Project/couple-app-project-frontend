@@ -1,9 +1,29 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { QueryClient, dehydrate } from 'react-query';
+import queryKeys from '../queries/queryKeys';
+import apiKeys from '../queries/apiKeys';
+import { useQueryCoupleCode } from '../queries/queryFn';
+
+export async function getStaticProps() {
+    const queryClient = new QueryClient();
+
+    await queryClient.prefetchQuery(
+        queryKeys.userCoupleCode,
+        apiKeys.getCoupleCode,
+    );
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    };
+}
 
 const ScreenCoupleCode = () => {
+    const { data } = useQueryCoupleCode();
+
     const [coupleCode, setCoupleCode] = useState({
-        userCode: 'A98YEON619',
         inviteCode: '',
     });
 
@@ -16,7 +36,7 @@ const ScreenCoupleCode = () => {
     const handlerCopy = () => {
         if (navigator.clipboard) {
             navigator.clipboard
-                .writeText(`${coupleCode.userCode}`)
+                .writeText(`${data?.data.inviteCode}`)
                 .then(() => alert('코드가 클립보드에 복사되었습니다.'))
                 .catch(() => alert('복사를 다시 시도해주세요.'));
         } else {
@@ -31,7 +51,7 @@ const ScreenCoupleCode = () => {
                     <label>내 커플 코드</label>
                     <input
                         type="text"
-                        defaultValue={coupleCode.userCode}
+                        defaultValue={data?.data.inviteCode}
                         disabled
                     />
                     <button type="button" onClick={handlerCopy}>
