@@ -4,6 +4,7 @@ import { QueryClient, dehydrate } from 'react-query';
 import queryKeys from '../queries/queryKeys';
 import apiKeys from '../queries/apiKeys';
 import { useQueryCoupleCode } from '../queries/queryFn';
+import useInput from 'hooks/useInput';
 
 export async function getStaticProps() {
     const queryClient = new QueryClient();
@@ -23,15 +24,7 @@ export async function getStaticProps() {
 const ScreenCoupleCode = () => {
     const { data } = useQueryCoupleCode();
 
-    const [coupleCode, setCoupleCode] = useState({
-        inviteCode: '',
-    });
-
-    const onChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCoupleCode((prev) => {
-            return { ...prev, inviteCode: e.target.value };
-        });
-    };
+    const [inviteCode, onChangeCode] = useInput('');
 
     const handlerCopy = () => {
         if (navigator.clipboard) {
@@ -62,13 +55,13 @@ const ScreenCoupleCode = () => {
                     <label>커플 코드를 받으셨나요?</label>
                     <input
                         type="text"
-                        value={coupleCode.inviteCode}
+                        value={inviteCode}
                         onChange={onChangeCode}
                     />
                 </div>
                 <button
                     type="submit"
-                    disabled={coupleCode.inviteCode !== '' ? false : true}
+                    disabled={inviteCode !== '' ? false : true}
                 >
                     start
                 </button>
