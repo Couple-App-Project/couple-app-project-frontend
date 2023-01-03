@@ -3,7 +3,7 @@ export const getDday = (anniversary: string) => {
         const year = now.getFullYear();
         const month = now.getMonth();
         const day = now.getDate();
-
+        
         const anniversaryDate = new Date(anniversary);
         const anniYear = anniversaryDate.getFullYear();
         const anniMonth = anniversaryDate.getMonth();

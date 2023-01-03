@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useQueryClient } from 'react-query';
 import useMutationHome from '../../home/queries/mutationFn/mutationFn';
 import { getDday } from 'utils/getDday'
+import { ICoupleInfo } from '../types/CoupleInfo';
 import Profile from '../components/Profile';
 
 const CalenderButton = styled.button`
@@ -26,17 +27,16 @@ export default function ScreenHome() {
     const queryClient = useQueryClient()
     const mutate = useMutationHome();
 
-    const coupleInfo = queryClient.getQueryData('couple-info')
+    const coupleInfo:ICoupleInfo|undefined = queryClient.getQueryData('couple-info')
     useEffect(() => {
         mutate()
-        console.log(coupleInfo)
-    }, [coupleInfo]);
+    }, [mutate]);
 
-    const myProfile = { type: '본인', name: coupleInfo?.myNickname, birthday: '1996-05-27' };
+    const myProfile = { type: '본인', name: coupleInfo?.myNickname, birthday: coupleInfo?.myBirthday.slice(0,10) };
     const yourProfile = {
         type: '상대방',
         name: coupleInfo?.yourNickname,
-        birthday: '1996-03-27',
+        birthday: coupleInfo?.yourBirthday.slice(0,10),
     };
 
 
@@ -49,7 +49,7 @@ export default function ScreenHome() {
 
             <ProfileSection>
                 <Profile profile={myProfile} />
-                <p>D+{getDday(coupleInfo?.anniversary)}</p>
+                {coupleInfo && <p>D+{getDday(coupleInfo.anniversary)}</p>}
                 <Profile profile={yourProfile} />
             </ProfileSection>
 
