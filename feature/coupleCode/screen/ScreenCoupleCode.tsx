@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { QueryClient, dehydrate } from 'react-query';
 import queryKeys from '../queries/queryKeys';
 import apiKeys from '../queries/apiKeys';
+import { CoupleCodeForm } from '../components';
 import { useQueryCoupleCode } from '../queries/queryFn';
+import { useMutationCoupleConnent } from '../queries/mutationFn';
 import useInput from 'hooks/useInput';
 
 export async function getStaticProps() {
@@ -23,6 +25,7 @@ export async function getStaticProps() {
 
 const ScreenCoupleCode = () => {
     const { data } = useQueryCoupleCode();
+    const coupleConnentMutation = useMutationCoupleConnent();
 
     const [inviteCode, onChangeCode] = useInput('');
 
@@ -37,35 +40,20 @@ const ScreenCoupleCode = () => {
         }
     };
 
+    const createCoupleConnet = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        coupleConnentMutation(inviteCode);
+    };
+
     return (
         <CoupleCodeWrapper>
-            <form>
-                <div>
-                    <label>내 커플 코드</label>
-                    <input
-                        type="text"
-                        defaultValue={data?.data.inviteCode}
-                        disabled
-                    />
-                    <button type="button" onClick={handlerCopy}>
-                        코드복사
-                    </button>
-                </div>
-                <div>
-                    <label>커플 코드를 받으셨나요?</label>
-                    <input
-                        type="text"
-                        value={inviteCode}
-                        onChange={onChangeCode}
-                    />
-                </div>
-                <button
-                    type="submit"
-                    disabled={inviteCode !== '' ? false : true}
-                >
-                    start
-                </button>
-            </form>
+            <CoupleCodeForm
+                data={data}
+                inviteCode={inviteCode}
+                onChangeCode={onChangeCode}
+                handlerCopy={handlerCopy}
+                createCoupleConnet={createCoupleConnet}
+            />
         </CoupleCodeWrapper>
     );
 };

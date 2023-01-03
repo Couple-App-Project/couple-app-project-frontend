@@ -10,8 +10,16 @@ const apiKeys = {
                 Authorization: `Bearer ${accessToken}`,
             },
         }),
-    createCoupleConnect: async (inviteCode: string | number) =>
-        await axios.post(``, inviteCode),
+    createCoupleConnect: async (inviteCode: string) =>
+        await axios.post(
+            `${process.env.NEXT_PUBLIC_API_KEY}couples`,
+            inviteCode,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            },
+        ),
 };
 
 export default apiKeys;
