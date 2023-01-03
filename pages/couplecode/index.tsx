@@ -1,7 +1,7 @@
-import ScreenCoupleInfo from '../../feature/coupleCode/screen/ScreenCoupleCode';
+import ScreenCoupleCode from '../../feature/coupleCode/screen/ScreenCoupleCode';
 
-const CoupleInfo = () => {
-    return <ScreenCoupleInfo />;
+const CoupleCode = () => {
+    return <ScreenCoupleCode />;
 };
 
-export default CoupleInfo;
+export default CoupleCode;
