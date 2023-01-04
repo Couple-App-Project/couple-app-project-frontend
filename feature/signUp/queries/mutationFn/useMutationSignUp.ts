@@ -14,6 +14,8 @@ const useMutationSignUp = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log('success', data, variables, context);
+            const accessToken = data.data.access_token;
+            localStorage.setItem('accessToken', accessToken);
             router.push('/couplecode');
         },
         onSettled: () => {
