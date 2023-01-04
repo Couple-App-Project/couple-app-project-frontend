@@ -1,5 +1,11 @@
+import React, { useEffect } from 'react';
+
 import router from 'next/router';
 import styled from 'styled-components';
+import { useQueryClient } from 'react-query';
+import useMutationHome from '../../home/queries/mutationFn/mutationFn';
+import { getDday } from 'utils/getDday'
+import { ICoupleInfo } from '../types/CoupleInfo';
 import Profile from '../components/Profile';
 
 const CalenderButton = styled.button`
@@ -18,12 +24,21 @@ const ScheduleSummary = styled.p`
 `;
 
 export default function ScreenHome() {
-    const myProfile = { type: '본인', name: '소윤', birthday: '1996-05-27' };
+    const queryClient = useQueryClient()
+    const mutate = useMutationHome();
+
+    const coupleInfo:ICoupleInfo|undefined = queryClient.getQueryData('couple-info')
+    useEffect(() => {
+        mutate()
+    }, [mutate]);
+
+    const myProfile = { type: '본인', name: coupleInfo?.myNickname, birthday: coupleInfo?.myBirthday.slice(0,10) };
     const yourProfile = {
         type: '상대방',
-        name: '윤소',
-        birthday: '1996-03-27',
+        name: coupleInfo?.yourNickname,
+        birthday: coupleInfo?.yourBirthday.slice(0,10),
     };
+
 
     return (
         <>
@@ -34,7 +49,7 @@ export default function ScreenHome() {
 
             <ProfileSection>
                 <Profile profile={myProfile} />
-                <p>D+333</p>
+                {coupleInfo && <p>D+{getDday(coupleInfo.anniversary)}</p>}
                 <Profile profile={yourProfile} />
             </ProfileSection>
 

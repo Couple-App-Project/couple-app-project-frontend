@@ -1,11 +1,16 @@
 import axios from 'axios';
 import router from 'next/router';
 
+
+let accessToken:string|null = ''
+if (typeof window !== 'undefined') {
+    accessToken = sessionStorage.getItem('access')
+}
 const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_KEY,
-    // headers: {
-    //     Authorization: `Bearer ${sessionStorage.getItem('access')}`,
-    // },
+    headers: {
+        Authorization: `Bearer ${accessToken}`,
+    },
 });
 
 // TODO: api token 나오게 되면 추가

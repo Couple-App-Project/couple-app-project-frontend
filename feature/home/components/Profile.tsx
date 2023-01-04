@@ -19,6 +19,7 @@ export default function Profile(props: any) {
                 width={100}
                 height={100}
                 style={{ borderRadius: '50%' }}
+                priority
             />
             <p>{profile.name}</p>
             <p>{profile.birthday}</p>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import cat from 'public/cat.jpeg';
+import { getDday } from 'utils/getDday'
 import styled from 'styled-components';
 
 const Input = styled.input`
@@ -15,33 +16,11 @@ const ScreenSettings = () => {
     const [anniversary, setAnniversary] = useState('2016-09-11');
     const [dDay, setDday] = useState(0);
 
-    const getDday = (newAnniversary: string) => {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth();
-        const day = now.getDate();
-
-        const anniversaryDate = new Date(newAnniversary);
-        const anniYear = anniversaryDate.getFullYear();
-        const anniMonth = anniversaryDate.getMonth();
-        const anniDay = anniversaryDate.getDate();
-
-        const anniversaryTime = new Date(
-            anniYear,
-            anniMonth,
-            anniDay,
-        ).getTime();
-        const currentTime = new Date(year, month, day).getTime();
-
-        // 처음 만난 날을 1일째로 포함하기 때문에 마지막에 +1 진행
-        setDday((currentTime - anniversaryTime) / (1000 * 60 * 60 * 24) + 1);
-    };
-
     const handleAnniversary = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAnniversary = event.target.value;
 
         setAnniversary(newAnniversary);
-        getDday(newAnniversary);
+        setDday(getDday(newAnniversary));
     };
 
     // TODO: 이미지 컴포넌트 따로 빼보기
@@ -56,8 +35,9 @@ const ScreenSettings = () => {
         };
     };
 
+    
     useEffect(() => {
-        getDday(anniversary);
+        setDday(getDday(anniversary));
     }, []);
 
     return (

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import useMutationLogin from 'feature/login/queries/mutationFn/mutationFn'
 
 export default function ScreenLogin() {
-    const mutation = useMutationLogin();
+    const mutate = useMutationLogin();
 
     const [userInput, setUserInput] = useState({
         email: '',
@@ -15,7 +15,7 @@ export default function ScreenLogin() {
         });
     };
     const handleLogin = () => {
-        mutation.mutate(userInput)
+        mutate(userInput)
     };
 
     return (
