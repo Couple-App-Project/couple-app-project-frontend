@@ -4,4 +4,6 @@ export interface ICoupleInfo {
     myBirthday: string;
     yourNickname: string;
     yourBirthday: string;
+    myTodayComment: string;
+    yourTodayComment: string;
 }

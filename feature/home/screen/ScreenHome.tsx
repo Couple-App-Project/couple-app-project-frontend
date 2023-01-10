@@ -6,21 +6,14 @@ import { useQueryClient } from 'react-query';
 import useMutationHome from '../../home/queries/mutationFn/mutationFn';
 import { getDday } from 'utils/getDday'
 import { ICoupleInfo } from '../types/CoupleInfo';
-import Profile from '../components/Profile';
 
 const CalenderButton = styled.button`
     float: right;
 `;
 const ProfileSection = styled.section`
-    display: flex;
-    justify-content: center;
-
     & > p {
         text-align: center;
     }
-`;
-const ScheduleSummary = styled.p`
-    text-align: center;
 `;
 
 export default function ScreenHome() {
@@ -32,14 +25,6 @@ export default function ScreenHome() {
         mutate()
     }, [mutate]);
 
-    const myProfile = { type: '본인', name: coupleInfo?.myNickname, birthday: coupleInfo?.myBirthday.slice(0,10) };
-    const yourProfile = {
-        type: '상대방',
-        name: coupleInfo?.yourNickname,
-        birthday: coupleInfo?.yourBirthday.slice(0,10),
-    };
-
-
     return (
         <>
             <CalenderButton onClick={() => router.push('/calendar')}>
@@ -47,13 +32,19 @@ export default function ScreenHome() {
             </CalenderButton>
             <br />
 
+            {coupleInfo &&
             <ProfileSection>
-                <Profile profile={myProfile} />
-                {coupleInfo && <p>D+{getDday(coupleInfo.anniversary)}</p>}
-                <Profile profile={yourProfile} />
+                <p>우리 만난 지 {getDday(coupleInfo.anniversary)}일 째</p>
+                <p>{coupleInfo.anniversary}</p>
+                <p>
+                    <span>{coupleInfo?.myNickname}</span>
+                    <span>💖</span>
+                    <span>{coupleInfo?.yourNickname}</span>
+                </p>
+                <div>{coupleInfo?.myTodayComment}</div>
+                <div>{coupleInfo?.yourTodayComment}</div>
             </ProfileSection>
-
-            <ScheduleSummary>n개의 일정</ScheduleSummary>
+            }
         </>
     );
 }
