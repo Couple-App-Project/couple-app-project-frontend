@@ -9,6 +9,7 @@ import {
 } from 'react-query';
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
+import BottomNavi from 'feature/common/components/BottomNavi';
 
 function MyApp({
     Component,
@@ -24,6 +25,8 @@ function MyApp({
                     <Component {...pageProps} />
                 </RecoilRoot>
             </Hydrate>
+
+            <BottomNavi/>
         </QueryClientProvider>
     );
 }
