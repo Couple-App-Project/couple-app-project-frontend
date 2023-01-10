@@ -1,27 +1,24 @@
 import React, { useEffect } from 'react';
 
-import router from 'next/router';
 import styled from 'styled-components';
 import { useQueryClient } from 'react-query';
 import useMutationHome from '../../home/queries/mutationFn/mutationFn';
 import { getDday } from 'utils/getDday'
 import { ICoupleInfo } from '../types/CoupleInfo';
-import Profile from '../components/Profile';
 
-const CalenderButton = styled.button`
-    float: right;
-`;
 const ProfileSection = styled.section`
-    display: flex;
-    justify-content: center;
-
     & > p {
         text-align: center;
     }
 `;
-const ScheduleSummary = styled.p`
-    text-align: center;
-`;
+
+const IconContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    position: fixed;
+    right: 0;
+`
 
 export default function ScreenHome() {
     const queryClient = useQueryClient()
@@ -32,28 +29,27 @@ export default function ScreenHome() {
         mutate()
     }, [mutate]);
 
-    const myProfile = { type: '본인', name: coupleInfo?.myNickname, birthday: coupleInfo?.myBirthday.slice(0,10) };
-    const yourProfile = {
-        type: '상대방',
-        name: coupleInfo?.yourNickname,
-        birthday: coupleInfo?.yourBirthday.slice(0,10),
-    };
-
-
     return (
         <>
-            <CalenderButton onClick={() => router.push('/calendar')}>
-                🗓
-            </CalenderButton>
-            <br />
-
+            {coupleInfo &&
             <ProfileSection>
-                <Profile profile={myProfile} />
-                {coupleInfo && <p>D+{getDday(coupleInfo.anniversary)}</p>}
-                <Profile profile={yourProfile} />
-            </ProfileSection>
+                <p>우리 만난 지 {getDday(coupleInfo.anniversary)}일 째</p>
+                <p>{coupleInfo.anniversary}</p>
+                <p>
+                    <span>{coupleInfo?.myNickname}</span>
+                    <span>💖</span>
+                    <span>{coupleInfo?.yourNickname}</span>
+                </p>
 
-            <ScheduleSummary>n개의 일정</ScheduleSummary>
+                <div>{coupleInfo?.myTodayComment}</div>
+                <div>{coupleInfo?.yourTodayComment}</div>
+
+                <IconContainer>
+                    <button>사진아이콘</button>
+                    <button>코멘트아이콘</button>
+                </IconContainer>
+            </ProfileSection>
+            }
         </>
     );
 }
