@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import cat from 'public/cat.jpeg';
 import { getDday } from 'utils/getDday'
+import useMutationSetting from '../queries/mutationFn/mutationFn';
+import { ICoupleInfo } from '../types/CoupleInfo';
+import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 
 const Input = styled.input`
@@ -9,11 +12,15 @@ const Input = styled.input`
 `;
 
 const ScreenSettings = () => {
+    const queryClient = useQueryClient()
+    const mutate = useMutationSetting();
+
+    const coupleInfo:ICoupleInfo|undefined = queryClient.getQueryData('couple-info')
     // TODO: 하나로 합치거나 불필요한 코드 줄일 방법
     const [profile, setProfile] = useState(cat);
     const [name, setName] = useState('애칭!');
     const [birthday, setBirthday] = useState('2000-01-01');
-    const [anniversary, setAnniversary] = useState('2016-09-11');
+    const [anniversary, setAnniversary] = useState(coupleInfo?.anniversary);
     const [dDay, setDday] = useState(0);
 
     const handleAnniversary = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,8 +44,11 @@ const ScreenSettings = () => {
 
     
     useEffect(() => {
-        setDday(getDday(anniversary));
-    }, []);
+        setAnniversary(coupleInfo?.anniversary)
+        // console.log(coupleInfo?.anniversary)
+        // setDday(getDday(anniversary));
+        mutate()
+    }, [mutate]);
 
     return (
         <>
