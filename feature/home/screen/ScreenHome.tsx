@@ -12,6 +12,14 @@ const ProfileSection = styled.section`
     }
 `;
 
+const IconContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 50px;
+    position: fixed;
+    right: 0;
+`
+
 export default function ScreenHome() {
     const queryClient = useQueryClient()
     const mutate = useMutationHome();
@@ -32,8 +40,14 @@ export default function ScreenHome() {
                     <span>💖</span>
                     <span>{coupleInfo?.yourNickname}</span>
                 </p>
+
                 <div>{coupleInfo?.myTodayComment}</div>
                 <div>{coupleInfo?.yourTodayComment}</div>
+
+                <IconContainer>
+                    <button>사진아이콘</button>
+                    <button>코멘트아이콘</button>
+                </IconContainer>
             </ProfileSection>
             }
         </>
