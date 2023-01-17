@@ -12,10 +12,10 @@ const CoupleCodeForm = ({
             <div>
                 <label>내 커플 코드</label>
                 <input type="text" defaultValue={userCode} disabled />
-                <button type="button" onClick={handlerCopy(userCode)}>
+                <button type="button" onClick={() => handlerCopy(userCode)}>
                     코드복사
                 </button>
-                <button type="button" onClick={handlerShare(userCode)}>
+                <button type="button" onClick={() => handlerShare(userCode)}>
                     공유하기
                 </button>
             </div>
