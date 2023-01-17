@@ -1,5 +1,5 @@
 const queryKeys = {
-    coupleCalender: (month: string) => ['coupleCalender', month],
+    coupleCalender: (date: string) => ['coupleCalender', date],
 };
 
 export default queryKeys;

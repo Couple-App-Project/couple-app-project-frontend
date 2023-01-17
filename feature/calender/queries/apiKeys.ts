@@ -1,8 +1,8 @@
-import axios from 'axios';
+import instance from 'utils/api';
 
 const apiKeys = {
-    getCoupleCalenders: async (month: string) =>
-        await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}calenders`),
+    getCoupleCalenders: async (date: string) =>
+        await instance.get(`/calenders`),
 };
 
 export default apiKeys;
