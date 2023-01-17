@@ -29,17 +29,6 @@ const ScreenCoupleCode = () => {
 
     const [inviteCode, onChangeCode] = useInput('');
 
-    const handlerCopy = () => {
-        if (navigator.clipboard) {
-            navigator.clipboard
-                .writeText(`${data?.data.data.userCode}`)
-                .then(() => alert('코드가 클립보드에 복사되었습니다.'))
-                .catch(() => alert('복사를 다시 시도해주세요.'));
-        } else {
-            alert('공유하기가 지원되지 않는 환경입니다.');
-        }
-    };
-
     const createCoupleConnet = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         coupleConnentMutation(inviteCode);
@@ -51,7 +40,6 @@ const ScreenCoupleCode = () => {
                 userCode={data?.data.data.userCode}
                 inviteCode={inviteCode}
                 onChangeCode={onChangeCode}
-                handlerCopy={handlerCopy}
                 createCoupleConnet={createCoupleConnet}
             />
         </CoupleCodeWrapper>
