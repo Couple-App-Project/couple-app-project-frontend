@@ -8,20 +8,20 @@ import { useQueryCoupleCode } from '../queries/queryFn';
 import { useMutationCoupleConnent } from '../queries/mutationFn';
 import useInput from 'hooks/useInput';
 
-export async function getStaticProps() {
-    const queryClient = new QueryClient();
+// export async function getStaticProps() {
+//     const queryClient = new QueryClient();
 
-    await queryClient.prefetchQuery(
-        queryKeys.userCoupleCode,
-        apiKeys.getCoupleCode,
-    );
+//     await queryClient.prefetchQuery(
+//         queryKeys.userCoupleCode,
+//         apiKeys.getCoupleCode,
+//     );
 
-    return {
-        props: {
-            dehydratedState: dehydrate(queryClient),
-        },
-    };
-}
+//     return {
+//         props: {
+//             dehydratedState: dehydrate(queryClient),
+//         },
+//     };
+// }
 
 const ScreenCoupleCode = () => {
     const { data } = useQueryCoupleCode();
@@ -32,7 +32,7 @@ const ScreenCoupleCode = () => {
     const handlerCopy = () => {
         if (navigator.clipboard) {
             navigator.clipboard
-                .writeText(`${data?.data.inviteCode}`)
+                .writeText(`${data?.data.data.userCode}`)
                 .then(() => alert('코드가 클립보드에 복사되었습니다.'))
                 .catch(() => alert('복사를 다시 시도해주세요.'));
         } else {
@@ -48,7 +48,7 @@ const ScreenCoupleCode = () => {
     return (
         <CoupleCodeWrapper>
             <CoupleCodeForm
-                data={data}
+                userCode={data?.data.data.userCode}
                 inviteCode={inviteCode}
                 onChangeCode={onChangeCode}
                 handlerCopy={handlerCopy}

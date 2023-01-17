@@ -1,7 +1,7 @@
 import type { FormPropsType } from '../types/FormPropsTypes';
 
 const CoupleCodeForm = ({
-    data,
+    userCode,
     inviteCode,
     onChangeCode,
     handlerCopy,
@@ -11,11 +11,7 @@ const CoupleCodeForm = ({
         <form onSubmit={createCoupleConnet}>
             <div>
                 <label>내 커플 코드</label>
-                <input
-                    type="text"
-                    defaultValue={data?.data.inviteCode}
-                    disabled
-                />
+                <input type="text" defaultValue={userCode} disabled />
                 <button type="button" onClick={handlerCopy}>
                     코드복사
                 </button>
