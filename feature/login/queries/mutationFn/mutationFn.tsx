@@ -9,7 +9,7 @@ const useMutationLogin = () => {
 
     const { mutate } = useMutation(apis.login, {
         onSuccess: async (response: any) => {
-            sessionStorage.setItem('access', response.data.accessToken);
+            sessionStorage.setItem('access', response.data.data.accessToken);
             router.push('/home');
         },
         onError: async (error:any) => {

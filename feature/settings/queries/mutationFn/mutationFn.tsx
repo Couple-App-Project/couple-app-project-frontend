@@ -7,7 +7,7 @@ const useMutationSetting = () => {
 
     const { mutate } = useMutation(apis.getCoupleInfo, {
         onSuccess: async (response: any) => {
-            queryClient.setQueryData('couple-info', ()=>response.data)
+            queryClient.setQueryData('couple-info', ()=>response.data.data)
         },
         onError: async (error:any) => {
             console.log(error)
