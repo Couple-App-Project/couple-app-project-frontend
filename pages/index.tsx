@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-
 import router from 'next/router';
 
 const Home: NextPage = () => {
@@ -13,8 +12,8 @@ const Home: NextPage = () => {
     return (
         <div className={styles.container}>
             <Head>
-                <title>찜꽁</title>
-                <meta property="og:title" content="찜꽁" key="title" />
+                <title>꾸욱</title>
+                <meta property="og:title" content="꾸욱" key="title" />
                 <meta
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
