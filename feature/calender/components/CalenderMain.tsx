@@ -16,7 +16,6 @@ const CalenderMain = () => {
     return (
         <DayPicker
             showOutsideDays
-            fixedWeeks
             mode="multiple"
             selected={days}
             onSelect={setDays}

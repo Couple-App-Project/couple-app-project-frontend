@@ -14,7 +14,7 @@ const useMutationCoupleConnent = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log('success', data, variables, context);
-            router.push('/home');
+            router.push('/coupleinfo');
         },
         onSettled: () => {
             console.log('end');

@@ -1,23 +1,22 @@
 import type { FormPropsType } from '../types/FormPropsTypes';
+import { handlerCopy, handlerShare } from '../modules/functions';
 
 const CoupleCodeForm = ({
-    data,
+    userCode,
     inviteCode,
     onChangeCode,
-    handlerCopy,
     createCoupleConnet,
 }: FormPropsType) => {
     return (
         <form onSubmit={createCoupleConnet}>
             <div>
                 <label>내 커플 코드</label>
-                <input
-                    type="text"
-                    defaultValue={data?.data.inviteCode}
-                    disabled
-                />
-                <button type="button" onClick={handlerCopy}>
+                <input type="text" defaultValue={userCode} disabled />
+                <button type="button" onClick={() => handlerCopy(userCode)}>
                     코드복사
+                </button>
+                <button type="button" onClick={() => handlerShare(userCode)}>
+                    공유하기
                 </button>
             </div>
             <div>

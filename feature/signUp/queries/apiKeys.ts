@@ -1,8 +1,8 @@
-import axios from 'axios';
+import instance from 'utils/api';
 
 const apiKeys = {
     createUser: async (userData: object) =>
-        await axios.post(process.env.NEXT_PUBLIC_API_KEY + 'users', userData),
+        await instance.post('/users', userData),
 };
 
 export default apiKeys;

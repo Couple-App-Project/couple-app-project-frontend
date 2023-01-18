@@ -1,25 +1,9 @@
-import axios from 'axios';
-
-const accessToken =
-    typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+import instance from 'utils/api';
 
 const apiKeys = {
-    getCoupleCode: async () =>
-        await axios.get(`${process.env.NEXT_PUBLIC_API_KEY}couples`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        }),
+    getCoupleCode: async () => await instance.get(`/couples`),
     createCoupleConnect: async (inviteCode: string) =>
-        await axios.post(
-            `${process.env.NEXT_PUBLIC_API_KEY}couples`,
-            inviteCode,
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            },
-        ),
+        await instance.post(`/couples`, inviteCode),
 };
 
 export default apiKeys;
