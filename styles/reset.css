@@ -126,3 +126,9 @@ input,
 textarea {
     outline: none;
 }
+a:active,
+a:link,
+a:focus,
+a:visited {
+    text-decoration: none;
+}
