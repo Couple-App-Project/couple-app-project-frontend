@@ -1,10 +1,12 @@
-export const getDday = (anniversary: string) => {
+export const getDday = (anniversary: string | undefined) => {
+    if (typeof anniversary === undefined) return 0
+    
     const now = new Date();
         const year = now.getFullYear();
         const month = now.getMonth();
         const day = now.getDate();
         
-        const anniversaryDate = new Date(anniversary);
+        const anniversaryDate = new Date(String(anniversary));
         const anniYear = anniversaryDate.getFullYear();
         const anniMonth = anniversaryDate.getMonth();
         const anniDay = anniversaryDate.getDate();
