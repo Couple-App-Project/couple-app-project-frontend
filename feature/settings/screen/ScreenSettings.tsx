@@ -43,11 +43,13 @@ const ScreenSettings = () => {
 
     
     useEffect(() => {
+        setName(coupleInfo?.yourNickname)
+        setBirthday(coupleInfo?.myBirthday.slice(0,10))
         setAnniversary(coupleInfo?.anniversary)
-        // console.log(coupleInfo?.anniversary)
-        // setDday(getDday(anniversary));
+        setDday(getDday(coupleInfo?.anniversary))
+        
         mutate()
-    }, [mutate]);
+    }, [coupleInfo, mutate]);
 
     return (
         <>
