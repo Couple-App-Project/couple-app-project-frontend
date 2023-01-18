@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Apple SD Gothic';
+    font-weight: 400;
+    font-style: normal;
+    src: url('../public/fonts/AppleSDGothicNeoR.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Apple SD Gothic';
+    font-weight: 500;
+    font-style: normal;
+    src: url('../public/fonts/AppleSDGothicNeoM.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Apple SD Gothic';
+    font-weight: 600;
+    font-style: normal;
+    src: url('../public/fonts/AppleSDGothicNeoSB.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Apple SD Gothic';
+    font-weight: 700;
+    font-style: normal;
+    src: url('../public/fonts/AppleSDGothicNeoB.ttf') format('truetype');
+}
