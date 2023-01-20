@@ -13,6 +13,7 @@ export default function ScreenCalender() {
         title: '',
         scheduleType: '',
         date: '',
+        location: ''
     });
 
     const scheduleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,12 +25,20 @@ export default function ScreenCalender() {
         });
     };
 
+    const postNewSchedule = () => {
+        if (schedule.title==='' || schedule.location==='') alert('모든 정보를 입력해주세요')
+        // router.push('/calendar')
+    }
+
     return (
         <>
             <button onClick={() => router.push('/calendar')}>등록취소</button>
-            <h1>캘린더등록페이지</h1>
+            <h1>일정</h1>
+            <button onClick={postNewSchedule}>저장</button>
+            <br />
+
             <input
-                placeholder="일정 제목 입력"
+                placeholder="제목"
                 name="title"
                 value={schedule.title}
                 onChange={scheduleChange}
@@ -39,11 +48,11 @@ export default function ScreenCalender() {
             <FieldsetStyle>
                 <legend>구분</legend>
 
-                <Radio value="task" _onChange={scheduleChange}>
-                    할 일
+                <Radio value="goOut" _onChange={scheduleChange} checked={true}>
+                    데이트
                 </Radio>
-                <Radio value="meet" _onChange={scheduleChange}>
-                    약속
+                <Radio value="anniversary" _onChange={scheduleChange}>
+                    기념일
                 </Radio>
             </FieldsetStyle>
 
@@ -52,6 +61,14 @@ export default function ScreenCalender() {
                 type="date"
                 name="date"
                 value={schedule.date}
+                onChange={scheduleChange}
+            />
+
+            <br />
+            <input
+                placeholder="장소"
+                name="location"
+                value={schedule.location}
                 onChange={scheduleChange}
             />
         </>
