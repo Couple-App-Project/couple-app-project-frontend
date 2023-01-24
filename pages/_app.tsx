@@ -7,6 +7,7 @@ import {
     QueryClientProvider,
     DehydratedState,
 } from 'react-query';
+import {useRouter} from 'next/router';
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
 import BottomNavi from 'feature/common/components/BottomNavi';
@@ -16,6 +17,12 @@ function MyApp({
     pageProps,
 }: AppProps<{ dehydratedState: DehydratedState }>) {
     const [queryClient] = React.useState(() => new QueryClient());
+    const router = useRouter();
+    // router.beforePopState(()=>{
+    //     if(sessionStorage.getItem('access')===null) {
+    //         router.push('/login')
+    //     }
+    // })
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -26,7 +33,8 @@ function MyApp({
                 </RecoilRoot>
             </Hydrate>
 
-            <BottomNavi/>
+            {router.pathname!=='/login'?<BottomNavi/>:''}
+            
         </QueryClientProvider>
     );
 }

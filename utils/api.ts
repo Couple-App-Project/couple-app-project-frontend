@@ -46,6 +46,9 @@ instance.interceptors.response.use(
     },
     function (error) {
         if (error.response.status === 401) {
+            if (refreshToken === null) {
+                refreshToken = sessionStorage.getItem('refresh');
+            }
             axios.get('/auth/reissue', {
                 baseURL: process.env.NEXT_PUBLIC_API_KEY,
                 headers: {
@@ -54,13 +57,12 @@ instance.interceptors.response.use(
             })
             .then((response: any) => {
                 sessionStorage.setItem('access', response.data.data.accessToken);
-                // response.accessToken으로 요청 다시 보내기
                 error.config.headers.Authorization = `Bearer ${sessionStorage.getItem('access')}`
-                // console.log('config',error.config, 'token', sessionStorage.getItem('access'))
+                // response.accessToken으로 요청 다시 보내기
                 return axios.request(error.config);
             })
             .catch((error) => {
-                sessionExpired() // FIX: 두번 로드되는 이유?
+                sessionExpired()
             });
         }
     }
