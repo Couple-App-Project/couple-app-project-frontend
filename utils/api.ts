@@ -60,8 +60,7 @@ instance.interceptors.response.use(
                 return axios.request(error.config);
             })
             .catch((error) => {
-                // console.log('config',error.config)
-                // sessionExpired()
+                sessionExpired() // FIX: 두번 로드되는 이유?
             });
         }
     }
