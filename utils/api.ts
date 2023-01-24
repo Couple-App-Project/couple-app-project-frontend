@@ -3,18 +3,18 @@ import router from 'next/router';
 
 
 let accessToken:string|null = ''
+let refreshToken:string|null = ''
 if (typeof window !== 'undefined') {
     accessToken = sessionStorage.getItem('access')
+    refreshToken = sessionStorage.getItem('refresh')
 }
-const instance = axios.create({
+let instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_KEY,
     headers: {
         Authorization: `Bearer ${accessToken}`,
     },
 });
 
-// TODO: api token 나오게 되면 추가
-// const getAccessToken = instance.get('/api주소');
 
 // @ts-ignore
 // instance.interceptors.request.use(function (response) {
@@ -32,25 +32,39 @@ const instance = axios.create({
 //     return response;
 // });
 
-// instance.interceptors.response.use(
-//     function (response) {
-//         return response;
-//     },
-//     function (error) {
-//         if (error.status === 401) {
-//             getAccessToken
-//                 .then((response: any) => {
-//                     sessionStorage.setItem('access', response.accessToken);
+const sessionExpired = () => {
+    sessionStorage.removeItem('access')
+    sessionStorage.removeItem('refresh')
 
-//                     // response.accessToken으로 요청 다시 보내기
-//                     const config = error.config;
-//                     return axios.request(config);
-//                 })
-//                 .catch((error) => {
-//                     console.log(error);
-//                 });
-//         }
-//     }
-// );
+    alert('세션이 만료되었습니다. 다시 로그인 해주세요')
+    router.push('/login')
+}
+
+instance.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        if (error.response.status === 401) {
+            axios.get('/auth/reissue', {
+                baseURL: process.env.NEXT_PUBLIC_API_KEY,
+                headers: {
+                    Authorization: `Bearer ${refreshToken}`,
+                }
+            })
+            .then((response: any) => {
+                sessionStorage.setItem('access', response.data.data.accessToken);
+                // response.accessToken으로 요청 다시 보내기
+                error.config.headers.Authorization = `Bearer ${sessionStorage.getItem('access')}`
+                // console.log('config',error.config, 'token', sessionStorage.getItem('access'))
+                return axios.request(error.config);
+            })
+            .catch((error) => {
+                // console.log('config',error.config)
+                // sessionExpired()
+            });
+        }
+    }
+);
 
 export default instance;
