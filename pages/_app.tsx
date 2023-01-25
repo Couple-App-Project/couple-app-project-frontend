@@ -10,7 +10,7 @@ import {
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
 import BottomNavi from 'feature/common/components/BottomNavi';
-import Device from 'layouts/device';
+import Device from 'layouts/Device';
 import Head from 'next/head';
 
 function MyApp({
