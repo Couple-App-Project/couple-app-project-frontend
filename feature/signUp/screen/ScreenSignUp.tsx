@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import useInputError from '../hooks/useInputError';
 import { useMutationSignUp } from '../queries/mutationFn';
 import StepLayout from 'layouts/StepLayout';

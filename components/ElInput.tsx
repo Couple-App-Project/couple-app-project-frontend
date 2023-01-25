@@ -3,11 +3,11 @@ import styled from 'styled-components';
 interface ElInputProps {
     className: string;
     label?: string;
-    placeholder: string;
+    placeholder?: string;
     role: string;
     type: string;
     value: string;
-    name: string;
+    name?: string;
     _onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     _onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
     children?: React.ReactNode;
@@ -26,7 +26,7 @@ const ElInput = ({
     children,
 }: ElInputProps) => {
     const styles = { role };
-    console.log(role);
+
     return (
         <ElInputWrapper className={className}>
             {label && <label>{label}</label>}
@@ -60,10 +60,9 @@ export default ElInput;
 const ElInputWrapper = styled.div`
     input {
         width: 100%;
-
-        ${(props) =>
-            props.role === 'underline'
-                ? 'border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #E9E9E9;'
-                : ''}
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-bottom: 1px solid #e9e9e9;
     }
 `;
