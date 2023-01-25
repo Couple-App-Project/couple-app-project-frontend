@@ -13,16 +13,6 @@ const Home: NextPage = () => {
         <div className={styles.container}>
             <Head>
                 <title>꾸욱</title>
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1, user-scalable=0"
-                />
-                <meta property="og:title" content="꾸욱" key="title" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                />
-                <link rel="icon" href="/favicon.ico" />
             </Head>
         </div>
     );

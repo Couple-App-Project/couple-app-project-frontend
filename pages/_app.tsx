@@ -10,6 +10,8 @@ import {
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
 import BottomNavi from 'feature/common/components/BottomNavi';
+import Device from 'utils/device';
+import Head from 'next/head';
 
 function MyApp({
     Component,
@@ -20,13 +22,17 @@ function MyApp({
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools />
-            <Hydrate state={pageProps.dehydratedState}>
-                <RecoilRoot>
-                    <Component {...pageProps} />
-                </RecoilRoot>
-            </Hydrate>
-
-            <BottomNavi/>
+            <Device>
+                <Hydrate state={pageProps.dehydratedState}>
+                    <RecoilRoot>
+                        <Head>
+                            <title>꾸욱</title>
+                        </Head>
+                        <Component {...pageProps} />
+                    </RecoilRoot>
+                </Hydrate>
+                <BottomNavi />
+            </Device>
         </QueryClientProvider>
     );
 }
