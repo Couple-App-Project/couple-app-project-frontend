@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import useInputError from '../hooks/useInputError';
 import { useMutationSignUp } from '../queries/mutationFn';
+import StepLayout from 'layouts/StepLayout';
 import { SignUpForm } from '../components';
 
 const ScreenSignUp = () => {
@@ -16,7 +17,9 @@ const ScreenSignUp = () => {
         gender: 'M',
     });
 
-    const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeInfo = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    ) => {
         setUserInfo((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
@@ -51,7 +54,17 @@ const ScreenSignUp = () => {
     };
 
     return (
-        <SignUpWrapper>
+        <StepLayout
+            title="회원가입"
+            type="submit"
+            disabled={
+                Object.values(fieldErr).includes(true) ||
+                userInfo.name === '' ||
+                userInfo.birthDay === ''
+                    ? true
+                    : false
+            }
+        >
             <SignUpForm
                 userInfo={userInfo}
                 onChangeInfo={onChangeInfo}
@@ -61,10 +74,8 @@ const ScreenSignUp = () => {
                 errorHandler={errorHandler}
                 sendSignUp={sendSignUp}
             />
-        </SignUpWrapper>
+        </StepLayout>
     );
 };
 
 export default ScreenSignUp;
-
-const SignUpWrapper = styled.div``;

@@ -2,25 +2,43 @@ import styled from 'styled-components';
 
 interface ElInputProps {
     className: string;
-    label: string;
+    label?: string;
+    placeholder: string;
+    role: string;
     type: string;
-    _onChange?: () => void;
-    _onFocus?: () => void;
+    value: string;
+    name: string;
+    _onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    _onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
     children?: React.ReactNode;
 }
 
 const ElInput = ({
     className,
     label,
+    placeholder,
+    role,
     type,
+    value,
+    name,
     _onChange,
     _onFocus,
     children,
 }: ElInputProps) => {
+    const styles = { role };
+    console.log(role);
     return (
         <ElInputWrapper className={className}>
-            <label>{label}</label>
-            <input type={type} onChange={_onChange} onFocus={_onFocus} />
+            {label && <label>{label}</label>}
+            <input
+                {...styles}
+                placeholder={placeholder}
+                type={type}
+                value={value}
+                name={name}
+                onChange={_onChange}
+                onFocus={_onFocus}
+            />
             {children}
         </ElInputWrapper>
     );
@@ -28,8 +46,10 @@ const ElInput = ({
 
 ElInput.defaultProps = {
     className: '',
-    label: '',
+    label: null,
+    placeholder: '',
     type: 'text',
+    role: 'underline',
     _onChange: () => {},
     _onFocus: () => {},
     children: null,
@@ -37,4 +57,13 @@ ElInput.defaultProps = {
 
 export default ElInput;
 
-const ElInputWrapper = styled.div``;
+const ElInputWrapper = styled.div`
+    input {
+        width: 100%;
+
+        ${(props) =>
+            props.role === 'underline'
+                ? 'border-top: none; border-left: none; border-right: none; border-bottom: 1px solid #E9E9E9;'
+                : ''}
+    }
+`;
