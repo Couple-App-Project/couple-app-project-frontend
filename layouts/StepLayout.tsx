@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { ElButton } from 'components';
+import Back from 'public/images/icons/back.svg';
+import Close from 'public/images/icons/close.svg';
 import FirstStep from 'public/images/icons/heart-step-01.svg';
 import SecondStep from 'public/images/icons/heart-step-02.svg';
 
@@ -12,6 +14,7 @@ interface StepLayoutProps {
 
 interface ComponentType {
     [title: string]: {
+        clickActive: React.ReactElement<React.SVGProps<SVGSVGElement>>;
         icon: React.ReactElement<React.SVGProps<SVGSVGElement>>;
         button: string;
     };
@@ -19,10 +22,12 @@ interface ComponentType {
 
 const COMPONENT_LIST: ComponentType = {
     회원가입: {
+        clickActive: <Back />,
         icon: <FirstStep />,
         button: '가입완료',
     },
     '커플 코드': {
+        clickActive: <Close />,
         icon: <SecondStep />,
         button: '연결하기',
     },
@@ -31,6 +36,7 @@ const COMPONENT_LIST: ComponentType = {
 const StepLayout = ({ title, children, type, disabled }: StepLayoutProps) => {
     return (
         <StepLayoutWrapper>
+            <div className="icon-box">{COMPONENT_LIST[title].clickActive}</div>
             <div className="title-box">
                 <h2>{title}</h2>
                 <div>{COMPONENT_LIST[title].icon}</div>
@@ -47,6 +53,10 @@ export default StepLayout;
 
 const StepLayoutWrapper = styled.div`
     padding: 25px;
+
+    .icon-box {
+        margin-bottom: 25px;
+    }
 
     .title-box {
         display: flex;
