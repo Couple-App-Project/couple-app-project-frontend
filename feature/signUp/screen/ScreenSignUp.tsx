@@ -62,7 +62,6 @@ const ScreenSignUp = () => {
     return (
         <StepLayout
             title="회원가입"
-            type="submit"
             disabled={
                 Object.values(fieldErr).includes(true) ||
                 Object.values(userInfo).includes('') ||

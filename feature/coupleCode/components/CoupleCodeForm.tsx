@@ -11,7 +11,7 @@ const CoupleCodeForm = ({
     createCoupleConnet,
 }: FormPropsType) => {
     return (
-        <FormWrapper onSubmit={createCoupleConnet}>
+        <FormWrapper onSubmit={createCoupleConnet} id="커플 코드">
             <div className="user-code-content">
                 <p>내 코드를 상대방에게 복사 또는 공유하세요.</p>
                 <div>

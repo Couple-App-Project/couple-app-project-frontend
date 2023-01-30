@@ -16,7 +16,7 @@ const SignUpFrom = ({
     sendSignUp,
 }: FormPropsType) => {
     return (
-        <FormWrapper className="sign-up-content" onSubmit={sendSignUp}>
+        <FormWrapper onSubmit={sendSignUp} id="회원가입">
             <div className="form-list">
                 <ElInput
                     className="flex-box"
@@ -163,6 +163,17 @@ const FormWrapper = styled.form`
             &:focus {
                 outline: none;
             }
+        }
+        select option[value=''][disabled] {
+            display: none;
+        }
+        input[type='date']::before {
+            content: attr(data-placeholder);
+            width: 100%;
+        }
+
+        input[type='date']:valid::before {
+            display: none;
         }
         input[type='date']::-webkit-calendar-picker-indicator {
             background: transparent;

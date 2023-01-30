@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 interface StepLayoutProps {
     title: string;
     children: React.ReactNode;
-    type: 'submit';
     disabled: boolean;
 }
 
@@ -34,7 +33,7 @@ const COMPONENT_LIST: ComponentType = {
     },
 };
 
-const StepLayout = ({ title, children, type, disabled }: StepLayoutProps) => {
+const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
     const router = useRouter();
     return (
         <StepLayoutWrapper>
@@ -46,7 +45,7 @@ const StepLayout = ({ title, children, type, disabled }: StepLayoutProps) => {
                 <div>{COMPONENT_LIST[title].icon}</div>
             </div>
             <div className="form-box">{children}</div>
-            <ElButton type={type} _disabled={disabled}>
+            <ElButton type="submit" form={title} _disabled={disabled}>
                 {COMPONENT_LIST[title].button}
             </ElButton>
         </StepLayoutWrapper>
@@ -77,17 +76,5 @@ const StepLayoutWrapper = styled.div`
 
     .form-box {
         margin-bottom: 50px;
-
-        select option[value=''][disabled] {
-            display: none;
-        }
-        input[type='date']::before {
-            content: attr(data-placeholder);
-            width: 100%;
-        }
-
-        input[type='date']:valid::before {
-            display: none;
-        }
     }
 `;

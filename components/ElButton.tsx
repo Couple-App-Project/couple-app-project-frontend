@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 interface ElbuttonProps {
     type: 'button' | 'submit' | 'reset' | undefined;
+    form?: string;
     width: string;
     lineHeight: string;
     children?: React.ReactNode;
@@ -11,6 +12,7 @@ interface ElbuttonProps {
 
 const ElButton = ({
     type,
+    form,
     width,
     lineHeight,
     children,
@@ -19,7 +21,13 @@ const ElButton = ({
 }: ElbuttonProps) => {
     const styles = { width, lineHeight, _disabled };
     return (
-        <Button {...styles} type={type} onClick={_onClick} disabled={_disabled}>
+        <Button
+            {...styles}
+            type={type}
+            onClick={_onClick}
+            disabled={_disabled}
+            form={form}
+        >
             {children}
         </Button>
     );

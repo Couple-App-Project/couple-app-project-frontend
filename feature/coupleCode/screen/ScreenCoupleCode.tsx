@@ -19,7 +19,6 @@ const ScreenCoupleCode = () => {
     return (
         <StepLayout
             title="커플 코드"
-            type="submit"
             disabled={inviteCode !== '' ? false : true}
         >
             <CoupleCodeForm
