@@ -65,8 +65,7 @@ const ScreenSignUp = () => {
             type="submit"
             disabled={
                 Object.values(fieldErr).includes(true) ||
-                userInfo.name === '' ||
-                userInfo.birthDay === '' ||
+                Object.values(userInfo).includes('') ||
                 !data?.data.success
                     ? true
                     : false

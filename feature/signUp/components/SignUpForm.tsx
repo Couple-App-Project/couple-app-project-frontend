@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import type { FormPropsType } from '../types/FormPropsType';
 import GENDER_LIST from '../modules/variables/genderList';
 import { ElInput } from 'components';
+import DropDown from 'public/images/icons/drop-down.svg';
 
 const SignUpFrom = ({
     userInfo,
@@ -96,7 +97,7 @@ const SignUpFrom = ({
                 value={userInfo.name}
                 _onChange={(e) => onChangeInfo(e)}
             />
-            <div className="form-list">
+            <div className="form-list select-box">
                 <select name="gender" onChange={(e) => onChangeInfo(e)}>
                     <option value="" disabled selected>
                         성별
@@ -109,8 +110,9 @@ const SignUpFrom = ({
                         );
                     })}
                 </select>
+                <DropDown />
             </div>
-            <div className="form-list">
+            <div className="form-list date-box">
                 <input
                     type="date"
                     name="birthDay"
@@ -120,6 +122,7 @@ const SignUpFrom = ({
                     value={userInfo.birthDay}
                     onChange={(e) => onChangeInfo(e)}
                 />
+                <DropDown />
             </div>
         </FormWrapper>
     );
@@ -135,6 +138,39 @@ const FormWrapper = styled.form`
     .err-text {
         margin-top: 5px;
         font-size: 12px;
+    }
+
+    .select-box,
+    .date-box {
+        display: flex;
+        select,
+        input[type='date'] {
+            margin: 0;
+            padding: 1px 2px;
+            min-width: 0;
+            display: block;
+            width: 100%;
+            line-height: 35px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-bottom: 1px solid #e9e9e9;
+            color: inherit;
+            background-color: transparent;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            &:focus {
+                outline: none;
+            }
+        }
+        input[type='date']::-webkit-calendar-picker-indicator {
+            background: transparent;
+        }
+        svg {
+            margin-left: -28px;
+            align-self: center;
+        }
     }
 `;
 
