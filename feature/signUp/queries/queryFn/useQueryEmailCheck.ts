@@ -8,10 +8,10 @@ const useQueryEmailCheck = (email: string) => {
         () => apiKeys.checkEmail(email),
         {
             enabled: false,
-            onError(err: any) {
+            onError: (err: any) => {
                 alert(err.response.data.message);
             },
-            onSuccess(data) {
+            onSuccess: (data) => {
                 alert(data.data.data.message);
             },
         },
