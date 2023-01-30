@@ -4,6 +4,7 @@ import Back from 'public/images/icons/back.svg';
 import Close from 'public/images/icons/close.svg';
 import FirstStep from 'public/images/icons/heart-step-01.svg';
 import SecondStep from 'public/images/icons/heart-step-02.svg';
+import { useRouter } from 'next/router';
 
 interface StepLayoutProps {
     title: string;
@@ -34,9 +35,12 @@ const COMPONENT_LIST: ComponentType = {
 };
 
 const StepLayout = ({ title, children, type, disabled }: StepLayoutProps) => {
+    const router = useRouter();
     return (
         <StepLayoutWrapper>
-            <div className="icon-box">{COMPONENT_LIST[title].clickActive}</div>
+            <div className="icon-box" onClick={() => router.push('/login')}>
+                {COMPONENT_LIST[title].clickActive}
+            </div>
             <div className="title-box">
                 <h2>{title}</h2>
                 <div>{COMPONENT_LIST[title].icon}</div>

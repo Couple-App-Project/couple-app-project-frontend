@@ -4,7 +4,6 @@ interface ElInputProps {
     className: string;
     label?: string;
     placeholder?: string;
-    role: string;
     type: string;
     value: string;
     name?: string;
@@ -17,7 +16,6 @@ const ElInput = ({
     className,
     label,
     placeholder,
-    role,
     type,
     value,
     name,
@@ -25,13 +23,10 @@ const ElInput = ({
     _onFocus,
     children,
 }: ElInputProps) => {
-    const styles = { role };
-
     return (
         <ElInputWrapper className={className}>
             {label && <label>{label}</label>}
             <input
-                {...styles}
                 placeholder={placeholder}
                 type={type}
                 value={value}
@@ -49,7 +44,6 @@ ElInput.defaultProps = {
     label: null,
     placeholder: '',
     type: 'text',
-    role: 'underline',
     _onChange: () => {},
     _onFocus: () => {},
     children: null,
@@ -58,8 +52,14 @@ ElInput.defaultProps = {
 export default ElInput;
 
 const ElInputWrapper = styled.div`
+    &.flex-box {
+        display: flex;
+        justify-content: center;
+        align-items: normal;
+    }
     input {
         width: 100%;
+        line-height: 35px;
         border-top: none;
         border-left: none;
         border-right: none;

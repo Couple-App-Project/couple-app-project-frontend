@@ -14,6 +14,8 @@ interface FormPropsType {
         e: React.ChangeEvent<HTMLInputElement>,
         password?: string | undefined,
     ) => void;
+    checkHandler: () => void;
+    isEmail: boolean;
     sendSignUp: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 

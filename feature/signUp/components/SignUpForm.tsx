@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import type { FormPropsType } from '../types/FormPropsType';
 import GENDER_LIST from '../modules/variables/genderList';
 import { ElInput } from 'components';
@@ -9,32 +10,47 @@ const SignUpFrom = ({
     focusHandler,
     fieldErr,
     errorHandler,
+    checkHandler,
+    isEmail,
     sendSignUp,
 }: FormPropsType) => {
     return (
-        <form className="sign-up-content" onSubmit={sendSignUp}>
-            <ElInput
-                className="form-list"
-                role="underline"
-                placeholder="이메일"
-                name="email"
-                value={userInfo.email}
-                _onChange={(e) => {
-                    onChangeInfo(e);
-                    errorHandler(e);
-                }}
-                _onFocus={(e) => {
-                    focusHandler(e);
-                    errorHandler(e);
-                }}
-            >
+        <FormWrapper className="sign-up-content" onSubmit={sendSignUp}>
+            <div className="form-list">
+                <ElInput
+                    className="flex-box"
+                    placeholder="이메일"
+                    name="email"
+                    value={userInfo.email}
+                    _onChange={(e) => {
+                        onChangeInfo(e);
+                        errorHandler(e);
+                    }}
+                    _onFocus={(e) => {
+                        focusHandler(e);
+                        errorHandler(e);
+                    }}
+                >
+                    <CheckButton
+                        type="button"
+                        isEmail={isEmail}
+                        onClick={() =>
+                            userInfo.email
+                                ? checkHandler()
+                                : alert('아이디를 입력해 주세요.')
+                        }
+                    >
+                        중복확인
+                    </CheckButton>
+                </ElInput>
                 {fieldFocus.email && fieldErr.email && (
-                    <p>이메일 형식에 맞게 입력해 주세요.</p>
+                    <p className="err-text">
+                        이메일 형식에 맞게 입력해 주세요.
+                    </p>
                 )}
-            </ElInput>
+            </div>
             <ElInput
                 className="form-list"
-                role="underline"
                 placeholder="비밀번호"
                 type="password"
                 name="password"
@@ -49,14 +65,13 @@ const SignUpFrom = ({
                 }}
             >
                 {fieldFocus.password && fieldErr.password && (
-                    <p>
+                    <p className="err-text">
                         영문자, 숫자, 특수문자 조합으로 8~20자리를 입력해주세요.
                     </p>
                 )}
             </ElInput>
             <ElInput
                 className="form-list"
-                role="underline"
                 placeholder="비밀번호 확인"
                 type="password"
                 name="pwdConfirm"
@@ -71,12 +86,11 @@ const SignUpFrom = ({
                 }}
             >
                 {fieldFocus.pwdConfirm && fieldErr.pwdConfirm && (
-                    <p>비밀번호가 일치하지 않습니다.</p>
+                    <p className="err-text">비밀번호가 일치하지 않습니다.</p>
                 )}
             </ElInput>
             <ElInput
                 className="form-list"
-                role="underline"
                 placeholder="이름"
                 name="name"
                 value={userInfo.name}
@@ -107,8 +121,30 @@ const SignUpFrom = ({
                     onChange={(e) => onChangeInfo(e)}
                 />
             </div>
-        </form>
+        </FormWrapper>
     );
 };
 
 export default SignUpFrom;
+
+const FormWrapper = styled.form`
+    & > div:not(:last-child) {
+        margin-bottom: 15px;
+    }
+
+    .err-text {
+        margin-top: 5px;
+        font-size: 12px;
+    }
+`;
+
+const CheckButton = styled('button')<{ isEmail: boolean }>`
+    width: 75px;
+    line-height: 32px;
+    border: 1px solid #009dbf;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 400;
+    background-color: ${(props) => (props.isEmail ? '#009DBF' : '#fff')};
+    color: ${(props) => (props.isEmail ? '#fff' : '#009DBF')};
+`;
