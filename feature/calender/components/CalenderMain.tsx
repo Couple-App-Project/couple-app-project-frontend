@@ -8,13 +8,7 @@ import { useQueryCalenders } from '../queries/queryFn';
 
 const CalenderMain = () => {
     const today = new Date();
-    const [selectedDay, setSelectedDay] = useState<Date>(today);
-
-    const footer = selectedDay ? (
-        <p>You selected {format(selectedDay, 'PPP')}.</p>
-    ) : (
-        <p>Please pick a day.</p>
-    );
+    const [selectedDay, setSelectedDay] = useState<Date>();
 
     const [selectDate, setSelectDate] = useState(format(today, 'yyMM'));
 
@@ -24,23 +18,49 @@ const CalenderMain = () => {
 
     const { data } = useQueryCalenders(selectDate);
 
+    const sunday = (day: Date) => {
+        return day.getDay() === 0;
+    };
+
     return (
         <DayPickers
             fromYear={getYear(today)}
             toYear={getYear(today) + 5}
             captionLayout="dropdown"
-            onYearChange={(e: any) => changeDate(e)}
             onMonthChange={(e: any) => changeDate(e)}
             mode="single"
             selected={selectedDay}
             onSelect={setSelectedDay}
-            showOutsideDays
             locale={ko}
-            footer={footer}
+            modifiers={{ sunday }}
+            modifiersClassNames={{ sunday: 'sunday-class' }}
         />
     );
 };
 
 export default CalenderMain;
 
-const DayPickers = styled(DayPicker)``;
+const DayPickers = styled(DayPicker)`
+    .rdp-caption_dropdowns {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .rdp-dropdown_year,
+    .rdp-dropdown_month {
+        display: block;
+    }
+
+    .rdp-head_row th:first-child span,
+    .sunday-class {
+        color: #fa1c37;
+    }
+    button {
+        color: #3b3d49;
+    }
+
+    .rdp-day_selected {
+        background-color: #3b3d49;
+    }
+`;
