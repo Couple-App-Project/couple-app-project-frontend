@@ -1,33 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { ko } from 'date-fns/locale';
-import { format, getYear } from 'date-fns';
-import { useQueryCalenders } from '../queries/queryFn';
+import { getYear } from 'date-fns';
+import type { CalenderMainPropsType } from '../types/CalenderMainPropsType';
 
-const CalenderMain = () => {
-    const today = new Date();
-    const [selectedDay, setSelectedDay] = useState<Date>();
-
-    const [selectDate, setSelectDate] = useState(format(today, 'yyMM'));
-
-    const changeDate = (e: any) => {
-        setSelectDate(format(e, 'yyMM'));
-    };
-
-    const { data } = useQueryCalenders(selectDate);
-
+const CalenderMain = ({
+    changeDate,
+    selectedDay,
+    setSelectedDay,
+}: CalenderMainPropsType) => {
     const sunday = (day: Date) => {
         return day.getDay() === 0;
     };
 
     return (
         <DayPickers
-            fromYear={getYear(today)}
-            toYear={getYear(today) + 5}
+            fromYear={getYear(new Date())}
+            toYear={getYear(new Date()) + 5}
             captionLayout="dropdown"
-            onMonthChange={(e: any) => changeDate(e)}
+            onMonthChange={(e: any) => changeDate && changeDate(e)}
             mode="single"
             selected={selectedDay}
             onSelect={setSelectedDay}

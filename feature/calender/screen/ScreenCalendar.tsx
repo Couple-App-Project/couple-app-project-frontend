@@ -1,12 +1,30 @@
-import router from 'next/router';
-import { CalenderMain } from '../components';
+import React, { useState } from 'react';
+import { CalenderMain, CalenderDayDetail } from '../components';
+import { format } from 'date-fns';
+import { useQueryCalenders } from '../queries/queryFn';
 
-export default function ScreenCalender() {
+const ScreenCalender = () => {
+    const [selectedDay, setSelectedDay] = useState<Date>();
+
+    const [selectDate, setSelectDate] = useState(format(new Date(), 'yyMM'));
+
+    const changeDate = (e: any) => {
+        setSelectDate(format(e, 'yyMM'));
+    };
+
+    const { isLoading } = useQueryCalenders(selectDate);
+
     return (
         <>
-            <button onClick={() => router.push('/home')}>🏠</button>
             <h1>캘린더페이지</h1>
-            <CalenderMain />
+            <CalenderMain
+                selectedDay={selectedDay}
+                setSelectedDay={setSelectedDay}
+                changeDate={changeDate}
+            />
+            <CalenderDayDetail selectedDay={selectedDay} />
         </>
     );
-}
+};
+
+export default ScreenCalender;

@@ -5,6 +5,7 @@ import apiKeys from '../apiKeys';
 import queryKeys from '../queryKeys';
 
 const useQueryCalenders = (date: string) => {
+    const setCalenders = useSetRecoilState(calendersState);
     return useQuery(
         queryKeys.coupleCalender(date),
         () => apiKeys.getCoupleCalenders(date),
@@ -14,8 +15,7 @@ const useQueryCalenders = (date: string) => {
                 console.log(err);
             },
             onSuccess: (data) => {
-                const setCalenders = useSetRecoilState(calendersState);
-                console.log(data.data.data);
+                setCalenders(data.data.data);
             },
         },
     );
