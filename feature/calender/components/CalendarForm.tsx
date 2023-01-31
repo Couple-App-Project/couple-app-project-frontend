@@ -1,6 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
-import useMutationCalendar from '../queries/mutationFn/mutationFn';
+import { useEffect,useState } from 'react';
+import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
+import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
 import {useRouter} from 'next/router';
 import styled from 'styled-components';
 import Radio from '../components/Radio';
@@ -16,11 +17,12 @@ const FieldsetStyle = styled.fieldset`
 
 const CalendarForm = () => {
     const router = useRouter();
+    const {calendarId} = router.query
 
-    const createCalendar = useMutationCalendar();
+    const createCalendar = useMutationPostCalendar();
     const defaultDate = `${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2,'0')}`
 
-    const registerDefault = {
+    let defaultValue = {
         title: '',
         type: '데이트',
         startDate: defaultDate,
@@ -30,17 +32,26 @@ const CalendarForm = () => {
         location: '',
         content: ''
     }
-    // const rewriteDefault = {
-    //     title: '',
-    //     type: '데이트',
-    //     startDate: defaultDate,
-    //     endDate: defaultDate,
-    //     startTime: "00:00",
-    //     endTime: "23:59",
-    //     location: '',
-    //     content: ''
-    // }
-    const [schedule, setSchedule] = useState(registerDefault);
+
+
+    // useEffect(()=>{
+
+    // }, [])
+    const calendarInfo = useQueryCalenderDetail()?.data?.data?.data
+    if(calendarId!==undefined) {
+        defaultValue = {
+            title: calendarInfo?.title,
+            type: calendarInfo?.type,
+            startDate: calendarInfo?.startDate,
+            endDate: calendarInfo?.endDate,
+            startTime: calendarInfo?.startTime,
+            endTime: calendarInfo?.endTime,
+            location: calendarInfo?.location,
+            content: calendarInfo?.content
+        }
+    }
+
+    const [schedule, setSchedule] = useState(defaultValue);
 
     const scheduleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -67,11 +78,8 @@ const CalendarForm = () => {
 
     const postNewSchedule = () => {
         if (schedule.title==='' || schedule.location==='') alert('모든 정보를 입력해주세요')
-        // console.log(schedule)
         createCalendar(schedule)
     }
-
-
 
     return (
         <div>

@@ -2,10 +2,10 @@ import { useMutation } from 'react-query';
 import apiKeys from '../apiKeys';
 import { useRouter } from 'next/router';
 
-const useMutationCalendar = () => {
+const useMutationUpdateCalendar = () => {
     const router = useRouter();
 
-    const { mutate } = useMutation(apiKeys.postNewCalendar, {
+    const { mutate } = useMutation(apiKeys.rewriteCalendar, {
         onSuccess: (response, variables) => {
             console.log('success', response, variables);
             router.push('/calendar')
@@ -21,4 +21,4 @@ const useMutationCalendar = () => {
     return mutate;
 };
 
-export default useMutationCalendar;
+export default useMutationUpdateCalendar;
