@@ -20,7 +20,7 @@ const CalendarForm = () => {
     const createCalendar = useMutationCalendar();
     const defaultDate = `${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2,'0')}`
 
-    const [schedule, setSchedule] = useState({
+    const registerDefault = {
         title: '',
         type: '데이트',
         startDate: defaultDate,
@@ -29,8 +29,18 @@ const CalendarForm = () => {
         endTime: "23:59",
         location: '',
         content: ''
-
-    });
+    }
+    // const rewriteDefault = {
+    //     title: '',
+    //     type: '데이트',
+    //     startDate: defaultDate,
+    //     endDate: defaultDate,
+    //     startTime: "00:00",
+    //     endTime: "23:59",
+    //     location: '',
+    //     content: ''
+    // }
+    const [schedule, setSchedule] = useState(registerDefault);
 
     const scheduleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -57,8 +67,11 @@ const CalendarForm = () => {
 
     const postNewSchedule = () => {
         if (schedule.title==='' || schedule.location==='') alert('모든 정보를 입력해주세요')
+        // console.log(schedule)
         createCalendar(schedule)
     }
+
+
 
     return (
         <div>
@@ -106,6 +119,14 @@ const CalendarForm = () => {
                 placeholder="장소"
                 name="location"
                 value={schedule.location}
+                onChange={scheduleChange}
+            />
+
+            <br />
+            <input
+                placeholder="메모"
+                name="content"
+                value={schedule.content}
                 onChange={scheduleChange}
             />
         </div>
