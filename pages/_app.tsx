@@ -18,11 +18,14 @@ function MyApp({
 }: AppProps<{ dehydratedState: DehydratedState }>) {
     const [queryClient] = React.useState(() => new QueryClient());
     const router = useRouter();
-    // router.beforePopState(()=>{
-    //     if(sessionStorage.getItem('access')===null) {
-    //         router.push('/login')
-    //     }
-    // })
+
+    if (typeof window !== 'undefined') {
+        const refreshToken = sessionStorage.getItem('refresh')
+        if(router.pathname!=='/login' && refreshToken === null) {
+            alert('로그인 후 사용하세요')
+            router.push('./login')
+        }
+    }
 
     return (
         <QueryClientProvider client={queryClient}>
