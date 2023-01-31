@@ -15,23 +15,6 @@ let instance = axios.create({
     },
 });
 
-
-// @ts-ignore
-// instance.interceptors.request.use(function (response) {
-//     // TODO: token 저장 위치 논의
-//     const refreshToken = sessionStorage.getItem('refresh');
-
-//     if (refreshToken === undefined) {
-//         return;
-//         // TODO: 만료 여부 구하는 조건문 수정
-//     } else if (refreshToken === '만료기간 다 됐으면!') {
-//         alert('세션이 만료되었습니다. 다시 로그인해주세요');
-//         router.push('/login');
-//     }
-
-//     return response;
-// });
-
 const sessionExpired = () => {
     sessionStorage.removeItem('access')
     sessionStorage.removeItem('refresh')
@@ -39,6 +22,34 @@ const sessionExpired = () => {
     alert('세션이 만료되었습니다. 다시 로그인 해주세요')
     router.push('/login')
 }
+
+// @ts-ignore
+instance.interceptors.request.use(function (config) {
+    // TODO: token 저장 위치 논의
+    const accessToken = sessionStorage.getItem('access');
+    const refreshToken = sessionStorage.getItem('refresh');
+
+    if (accessToken!==null) {
+        config.headers = {Authorization: `Bearer ${accessToken}`}
+    } 
+    else if (refreshToken!==null) {
+        axios.get('/auth/reissue', {
+            baseURL: process.env.NEXT_PUBLIC_API_KEY,
+            headers: {
+                Authorization: `Bearer ${refreshToken}`,
+            }
+        })
+        .then((response: any) => {
+            sessionStorage.setItem('access', response.data.data.accessToken);
+            config.headers = {Authorization:`Bearer ${response.data.data.accessToken}`}
+        })
+        .catch(()=>{
+            sessionExpired()
+        })
+    }
+    return config;
+});
+
 
 instance.interceptors.response.use(
     function (response) {
@@ -63,7 +74,10 @@ instance.interceptors.response.use(
             })
             .catch((error) => {
                 sessionExpired()
-            });
+            })
+            .then(()=>{
+                window.location.reload()
+            })
         }
     }
 );
