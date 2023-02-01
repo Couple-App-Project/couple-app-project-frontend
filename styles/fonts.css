@@ -25,3 +25,10 @@
     font-style: normal;
     src: url('../public/fonts/AppleSDGothicNeoB.ttf') format('truetype');
 }
+
+@font-face {
+    font-family: 'UhBeemysen';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeemysen.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
