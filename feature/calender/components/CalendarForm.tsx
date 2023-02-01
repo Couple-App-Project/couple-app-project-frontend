@@ -2,12 +2,22 @@ import React from 'react';
 import { useEffect,useState } from 'react';
 import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
 import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
+
+import Image from 'next/image';
 import {useRouter} from 'next/router';
 import styled from 'styled-components';
 import Radio from '../components/Radio';
+import Button from './Button'
+
+import Cancel from 'assets/icons/cancel.svg'
+import Calendar from 'assets/icons/calendar.svg';
+import Clock from 'assets/icons/clock.svg';
+import MarkerPin from 'assets/icons/marker-pin.svg';
+import Memo from 'assets/icons/memo.svg';
 
 const Header = styled.header`
     display: flex;
+    justify-content: space-between;
 `
 const FieldsetStyle = styled.fieldset`
     all: unset;
@@ -84,8 +94,8 @@ const CalendarForm = () => {
     return (
         <div>
             <Header>
-                <button onClick={() => router.push('/calendar')}>취소</button>
-                {router.pathname==='/calendar/register'?<h1>일정</h1>:<h1>편집</h1>}
+                <Image src={Cancel} width="16px" height="16px" onClick={() => router.push('/calendar')}/>
+                {/* {router.pathname==='/calendar/register'?<h1>일정</h1>:<h1>편집</h1>} */}
                 <button onClick={postNewSchedule}>저장</button>
             </Header>
             <br />
@@ -98,17 +108,19 @@ const CalendarForm = () => {
             />
 
             <FieldsetStyle>
-                <legend>카테고리</legend>
-
-                <Radio value="데이트" _onChange={scheduleChange} checked={true}>
+                <Image src={Calendar} width="16px" height="16px"/>
+                <Button _onClick={scheduleChange}>데이트</Button>
+                <Button _onClick={scheduleChange}>기념일</Button>
+                {/* <Radio value="데이트" _onChange={scheduleChange} checked={true}>
                     데이트
                 </Radio>
                 <Radio value="기념일" _onChange={scheduleChange}>
                     기념일
-                </Radio>
+                </Radio> */}
             </FieldsetStyle>
 
             <br />
+            <Image src={Clock} width="16px" height="16px"/>
             <input
                 type="datetime-local"
                 name="startDateTime"
@@ -123,6 +135,7 @@ const CalendarForm = () => {
             />
 
             <br />
+            <Image src={MarkerPin} width="16px" height="16px"/>
             <input
                 placeholder="장소"
                 name="location"
@@ -131,6 +144,7 @@ const CalendarForm = () => {
             />
 
             <br />
+            <Image src={Memo} width="16px" height="16px"/>
             <input
                 placeholder="메모"
                 name="content"
