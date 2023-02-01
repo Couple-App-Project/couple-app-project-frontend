@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from 'styles/colors';
+// import defaultTheme from 'styles/colors';
 
 const ElButton = styled.button`
     all: unset;
@@ -11,7 +11,7 @@ const ElButton = styled.button`
     width: 78px;
     height: 34px;
     border: ${(props:any)=>(props.active?'':'1px solid #EFEFEF')};
-    background: ${(props:any)=>(props.active?`${colors.primaryPink}`:'')};
+    background: ${(props:any)=>(props.active?`${props.theme.primaryPink}`:'')};
     border-radius: 62px;
 `
 

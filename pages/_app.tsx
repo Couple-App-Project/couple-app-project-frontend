@@ -13,6 +13,8 @@ import '../styles/globals.css';
 import BottomNavi from 'feature/common/components/BottomNavi';
 import Device from 'layouts/Device';
 import Head from 'next/head';
+import {ThemeProvider} from 'styled-components'
+import defaultTheme from 'styles/colors'
 
 function MyApp({
     Component,
@@ -24,7 +26,7 @@ function MyApp({
     if (typeof window !== 'undefined') {
         const refreshToken = sessionStorage.getItem('refresh');
         if (router.pathname !== '/login' && refreshToken === null) {
-            alert('로그인 후 사용하세요');
+            // alert('로그인 후 사용하세요');
             router.push('./login');
         }
     }
@@ -32,17 +34,19 @@ function MyApp({
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools />
-            <Device>
-                <Hydrate state={pageProps.dehydratedState}>
-                    <RecoilRoot>
-                        <Head>
-                            <title>꾸욱</title>
-                        </Head>
-                        <Component {...pageProps} />
-                    </RecoilRoot>
-                </Hydrate>
-                {router.pathname !== '/login' ? <BottomNavi /> : ''}
-            </Device>
+            <ThemeProvider theme={defaultTheme}>
+                <Device>
+                    <Hydrate state={pageProps.dehydratedState}>
+                        <RecoilRoot>
+                            <Head>
+                                <title>꾸욱</title>
+                            </Head>
+                            <Component {...pageProps} />
+                        </RecoilRoot>
+                    </Hydrate>
+                    {router.pathname !== '/login' ? <BottomNavi /> : ''}
+                </Device>
+            </ThemeProvider>
         </QueryClientProvider>
     );
 }
