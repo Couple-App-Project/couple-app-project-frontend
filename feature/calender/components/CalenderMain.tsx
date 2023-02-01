@@ -20,7 +20,8 @@ const CalenderMain = ({
             fromYear={getYear(new Date())}
             toYear={getYear(new Date()) + 5}
             captionLayout="dropdown"
-            onMonthChange={(e: any) => changeDate && changeDate(e)}
+            onMonthChange={(e: Date) => changeDate && changeDate(e)}
+            required
             mode="single"
             selected={selectedDay}
             onSelect={setSelectedDay}

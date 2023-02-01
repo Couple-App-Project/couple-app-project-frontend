@@ -1,11 +1,14 @@
-import { isMobile } from 'react-device-detect';
+import { detectMobileDevice, detectInAppBrowser } from 'utils/deviceDetector';
 import { PropsWithChildren, useEffect, useState } from 'react';
 
 const Device = ({ children }: PropsWithChildren) => {
     const [mobileDevice, setMobileDevice] = useState(false);
 
     useEffect(() => {
-        if (isMobile) {
+        if (
+            detectMobileDevice(window.navigator.userAgent) ||
+            detectInAppBrowser(window.navigator.userAgent)
+        ) {
             setMobileDevice(true);
         }
     }, []);
