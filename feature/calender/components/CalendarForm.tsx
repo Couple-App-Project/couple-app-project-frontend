@@ -6,14 +6,14 @@ import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalend
 import Image from 'next/image';
 import {useRouter} from 'next/router';
 import styled from 'styled-components';
-import Radio from '../components/Radio';
+// import Radio from '../components/Radio';
 import Button from './Button'
 
-import Cancel from 'assets/icons/cancel.svg'
-import Calendar from 'assets/icons/calendar.svg';
-import Clock from 'assets/icons/clock.svg';
-import MarkerPin from 'assets/icons/marker-pin.svg';
-import Memo from 'assets/icons/memo.svg';
+import Cancel from 'public/icons/cancel.svg'
+import Calendar from 'public/icons/calendar.svg';
+import Clock from 'public/icons/clock.svg';
+import MarkerPin from 'public/icons/marker-pin.svg';
+import Memo from 'public/icons/memo.svg';
 
 const Header = styled.header`
     display: flex;
