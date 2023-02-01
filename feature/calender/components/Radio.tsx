@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Radio = (props: any) => {
-    const { value, _onChange, children } = props;
+    const { value, _onChange, checked, children } = props;
     return (
         <label>
             <input
@@ -9,6 +9,7 @@ const Radio = (props: any) => {
                 name="scheduleType"
                 value={value}
                 onChange={_onChange}
+                checked={checked}
             />
             {children}
         </label>

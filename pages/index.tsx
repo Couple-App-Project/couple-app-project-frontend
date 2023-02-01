@@ -5,7 +5,7 @@ import router from 'next/router';
 
 const Home: NextPage = () => {
     if (typeof window !== 'undefined') {
-        const isToken = sessionStorage.getItem('refresh');
+        const isToken = sessionStorage.getItem('access');
         isToken ? router.push('/home') : router.push('/login');
     }
 

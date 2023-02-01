@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
 import { apis } from '../apiKey';
@@ -10,6 +10,7 @@ const useMutationLogin = () => {
     const { mutate } = useMutation(apis.login, {
         onSuccess: async (response: any) => {
             sessionStorage.setItem('access', response.data.data.accessToken);
+            sessionStorage.setItem('refresh', response.data.data.refreshToken)
             router.push('/home');
         },
         onError: async (error:any) => {
