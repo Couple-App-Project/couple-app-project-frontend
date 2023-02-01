@@ -56,5 +56,6 @@ const DayPickers = styled(DayPicker)`
 
     .rdp-day_selected {
         background-color: #3b3d49;
+        color: #fff;
     }
 `;

@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
-import { CalenderMain, CalenderDayDetail } from '../components';
+import styled from 'styled-components';
+import {
+    CalenderMain,
+    CalenderDayDetail,
+    CalenderAddButton,
+} from '../components';
 import { format } from 'date-fns';
 import { useQueryCalenders } from '../queries/queryFn';
 
 const ScreenCalender = () => {
-    const [selectedDay, setSelectedDay] = useState<Date>();
+    const [selectedDay, setSelectedDay] = useState<Date | undefined>(
+        new Date(),
+    );
 
     const [selectDate, setSelectDate] = useState(format(new Date(), 'yyMM'));
 
@@ -15,16 +22,18 @@ const ScreenCalender = () => {
     const { isLoading } = useQueryCalenders(selectDate);
 
     return (
-        <>
-            <h1>캘린더페이지</h1>
+        <CalenderWrapper>
             <CalenderMain
                 selectedDay={selectedDay}
                 setSelectedDay={setSelectedDay}
                 changeDate={changeDate}
             />
             <CalenderDayDetail selectedDay={selectedDay} />
-        </>
+            <CalenderAddButton />
+        </CalenderWrapper>
     );
 };
 
 export default ScreenCalender;
+
+const CalenderWrapper = styled.div``;
