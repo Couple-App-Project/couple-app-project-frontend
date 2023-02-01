@@ -4,7 +4,9 @@ import type { UseInputErrorStateType } from './UseInputErrorStateType';
 
 interface FormPropsType {
     userInfo: UserInfoStateType;
-    onChangeInfo: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChangeInfo: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    ) => void;
     fieldFocus: FieldFocusStateType;
     focusHandler: (e: React.FocusEvent<HTMLInputElement>) => void;
     fieldErr: UseInputErrorStateType;
@@ -12,6 +14,8 @@ interface FormPropsType {
         e: React.ChangeEvent<HTMLInputElement>,
         password?: string | undefined,
     ) => void;
+    checkHandler: () => void;
+    isEmail: boolean;
     sendSignUp: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 

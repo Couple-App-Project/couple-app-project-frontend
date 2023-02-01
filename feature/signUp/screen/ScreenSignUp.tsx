@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import useInputError from '../hooks/useInputError';
 import { useMutationSignUp } from '../queries/mutationFn';
+import StepLayout from 'layouts/StepLayout';
 import { SignUpForm } from '../components';
+import { useQueryEmailCheck } from '../queries/queryFn';
 
 const ScreenSignUp = () => {
-    const createSignUp = useMutationSignUp();
-
     const [userInfo, setUserInfo] = useState({
         email: '',
         password: '',
@@ -16,11 +15,21 @@ const ScreenSignUp = () => {
         gender: 'M',
     });
 
-    const onChangeInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeInfo = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    ) => {
         setUserInfo((prev) => {
             return { ...prev, [e.target.name]: e.target.value };
         });
     };
+
+    const { data, refetch } = useQueryEmailCheck(userInfo.email);
+
+    const checkHandler = () => {
+        refetch();
+    };
+
+    const createSignUp = useMutationSignUp();
 
     const [fieldFocus, setFieldFocus] = useState({
         email: false,
@@ -51,7 +60,16 @@ const ScreenSignUp = () => {
     };
 
     return (
-        <SignUpWrapper>
+        <StepLayout
+            title="회원가입"
+            disabled={
+                Object.values(fieldErr).includes(true) ||
+                Object.values(userInfo).includes('') ||
+                !data?.data.success
+                    ? true
+                    : false
+            }
+        >
             <SignUpForm
                 userInfo={userInfo}
                 onChangeInfo={onChangeInfo}
@@ -59,12 +77,12 @@ const ScreenSignUp = () => {
                 focusHandler={focusHandler}
                 fieldErr={fieldErr}
                 errorHandler={errorHandler}
+                checkHandler={checkHandler}
+                isEmail={data?.data.success}
                 sendSignUp={sendSignUp}
             />
-        </SignUpWrapper>
+        </StepLayout>
     );
 };
 
 export default ScreenSignUp;
-
-const SignUpWrapper = styled.div``;

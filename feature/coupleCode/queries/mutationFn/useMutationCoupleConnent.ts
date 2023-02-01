@@ -6,18 +6,12 @@ const useMutationCoupleConnent = () => {
     const router = useRouter();
 
     const { mutate } = useMutation(apiKeys.createCoupleConnect, {
-        onMutate: (variable) => {
-            console.log('onMutate', variable);
-        },
-        onError: (error, variable, context) => {
-            console.log('error', variable, context);
+        onError: (err: any) => {
+            alert(err.response.data.message);
         },
         onSuccess: (data, variables, context) => {
-            console.log('success', data, variables, context);
+            alert(data.data.data.message);
             router.push('/coupleinfo');
-        },
-        onSettled: () => {
-            console.log('end');
         },
     });
 

@@ -7,10 +7,12 @@ import {
     QueryClientProvider,
     DehydratedState,
 } from 'react-query';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
 import BottomNavi from 'feature/common/components/BottomNavi';
+import Device from 'layouts/Device';
+import Head from 'next/head';
 
 function MyApp({
     Component,
@@ -20,24 +22,27 @@ function MyApp({
     const router = useRouter();
 
     if (typeof window !== 'undefined') {
-        const refreshToken = sessionStorage.getItem('refresh')
-        if(router.pathname!=='/login' && refreshToken === null) {
-            alert('로그인 후 사용하세요')
-            router.push('./login')
+        const refreshToken = sessionStorage.getItem('refresh');
+        if (router.pathname !== '/login' && refreshToken === null) {
+            alert('로그인 후 사용하세요');
+            router.push('./login');
         }
     }
 
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools />
-            <Hydrate state={pageProps.dehydratedState}>
-                <RecoilRoot>
-                    <Component {...pageProps} />
-                </RecoilRoot>
-            </Hydrate>
-
-            {router.pathname!=='/login'?<BottomNavi/>:''}
-            
+            <Device>
+                <Hydrate state={pageProps.dehydratedState}>
+                    <RecoilRoot>
+                        <Head>
+                            <title>꾸욱</title>
+                        </Head>
+                        <Component {...pageProps} />
+                    </RecoilRoot>
+                </Hydrate>
+                {router.pathname !== '/login' ? <BottomNavi /> : ''}
+            </Device>
         </QueryClientProvider>
     );
 }
