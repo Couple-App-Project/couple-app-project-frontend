@@ -42,26 +42,26 @@ const CalendarForm = () => {
         location: '',
         content: ''
     }
-
-
-    // useEffect(()=>{
-
-    // }, [])
-    const calendarInfo = useQueryCalenderDetail()?.data?.data?.data
-    if(calendarId!==undefined) {
-        defaultValue = {
-            title: calendarInfo?.title,
-            type: calendarInfo?.type,
-            startDate: calendarInfo?.startDate,
-            endDate: calendarInfo?.endDate,
-            startTime: calendarInfo?.startTime,
-            endTime: calendarInfo?.endTime,
-            location: calendarInfo?.location,
-            content: calendarInfo?.content
-        }
-    }
-
     const [schedule, setSchedule] = useState(defaultValue);
+    
+    const calendarInfo = useQueryCalenderDetail()?.data?.data?.data
+
+    useEffect(()=>{
+        if(calendarId!==undefined) {
+            setSchedule(
+                {
+                    title: calendarInfo?.title,
+                    type: calendarInfo?.type,
+                    startDate: calendarInfo?.startDate,
+                    endDate: calendarInfo?.endDate,
+                    startTime: calendarInfo?.startTime,
+                    endTime: calendarInfo?.endTime,
+                    location: calendarInfo?.location,
+                    content: calendarInfo?.content
+                }
+            )
+            }
+        }, [calendarInfo])
 
     const scheduleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
