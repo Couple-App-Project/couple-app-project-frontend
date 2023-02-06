@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ElButton } from 'components';
 import Back from 'public/images/icons/back.svg';
 import Close from 'public/images/icons/close.svg';
+import Calendar from 'public/images/illustrations/calendar.svg';
 import { useRouter } from 'next/router';
 import { Subhead_2, Subhead_4 } from 'styles/fontTheme';
 
@@ -40,13 +41,15 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
     const router = useRouter();
     return (
         <StepLayoutWrapper>
-            {COMPONENT_LIST[title].clickActive && (
+            {COMPONENT_LIST[title].id !== 3 && (
                 <div className="icon-box" onClick={() => router.push('/login')}>
                     {COMPONENT_LIST[title].clickActive}
                 </div>
             )}
             <div className="title-box">
-                <Subhead_2>{title}</Subhead_2>
+                {COMPONENT_LIST[title].id !== 3 && (
+                    <Subhead_2>{title}</Subhead_2>
+                )}
                 <div className="step-num">
                     {Object.entries(COMPONENT_LIST).map((el, i) => {
                         return (
@@ -63,6 +66,12 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
                         );
                     })}
                 </div>
+                {COMPONENT_LIST[title].id === 3 && (
+                    <>
+                        <Calendar />
+                        <Subhead_2>{title}</Subhead_2>
+                    </>
+                )}
             </div>
             <div className="form-box">{children}</div>
             <ElButton type="submit" form={title} _disabled={disabled}>
