@@ -13,8 +13,8 @@ import '../styles/globals.css';
 import BottomNavi from 'feature/common/components/BottomNavi';
 import Device from 'layouts/Device';
 import Head from 'next/head';
-import {ThemeProvider} from 'styled-components'
-import defaultTheme from 'styles/colors'
+import { ThemeProvider } from 'styled-components';
+import defaultTheme from 'styles/colors';
 
 function MyApp({
     Component,
@@ -23,13 +23,13 @@ function MyApp({
     const [queryClient] = React.useState(() => new QueryClient());
     const router = useRouter();
 
-    if (typeof window !== 'undefined') {
-        const refreshToken = sessionStorage.getItem('refresh');
-        if (router.pathname !== '/login' && refreshToken === null) {
-            // alert('로그인 후 사용하세요');
-            router.push('./login');
-        }
-    }
+    // if (typeof window !== 'undefined') {
+    //     const refreshToken = sessionStorage.getItem('refresh');
+    //     if (router.pathname !== '/login' && refreshToken === null) {
+    //         // alert('로그인 후 사용하세요');
+    //         router.push('./login');
+    //     }
+    // }
 
     return (
         <QueryClientProvider client={queryClient}>
