@@ -82,3 +82,9 @@ export const Uhbee = styled.p`
     font-size: 16px;
     line-height: 22px;
 `
+
+export const Input_1 = styled.input`
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 400;
+`;
