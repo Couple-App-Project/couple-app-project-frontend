@@ -144,6 +144,8 @@ const SignUpFrom = ({
 export default SignUpFrom;
 
 const FormWrapper = styled.form`
+    margin-top: 1.25rem;
+
     & > div:not(:last-child) {
         margin-bottom: 1rem;
     }

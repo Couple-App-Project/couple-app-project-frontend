@@ -6,7 +6,7 @@ import { useMutationCoupleConnent } from '../queries/mutationFn';
 import useInput from 'hooks/useInput';
 
 const ScreenCoupleCode = () => {
-    const { data } = useQueryCoupleCode();
+    // const { data } = useQueryCoupleCode();
     const coupleConnentMutation = useMutationCoupleConnent();
 
     const [inviteCode, onChangeCode] = useInput('');
@@ -22,7 +22,7 @@ const ScreenCoupleCode = () => {
             disabled={inviteCode !== '' ? false : true}
         >
             <CoupleCodeForm
-                userCode={data?.data.data.userCode}
+                userCode="sda"
                 inviteCode={inviteCode}
                 onChangeCode={onChangeCode}
                 createCoupleConnet={createCoupleConnet}

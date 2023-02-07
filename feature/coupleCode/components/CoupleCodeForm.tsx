@@ -3,6 +3,7 @@ import type { FormPropsType } from '../types/FormPropsTypes';
 import { handlerCopy, handlerShare } from '../modules/functions';
 import Copy from 'public/images/icons/copy.svg';
 import Share from 'public/images/icons/share.svg';
+import { Body_2 } from 'styles/fontTheme';
 
 const CoupleCodeForm = ({
     userCode,
@@ -13,7 +14,7 @@ const CoupleCodeForm = ({
     return (
         <FormWrapper onSubmit={createCoupleConnet} id="커플 코드">
             <div className="user-code-content">
-                <p>내 코드를 상대방에게 복사 또는 공유하세요.</p>
+                <Body_2>내 코드를 상대방에게 복사 또는 공유하세요.</Body_2>
                 <div>
                     <input type="text" defaultValue={userCode} disabled />
                     <div className="icon-content">
@@ -25,7 +26,7 @@ const CoupleCodeForm = ({
                 </div>
             </div>
             <div className="invite-code-content">
-                <p>커플 코드를 받으셨나요?</p>
+                <Body_2>커플 코드를 받으셨나요?</Body_2>
                 <input
                     type="text"
                     placeholder="코드 입력"
@@ -40,32 +41,38 @@ const CoupleCodeForm = ({
 export default CoupleCodeForm;
 
 const FormWrapper = styled.form`
+    margin-top: 4.875rem;
+
     p,
     input {
-        font-weight: 500;
-        font-size: 14px;
-        color: #3b3d49;
-    }
-
-    input,
-    .icon-content {
-        line-height: 44px;
-        background-color: #f0f0f0;
-        border-radius: 4px;
-    }
-
-    p {
-        margin-bottom: 15px;
+        color: ${(props) => props.theme.grey_6};
     }
 
     input {
         width: 100%;
-        padding: 0 20px;
-        border: none;
+        padding: 0 0.875rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+
+        &::placeholder {
+            color: ${(props) => props.theme.grey_4};
+        }
+    }
+
+    p {
+        margin-bottom: 0.375rem;
+    }
+
+    input,
+    .icon-content {
+        line-height: 2.75rem;
+        background-color: ${(props) => props.theme.white};
+        border: 1px solid ${(props) => props.theme.grey_3};
+        border-radius: 4px;
     }
 
     .user-code-content {
-        margin-bottom: 30px;
+        margin-bottom: 1rem;
 
         & > div {
             display: flex;
@@ -73,12 +80,16 @@ const FormWrapper = styled.form`
             align-items: center;
 
             .icon-content {
-                width: 44px;
+                width: 2.75rem;
                 margin-left: 5px;
                 text-align: center;
 
                 svg {
                     vertical-align: middle;
+
+                    path {
+                        stroke: ${(props) => props.theme.grey_6};
+                    }
                 }
             }
         }

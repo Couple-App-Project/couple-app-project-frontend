@@ -94,7 +94,6 @@ const StepLayoutWrapper = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 50px;
 
         p {
             color: ${(props) => props.theme.grey_6};
