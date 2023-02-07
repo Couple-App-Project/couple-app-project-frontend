@@ -46,7 +46,7 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
                     {COMPONENT_LIST[title].clickActive}
                 </div>
             )}
-            <div className="title-box">
+            <div className={`title-box style${COMPONENT_LIST[title].id}`}>
                 {COMPONENT_LIST[title].id !== 3 && (
                     <Subhead_2>{title}</Subhead_2>
                 )}
@@ -85,7 +85,6 @@ export default StepLayout;
 
 const StepLayoutWrapper = styled.div`
     padding: 1.5rem;
-
     .icon-box {
         margin-bottom: 2.25rem;
     }
@@ -101,7 +100,7 @@ const StepLayoutWrapper = styled.div`
 
         .step-num {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
 
             p {
@@ -113,7 +112,7 @@ const StepLayoutWrapper = styled.div`
                 text-align: center;
 
                 &:not(:first-child) {
-                    margin-left: 0.375rem;
+                    margin-left: 0.5rem;
                 }
 
                 &.active {
@@ -136,6 +135,20 @@ const StepLayoutWrapper = styled.div`
                     }
                 }
             }
+        }
+    }
+
+    .style3 {
+        flex-direction: column;
+
+        .step-num {
+            justify-content: flex-end;
+            width: 100%;
+            margin-bottom: 1.625rem;
+        }
+        p {
+            width: 100%;
+            margin: 2.5rem 0 0.75rem;
         }
     }
 

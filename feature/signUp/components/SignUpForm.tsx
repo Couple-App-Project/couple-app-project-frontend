@@ -16,7 +16,6 @@ const SignUpFrom = ({
     isEmail,
     sendSignUp,
 }: FormPropsType) => {
-    console.log(userInfo);
     return (
         <FormWrapper onSubmit={sendSignUp} id="회원가입">
             <div className="form-list">
