@@ -11,8 +11,8 @@ const ScreenSignUp = () => {
         password: '',
         pwdConfirm: '',
         name: '',
+        gender: '',
         birthDay: '',
-        gender: 'M',
     });
 
     const onChangeInfo = (

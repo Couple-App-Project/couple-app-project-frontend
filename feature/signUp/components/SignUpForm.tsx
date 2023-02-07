@@ -3,6 +3,7 @@ import type { FormPropsType } from '../types/FormPropsType';
 import GENDER_LIST from '../modules/variables/genderList';
 import { ElInput } from 'components';
 import DropDown from 'public/images/icons/drop-down.svg';
+import { Body_4 } from 'styles/fontTheme';
 
 const SignUpFrom = ({
     userInfo,
@@ -15,6 +16,7 @@ const SignUpFrom = ({
     isEmail,
     sendSignUp,
 }: FormPropsType) => {
+    console.log(userInfo);
     return (
         <FormWrapper onSubmit={sendSignUp} id="회원가입">
             <div className="form-list">
@@ -45,9 +47,9 @@ const SignUpFrom = ({
                     </CheckButton>
                 </ElInput>
                 {fieldFocus.email && fieldErr.email && (
-                    <p className="err-text">
+                    <Body_4 className="err-text">
                         이메일 형식에 맞게 입력해 주세요.
-                    </p>
+                    </Body_4>
                 )}
             </div>
             <ElInput
@@ -66,9 +68,9 @@ const SignUpFrom = ({
                 }}
             >
                 {fieldFocus.password && fieldErr.password && (
-                    <p className="err-text">
+                    <Body_4 className="err-text">
                         영문자, 숫자, 특수문자 조합으로 8~20자리를 입력해주세요.
-                    </p>
+                    </Body_4>
                 )}
             </ElInput>
             <ElInput
@@ -87,7 +89,9 @@ const SignUpFrom = ({
                 }}
             >
                 {fieldFocus.pwdConfirm && fieldErr.pwdConfirm && (
-                    <p className="err-text">비밀번호가 일치하지 않습니다.</p>
+                    <Body_4 className="err-text">
+                        비밀번호가 일치하지 않습니다.
+                    </Body_4>
                 )}
             </ElInput>
             <ElInput
@@ -98,8 +102,12 @@ const SignUpFrom = ({
                 _onChange={(e) => onChangeInfo(e)}
             />
             <div className="form-list select-box">
-                <select name="gender" onChange={(e) => onChangeInfo(e)}>
-                    <option value="" disabled selected>
+                <select
+                    name="gender"
+                    className={userInfo.gender ? 'selected' : 'placeholder'}
+                    onChange={(e) => onChangeInfo(e)}
+                >
+                    <option value="" disabled selected hidden>
                         성별
                     </option>
                     {Object.entries(GENDER_LIST).map((el, i) => {
@@ -116,6 +124,7 @@ const SignUpFrom = ({
                 <input
                     type="date"
                     name="birthDay"
+                    className={userInfo.birthDay ? 'selected' : 'placeholder'}
                     data-placeholder="생일"
                     required
                     aria-required="true"
@@ -132,12 +141,12 @@ export default SignUpFrom;
 
 const FormWrapper = styled.form`
     & > div:not(:last-child) {
-        margin-bottom: 15px;
+        margin-bottom: 1rem;
     }
 
     .err-text {
         margin-top: 5px;
-        font-size: 12px;
+        color: ${(props) => props.theme.grey_6};
     }
 
     .select-box,
@@ -146,16 +155,17 @@ const FormWrapper = styled.form`
         select,
         input[type='date'] {
             margin: 0;
-            padding: 1px 2px;
+            padding: 0;
             min-width: 0;
             display: block;
             width: 100%;
-            line-height: 35px;
+            font-size: 0.875rem;
+            line-height: 2.25rem;
+            font-weight: 400;
             border-top: none;
             border-left: none;
             border-right: none;
-            border-bottom: 1px solid #e9e9e9;
-            color: inherit;
+            border-bottom: 1px solid ${(props) => props.theme.grey_2};
             background-color: transparent;
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -163,15 +173,17 @@ const FormWrapper = styled.form`
             &:focus {
                 outline: none;
             }
-        }
-        select option[value=''][disabled] {
-            display: none;
+            &.selected {
+                color: ${(props) => props.theme.grey_6};
+            }
+            &.placeholder {
+                color: ${(props) => props.theme.grey_4};
+            }
         }
         input[type='date']::before {
             content: attr(data-placeholder);
             width: 100%;
         }
-
         input[type='date']:valid::before {
             display: none;
         }
@@ -179,19 +191,24 @@ const FormWrapper = styled.form`
             background: transparent;
         }
         svg {
-            margin-left: -28px;
+            margin-left: -1.75rem;
             align-self: center;
+            path {
+                stroke: ${(props) => props.theme.grey_4};
+            }
         }
     }
 `;
 
 const CheckButton = styled('button')<{ isEmail: boolean }>`
-    width: 75px;
-    line-height: 32px;
-    border: 1px solid #009dbf;
-    border-radius: 10px;
-    font-size: 12px;
+    width: 5.7rem;
+    height: 2rem;
+    border: 1px solid ${(props) => props.theme.primaryBlue};
+    border-radius: 50px;
+    font-size: 0.875rem;
     font-weight: 400;
-    background-color: ${(props) => (props.isEmail ? '#009DBF' : '#fff')};
-    color: ${(props) => (props.isEmail ? '#fff' : '#009DBF')};
+    background-color: ${(props) =>
+        props.isEmail ? props.theme.primaryBlue : props.theme.white};
+    color: ${(props) =>
+        props.isEmail ? props.theme.white : props.theme.primaryBlue};
 `;

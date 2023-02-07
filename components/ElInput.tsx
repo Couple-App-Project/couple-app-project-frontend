@@ -55,14 +55,21 @@ const ElInputWrapper = styled.div`
     &.flex-box {
         display: flex;
         justify-content: center;
-        align-items: normal;
+        align-items: flex-end;
     }
     input {
         width: 100%;
-        line-height: 35px;
+        line-height: 2.5rem;
         border-top: none;
         border-left: none;
         border-right: none;
-        border-bottom: 1px solid #e9e9e9;
+        border-bottom: 1px solid ${(props) => props.theme.grey_2};
+
+        &::placeholder {
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            font-weight: 400;
+            color: ${(props) => props.theme.grey_4};
+        }
     }
 `;
