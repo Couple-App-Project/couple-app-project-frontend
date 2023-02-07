@@ -46,11 +46,13 @@ ElButton.defaultProps = {
 
 const Button = styled.button`
     width: ${(props: any) => props.width};
-    line-height: 48px;
+    line-height: 3rem;
     text-align: center;
-    font-size: 14px;
-    color: #fff;
+    font-size: 0.825rem;
+    font-weight: 400;
+    color: ${(props: any) =>
+        props._disabled ? props.theme.grey_4 : props.theme.white};
     background-color: ${(props: any) =>
-        props._disabled ? '#a8aab2' : '#FF6E7F'};
-    border-radius: 4px;
+        props._disabled ? props.theme.grey_3 : props.theme.primaryPink};
+    border-radius: 50px;
 `;
