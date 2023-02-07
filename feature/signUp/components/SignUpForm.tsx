@@ -40,6 +40,8 @@ const SignUpFrom = ({
                         onClick={() =>
                             userInfo.email
                                 ? checkHandler()
+                                : fieldErr.email
+                                ? alert('이메일 형식에 맞게 입력해 주세요.')
                                 : alert('아이디를 입력해 주세요.')
                         }
                     >
@@ -69,7 +71,8 @@ const SignUpFrom = ({
             >
                 {fieldFocus.password && fieldErr.password && (
                     <Body_4 className="err-text">
-                        영문자, 숫자, 특수문자 조합으로 8~20자리를 입력해주세요.
+                        8~20자 이내로 영문 대소문자, 숫자를 3가지 이상 혼용하여
+                        입력해 주세요.
                     </Body_4>
                 )}
             </ElInput>
@@ -105,9 +108,10 @@ const SignUpFrom = ({
                 <select
                     name="gender"
                     className={userInfo.gender ? 'selected' : 'placeholder'}
+                    value={userInfo.gender}
                     onChange={(e) => onChangeInfo(e)}
                 >
-                    <option value="" disabled selected hidden>
+                    <option value="" disabled hidden>
                         성별
                     </option>
                     {Object.entries(GENDER_LIST).map((el, i) => {
@@ -147,6 +151,12 @@ const FormWrapper = styled.form`
     .err-text {
         margin-top: 5px;
         color: ${(props) => props.theme.grey_6};
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 40rem ${(props) => props.theme.white} inset;
     }
 
     .select-box,
