@@ -81,7 +81,7 @@ const CalendarForm = () => {
         content: ''
     }
     const [schedule, setSchedule] = useState(defaultValue);
-    const [activeType, setActiveType] = useState('데이트');
+    const [activeType, setActiveType] = useState(schedule.type);
     
     const calendarInfo = useQueryCalenderDetail()?.data?.data?.data
 
