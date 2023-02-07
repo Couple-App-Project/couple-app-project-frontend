@@ -101,9 +101,11 @@ const CalendarForm = () => {
                     content: calendarInfo?.content
                 }
             )
+            setActiveType(calendarInfo?.type)
             }
         }, [calendarInfo])
 
+    
     const scheduleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
