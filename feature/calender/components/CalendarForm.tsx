@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect,useState } from 'react';
 import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
 import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
+import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar'
 
 import {useRouter} from 'next/router';
 import styled from 'styled-components';
@@ -68,6 +69,7 @@ const CalendarForm = () => {
     const {calendarId} = router.query
 
     const createCalendar = useMutationPostCalendar();
+    const updateCalendar = useMutationUpdateCalendar();
     const defaultDate = `${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2,'0')}`
 
     let defaultValue = {
@@ -129,12 +131,18 @@ const CalendarForm = () => {
         }
     };
 
-    const postNewSchedule = () => {
+    const saveSchedule = () => {
         if (schedule.title==='' || schedule.location==='') {
             alert('모든 정보를 입력해주세요')
             return
         }
-        createCalendar(schedule)
+
+        // console.log(router.query?.calendarId)
+        if(router.pathname === '/calendar/register') {
+            createCalendar(schedule)
+        } else {
+            updateCalendar({calendarInfo:schedule, calendarId:router.query.calendarId})
+        }
     }
 
     return (
@@ -142,7 +150,7 @@ const CalendarForm = () => {
             <Header>
                 <Cancel onClick={() => router.push('/calendar')}/>
                 {/* {router.pathname==='/calendar/register'?<h1>일정</h1>:<h1>편집</h1>} */}
-                <button onClick={postNewSchedule}>저장</button>
+                <button onClick={saveSchedule}>저장</button>
             </Header>
 
             <InputCommon>
