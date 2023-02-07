@@ -3,10 +3,8 @@ import { useEffect,useState } from 'react';
 import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
 import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
 
-import Image from 'next/image';
 import {useRouter} from 'next/router';
 import styled from 'styled-components';
-// import Radio from '../components/Radio';
 import Grid from 'components/Grid';
 import Button from './Button'
 import FormInput from './FormInput';
@@ -41,9 +39,7 @@ const InputCommon = styled.div`
 `
 
 const TypeContainer = styled(InputCommon)`
-    all: unset;
-    display: flex;
-    margin: 11px 0;
+    padding: 11px 0;
 
     button {
         &:nth-child(2) {
@@ -62,7 +58,6 @@ const TimeInputContainer = styled(InputCommon)`
     }
 `
 const IconInputContainer = styled(InputCommon)`
-    display: flex;
     input {
         margin-left: 16px;
     }
