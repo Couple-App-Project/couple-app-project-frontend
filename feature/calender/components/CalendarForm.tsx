@@ -2,12 +2,13 @@ import React from 'react';
 import { useEffect,useState } from 'react';
 import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
 import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
+import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar'
 
-import Image from 'next/image';
 import {useRouter} from 'next/router';
 import styled from 'styled-components';
-// import Radio from '../components/Radio';
+import Grid from 'components/Grid';
 import Button from './Button'
+import FormInput from './FormInput';
 
 import Cancel from 'public/icons/cancel.svg'
 import Calendar from 'public/icons/calendar.svg';
@@ -15,21 +16,60 @@ import Clock from 'public/icons/clock.svg';
 import MarkerPin from 'public/icons/marker-pin.svg';
 import Memo from 'public/icons/memo.svg';
 
+
 const Header = styled.header`
     display: flex;
     justify-content: space-between;
-`
-const FieldsetStyle = styled.fieldset`
-    all: unset;
-    display: flex;
-`;
+    margin-bottom: 16px;
 
+    button {
+        background: #fff;
+        font-size: 16px;
+        line-height: 18px;
+    }
+`
+
+const InputCommon = styled.div`
+    border-bottom: 1px solid ${props=>props.theme.grey_2};
+    display: flex;
+    align-items: center;
+
+    svg {
+        overflow: visible;
+    }
+`
+
+const TypeContainer = styled(InputCommon)`
+    padding: 11px 0;
+
+    button {
+        &:nth-child(2) {
+            margin-left: 16px;
+        }
+        &:last-child {
+            margin-left: 8px;
+        }
+    }
+`;
+const TimeInputContainer = styled(InputCommon)`
+    padding: 18px 0;
+    input {
+        border: none;
+        margin-left: 16px;
+    }
+`
+const IconInputContainer = styled(InputCommon)`
+    input {
+        margin-left: 16px;
+    }
+`
 
 const CalendarForm = () => {
     const router = useRouter();
     const {calendarId} = router.query
 
     const createCalendar = useMutationPostCalendar();
+    const updateCalendar = useMutationUpdateCalendar();
     const defaultDate = `${new Date().getFullYear()}-${String(new Date().getMonth()+1).padStart(2, '0')}-${String(new Date().getDate()).padStart(2,'0')}`
 
     let defaultValue = {
@@ -42,27 +82,30 @@ const CalendarForm = () => {
         location: '',
         content: ''
     }
-
-
-    // useEffect(()=>{
-
-    // }, [])
-    const calendarInfo = useQueryCalenderDetail()?.data?.data?.data
-    if(calendarId!==undefined) {
-        defaultValue = {
-            title: calendarInfo?.title,
-            type: calendarInfo?.type,
-            startDate: calendarInfo?.startDate,
-            endDate: calendarInfo?.endDate,
-            startTime: calendarInfo?.startTime,
-            endTime: calendarInfo?.endTime,
-            location: calendarInfo?.location,
-            content: calendarInfo?.content
-        }
-    }
-
     const [schedule, setSchedule] = useState(defaultValue);
+    const [activeType, setActiveType] = useState(schedule.type);
+    
+    const calendarInfo = useQueryCalenderDetail()?.data?.data?.data
 
+    useEffect(()=>{
+        if(calendarId!==undefined) {
+            setSchedule(
+                {
+                    title: calendarInfo?.title,
+                    type: calendarInfo?.type,
+                    startDate: calendarInfo?.startDate,
+                    endDate: calendarInfo?.endDate,
+                    startTime: calendarInfo?.startTime,
+                    endTime: calendarInfo?.endTime,
+                    location: calendarInfo?.location,
+                    content: calendarInfo?.content
+                }
+            )
+            setActiveType(calendarInfo?.type)
+            }
+        }, [calendarInfo])
+
+    
     const scheduleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
@@ -84,74 +127,85 @@ const CalendarForm = () => {
                 [name]: value,
             });
         }
+
+        if (name === 'type') {
+            setActiveType(value)
+        }
     };
 
-    const postNewSchedule = () => {
-        if (schedule.title==='' || schedule.location==='') alert('모든 정보를 입력해주세요')
-        createCalendar(schedule)
+    const saveSchedule = () => {
+        if (schedule.title==='' || schedule.location==='') {
+            alert('모든 정보를 입력해주세요')
+            return
+        }
+
+        // console.log(router.query?.calendarId)
+        if(router.pathname === '/calendar/register') {
+            createCalendar(schedule)
+        } else {
+            updateCalendar({calendarInfo:schedule, calendarId:router.query.calendarId})
+        }
     }
 
     return (
-        <div>
+        <Grid>
             <Header>
-                <Image src={Cancel} width="16px" height="16px" onClick={() => router.push('/calendar')}/>
+                <Cancel onClick={() => router.push('/calendar')}/>
                 {/* {router.pathname==='/calendar/register'?<h1>일정</h1>:<h1>편집</h1>} */}
-                <button onClick={postNewSchedule}>저장</button>
+                <button onClick={saveSchedule}>저장</button>
             </Header>
-            <br />
 
-            <input
-                placeholder="제목"
-                name="title"
-                value={schedule.title}
-                onChange={scheduleChange}
-            />
+            <InputCommon>
+                <FormInput
+                    _name='title'
+                    _placeholder='제목'
+                    value={schedule.title}
+                    _onChange={scheduleChange}
+                />
+            </InputCommon>
 
-            <FieldsetStyle>
-                <Image src={Calendar} width="16px" height="16px"/>
-                <Button _onClick={scheduleChange}>데이트</Button>
-                <Button _onClick={scheduleChange}>기념일</Button>
-                {/* <Radio value="데이트" _onChange={scheduleChange} checked={true}>
-                    데이트
-                </Radio>
-                <Radio value="기념일" _onChange={scheduleChange}>
-                    기념일
-                </Radio> */}
-            </FieldsetStyle>
+            <TypeContainer>
+                <Calendar/>
+                <Button _onClick={scheduleChange} active={activeType==='데이트'}>데이트</Button>
+                <Button _onClick={scheduleChange} active={activeType==='기념일'}>기념일</Button>
+            </TypeContainer>
 
-            <br />
-            <Image src={Clock} width="16px" height="16px"/>
-            <input
-                type="datetime-local"
-                name="startDateTime"
-                value={schedule.startDate+'T'+schedule.startTime}
-                onChange={scheduleChange}
-            />
-            <input
-                type="datetime-local"
-                name="endDateTime"
-                value={schedule.endDate+'T'+schedule.endTime}
-                onChange={scheduleChange}
-            />
+            <TimeInputContainer>
+                <Clock/>
+                <input
+                    type="datetime-local"
+                    name="startDateTime"
+                    value={schedule.startDate+'T'+schedule.startTime}
+                    onChange={scheduleChange}
+                />
+                <input
+                    type="datetime-local"
+                    name="endDateTime"
+                    value={schedule.endDate+'T'+schedule.endTime}
+                    onChange={scheduleChange}
+                />
+            </TimeInputContainer>
 
-            <br />
-            <Image src={MarkerPin} width="16px" height="16px"/>
-            <input
-                placeholder="장소"
-                name="location"
-                value={schedule.location}
-                onChange={scheduleChange}
-            />
+            <IconInputContainer>
+                <MarkerPin/>
+                <FormInput
+                    _name='location'
+                    _placeholder='장소'
+                    value={schedule.location}
+                    _onChange={scheduleChange}
+                />
+            </IconInputContainer>
 
-            <br />
-            <Image src={Memo} width="16px" height="16px"/>
-            <input
-                placeholder="메모"
-                name="content"
-                value={schedule.content}
-                onChange={scheduleChange}
-            />
-        </div>
+            <IconInputContainer>
+                <Memo/>
+                <FormInput
+                    _name='content'
+                    _placeholder='메모'
+                    value={schedule.content}
+                    _onChange={scheduleChange}
+                />
+            </IconInputContainer>
+        </Grid>
     );
 };
 

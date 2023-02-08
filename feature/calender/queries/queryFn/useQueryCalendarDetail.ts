@@ -9,7 +9,9 @@ const useQueryCalenderDetail = () => {
     // console.log(typeof calendarId)
 
     return useQuery(queryKeys.calendarDetail(), () =>
-        apiKeys.getCalendarDetail(calendarId),
+        apiKeys.getCalendarDetail(calendarId), {
+            enabled: typeof calendarId === 'string',
+        }
     );
 };
 
