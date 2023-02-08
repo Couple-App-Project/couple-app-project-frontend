@@ -13,8 +13,8 @@ const apiKeys = {
     postNewCalendar: async (calendarInfo: object) =>
         await instance.post('/calendars', calendarInfo),
 
-    rewriteCalendar: async (calendarInfo: object) =>
-        await instance.put('/calendars', calendarInfo),
+    rewriteCalendar: async (calendarInfo: {calendarInfo:object, calendarId: any}) =>
+        await instance.put(`/calendars/${calendarInfo.calendarId}`, calendarInfo.calendarInfo),
 };
 
 export default apiKeys;
