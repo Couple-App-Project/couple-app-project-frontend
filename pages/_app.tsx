@@ -14,7 +14,7 @@ import BottomNavi from 'feature/common/components/BottomNavi';
 import Device from 'layouts/Device';
 import Head from 'next/head';
 import { ThemeProvider } from 'styled-components';
-import defaultTheme from 'styles/colors';
+import defaultTheme from 'styles/theme';
 
 function MyApp({
     Component,
