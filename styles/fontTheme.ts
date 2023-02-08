@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Title_1 = styled.h1`
     font-size: 28px;
@@ -81,7 +81,7 @@ export const Body_4 = styled.p`
 export const Uhbee = styled.p`
     font-size: 16px;
     line-height: 22px;
-`
+`;
 
 export const Input_1 = styled.input`
     font-size: 16px;
