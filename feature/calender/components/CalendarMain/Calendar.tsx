@@ -3,20 +3,12 @@ import styled from 'styled-components';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { ko } from 'date-fns/locale';
-import { getYear, format } from 'date-fns';
+import { getYear } from 'date-fns';
 import type { CalendarMainPropsType } from '../../types/CalendarMainPropsType';
 import { useRecoilValue } from 'recoil';
 import calendersState from 'recoil/calendersState';
 import { isSunday, dayArray } from '../../modules/functions';
-import { DayContent, DayContentProps } from 'react-day-picker';
-
-const DayWrpper = (props: DayContentProps) => {
-    return (
-        <div className="day-content">
-            <DayContent {...props} />
-        </div>
-    );
-};
+import { CalendarCaption, CalendarDay } from '../index';
 
 const Calendar = ({
     changeDate,
@@ -48,7 +40,7 @@ const Calendar = ({
             selected={selectedDay}
             onSelect={setSelectedDay}
             locale={ko}
-            components={{ DayContent: DayWrpper }}
+            components={{ Caption: CalendarCaption, DayContent: CalendarDay }}
             modifiers={{ isSunday, date, anniversary }}
             modifiersClassNames={{
                 isSunday: 'sunday-class',
@@ -62,15 +54,8 @@ const Calendar = ({
 export default Calendar;
 
 const DayPickers = styled(DayPicker)`
-    .rdp-caption_dropdowns {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: flex-end;
-        align-items: center;
-    }
-    .rdp-dropdown_year,
-    .rdp-dropdown_month {
-        display: block;
+    .rdp-month {
+        width: 100%;
     }
 
     .rdp-head_row th:first-child,
