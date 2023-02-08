@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-const CalenderAddButton = () => {
+const CalendarAddButton = () => {
     return <AddBtn>버튼</AddBtn>;
 };
 
-export default CalenderAddButton;
+export default CalendarAddButton;
 
 const AddBtn = styled.button``;
