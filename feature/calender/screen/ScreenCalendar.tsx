@@ -32,4 +32,8 @@ const ScreenCalender = () => {
 
 export default ScreenCalender;
 
-const CalenderWrapper = styled.div``;
+const CalenderWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+`;
