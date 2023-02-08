@@ -58,19 +58,66 @@ const DayPickers = styled(DayPicker)`
         width: 100%;
     }
 
-    .rdp-head_row th:first-child,
-    .sunday-class {
-        color: #fa1c37;
-    }
-    button {
-        color: #3b3d49;
-    }
+    .rdp-table {
+        width: 100%;
+        max-width: 100%;
 
-    .rdp-day_selected {
-        background-color: transparent;
+        .rdp-head_cell {
+            font-size: 0.75rem;
+            line-height: 1rem;
+            font-weight: 400;
+            color: ${(props) => props.theme.grey_5};
+        }
+
+        .rdp-cell {
+            button {
+                position: relative;
+                width: 100%;
+                max-width: 100%;
+                height: 3rem;
+            }
+
+            .calendar-circle {
+                li {
+                    display: none;
+                }
+            }
+
+            .anniversary-class {
+                .calendar-circle {
+                    .anniversary-circle {
+                        display: block;
+                    }
+                }
+            }
+
+            .date-class {
+                .calendar-circle {
+                    .date-circle {
+                        display: block;
+                    }
+                }
+            }
+        }
+
         .day-content {
-            background-color: #3b3d49;
-            color: #fff;
+            color: ${(props) => props.theme.grey_6};
+        }
+
+        .rdp-head_row th:first-child,
+        .sunday-class .day-content {
+            color: ${(props) => props.theme.red};
+        }
+
+        .rdp-day_selected {
+            background-color: transparent;
+            .day-content {
+                width: 1.875rem;
+                line-height: 1.875rem;
+                background-color: #3b3d49;
+                color: #fff;
+                border-radius: 50%;
+            }
         }
     }
 `;
