@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import {
-    CalenderMain,
-    CalenderDayDetail,
-    CalenderAddButton,
-} from '../components';
+import { Calendar, CalendarDayDetail, CalendarAddButton } from '../components';
 import { format } from 'date-fns';
 import { useQueryCalenders } from '../queries/queryFn';
 
@@ -23,17 +19,21 @@ const ScreenCalender = () => {
 
     return (
         <CalenderWrapper>
-            <CalenderMain
+            <Calendar
                 selectedDay={selectedDay}
                 setSelectedDay={setSelectedDay}
                 changeDate={changeDate}
             />
-            <CalenderDayDetail selectedDay={selectedDay} />
-            <CalenderAddButton />
+            <CalendarDayDetail selectedDay={selectedDay} />
+            <CalendarAddButton />
         </CalenderWrapper>
     );
 };
 
 export default ScreenCalender;
 
-const CalenderWrapper = styled.div``;
+const CalenderWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+`;

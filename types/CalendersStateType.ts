@@ -1,5 +1,5 @@
 interface CalendersStateType {
-    calendarId: 3;
+    calendarId: number;
     authorInfo: {
         userId: number;
         userName: string;

@@ -1,3 +1,5 @@
-export { default as CalenderMain } from './CalenderMain';
-export { default as CalenderDayDetail } from './CalenderDayDetail';
-export { default as CalenderAddButton } from './CalenderAddButton';
+export { default as Calendar } from './CalendarMain/Calendar';
+export { default as CalendarCaption } from './CalendarMain/CalendarCaption';
+export { default as CalendarDay } from './CalendarMain/CalendarDay';
+export { default as CalendarDayDetail } from './CalendarMain/CalendarDayDetail';
+export { default as CalendarAddButton } from './CalendarMain/CalendarAddButton';

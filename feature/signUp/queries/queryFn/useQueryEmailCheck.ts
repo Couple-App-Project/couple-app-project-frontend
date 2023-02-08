@@ -7,6 +7,7 @@ const useQueryEmailCheck = (email: string) => {
         queryKeys.userEmailCheck(email),
         () => apiKeys.checkEmail(email),
         {
+            retry: false,
             enabled: false,
             onError: (err: any) => {
                 alert(err.response.data.message);
