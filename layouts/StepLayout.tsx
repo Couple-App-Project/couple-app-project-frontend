@@ -4,7 +4,6 @@ import Back from 'public/images/icons/back.svg';
 import Close from 'public/images/icons/close.svg';
 import Calendar from 'public/images/illustrations/calendar.svg';
 import { useRouter } from 'next/router';
-import { Subhead_2, Subhead_4 } from 'styles/fontTheme';
 
 interface StepLayoutProps {
     title: string;
@@ -48,12 +47,12 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
             )}
             <div className={`title-box style${COMPONENT_LIST[title].id}`}>
                 {COMPONENT_LIST[title].id !== 3 && (
-                    <Subhead_2>{title}</Subhead_2>
+                    <h3 className="layout-title">{title}</h3>
                 )}
                 <div className="step-num">
                     {Object.entries(COMPONENT_LIST).map((el, i) => {
                         return (
-                            <Subhead_4
+                            <div
                                 key={i}
                                 className={
                                     COMPONENT_LIST[title].id >= el[1].id
@@ -62,14 +61,14 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
                                 }
                             >
                                 {el[1].id}
-                            </Subhead_4>
+                            </div>
                         );
                     })}
                 </div>
                 {COMPONENT_LIST[title].id === 3 && (
                     <>
                         <Calendar />
-                        <Subhead_2>{title}</Subhead_2>
+                        <h3 className="layout-title">{title}</h3>
                     </>
                 )}
             </div>
@@ -94,7 +93,8 @@ const StepLayoutWrapper = styled.div`
         justify-content: space-between;
         align-items: center;
 
-        p {
+        .layout-title {
+            ${(props) => props.theme.Subhead_2};
             color: ${(props) => props.theme.grey_6};
         }
 
@@ -103,8 +103,9 @@ const StepLayoutWrapper = styled.div`
             justify-content: flex-start;
             align-items: center;
 
-            p {
+            div {
                 width: 1.75rem;
+                ${(props) => props.theme.Subhead_4};
                 line-height: 1.75rem;
                 color: ${(props) => props.theme.white};
                 background-color: ${(props) => props.theme.grey_3};
@@ -146,7 +147,7 @@ const StepLayoutWrapper = styled.div`
             width: 100%;
             margin-bottom: 1.625rem;
         }
-        p {
+        .layout-title {
             width: 100%;
             margin: 2.5rem 0 0.75rem;
         }

@@ -3,7 +3,6 @@ import type { FormPropsType } from '../types/FormPropsTypes';
 import { handlerCopy, handlerShare } from '../modules/functions';
 import Copy from 'public/images/icons/copy.svg';
 import Share from 'public/images/icons/share.svg';
-import { Body_2 } from 'styles/fontTheme';
 
 const CoupleCodeForm = ({
     userCode,
@@ -14,7 +13,7 @@ const CoupleCodeForm = ({
     return (
         <FormWrapper onSubmit={createCoupleConnet} id="커플 코드">
             <div className="user-code-content">
-                <Body_2>내 코드를 상대방에게 복사 또는 공유하세요.</Body_2>
+                <h3>내 코드를 상대방에게 복사 또는 공유하세요.</h3>
                 <div>
                     <input type="text" defaultValue={userCode} disabled />
                     <div className="icon-content">
@@ -26,7 +25,7 @@ const CoupleCodeForm = ({
                 </div>
             </div>
             <div className="invite-code-content">
-                <Body_2>커플 코드를 받으셨나요?</Body_2>
+                <h3>커플 코드를 받으셨나요?</h3>
                 <input
                     type="text"
                     placeholder="코드 입력"
@@ -43,9 +42,14 @@ export default CoupleCodeForm;
 const FormWrapper = styled.form`
     margin-top: 4.875rem;
 
-    p,
+    h3,
     input {
         color: ${(props) => props.theme.grey_6};
+    }
+
+    h3 {
+        margin-bottom: 0.375rem;
+        ${(props) => props.theme.Body_2}
     }
 
     input {
@@ -57,10 +61,6 @@ const FormWrapper = styled.form`
         &::placeholder {
             color: ${(props) => props.theme.grey_4};
         }
-    }
-
-    p {
-        margin-bottom: 0.375rem;
     }
 
     input,
