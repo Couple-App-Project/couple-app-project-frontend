@@ -7,8 +7,7 @@ import {
     CalendarSearch,
 } from '../components';
 import { format } from 'date-fns';
-import { useQueryCalenders } from '../queries/queryFn';
-import useInput from 'hooks/useInput';
+import { useQueryCalendarSearch, useQueryCalendars } from '../queries/queryFn';
 import { useRecoilValue } from 'recoil';
 import isSearchState from 'recoil/isSearchState';
 
@@ -17,15 +16,22 @@ const ScreenCalender = () => {
         new Date(),
     );
 
+    const [search, setSearch] = useState({ keyword: '', type: undefined });
+
+    const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch((prev) => {
+            return { ...prev, [e.target.name]: e.target.value };
+        });
+    };
+
     const [selectDate, setSelectDate] = useState(format(new Date(), 'yyMM'));
 
     const changeDate = (e: any) => {
         setSelectDate(format(e, 'yyMM'));
     };
 
-    const { isLoading } = useQueryCalenders(selectDate);
-
-    const [search, onChangeSearch] = useInput('');
+    const { isLoading } = useQueryCalendars(selectDate);
+    const { data } = useQueryCalendarSearch(search);
 
     const isSearch = useRecoilValue(isSearchState);
 
@@ -38,7 +44,12 @@ const ScreenCalender = () => {
             />
             <CalendarDayDetail selectedDay={selectedDay} />
             <CalendarAddButton />
-            {isSearch && <CalendarSearch />}
+            {isSearch && (
+                <CalendarSearch
+                    search={search}
+                    onChangeSearch={onChangeSearch}
+                />
+            )}
         </CalenderWrapper>
     );
 };

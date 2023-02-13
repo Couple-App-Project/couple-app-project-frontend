@@ -4,13 +4,13 @@ import calendersState from 'recoil/calendersState';
 import apiKeys from '../apiKeys';
 import queryKeys from '../queryKeys';
 
-const useQueryCalenders = (date: string) => {
+const useQueryCalenders = (month: string) => {
     const setCalenders = useSetRecoilState(calendersState);
     return useQuery(
-        queryKeys.coupleCalender(date),
-        () => apiKeys.getCoupleCalenders(date),
+        queryKeys.calendar(month),
+        () => apiKeys.getCalendar({ month }),
         {
-            enabled: !!date,
+            enabled: !!month,
             onError: (err) => {
                 console.log(err);
             },
@@ -20,7 +20,5 @@ const useQueryCalenders = (date: string) => {
         },
     );
 };
-
-
 
 export default useQueryCalenders;

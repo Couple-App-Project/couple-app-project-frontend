@@ -14,7 +14,6 @@ const Calendar = ({
     changeDate,
     selectedDay,
     setSelectedDay,
-    onIsSearch,
 }: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
     const date = dayArray(calenderList)

@@ -3,7 +3,15 @@ import Back from 'public/images/icons/arrow-back.svg';
 import { useSetRecoilState } from 'recoil';
 import isSearchState from 'recoil/isSearchState';
 
-const CalendarSearch = () => {
+interface CalendarSearchPropsType {
+    search: { keyword: string; type?: string };
+    onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+const CalendarSearch = ({
+    search,
+    onChangeSearch,
+}: CalendarSearchPropsType) => {
     const isSearch = useSetRecoilState(isSearchState);
     return (
         <SearchContainer>
@@ -11,7 +19,12 @@ const CalendarSearch = () => {
                 <div onClick={() => isSearch('')}>
                     <Back />
                 </div>
-                <input type="text" />
+                <input
+                    type="text"
+                    value={search.keyword}
+                    name="keyword"
+                    onChange={(e) => onChangeSearch(e)}
+                />
             </div>
         </SearchContainer>
     );
@@ -21,7 +34,7 @@ export default CalendarSearch;
 
 const SearchContainer = styled.div`
     position: absolute;
-    z-index: 1;
+    z-index: 5;
     width: 100%;
     height: 100%;
     background: ${(props) => props.theme.white};

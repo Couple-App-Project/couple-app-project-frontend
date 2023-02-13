@@ -1,6 +1,9 @@
+import type { CalendarParamsType } from '../types/CalendarParamsType';
+
 const queryKeys = {
-    coupleCalender: (date: string) => ['coupleCalender', date],
-    calendarDetail: () => ['calendarDetail']
+    calendar: (month: string) => ['calendar', month],
+    calendarDetail: () => ['calendarDetail'],
+    calenderSearch: (search: CalendarParamsType) => ['calenderSearch', search],
 };
 
 export default queryKeys;
