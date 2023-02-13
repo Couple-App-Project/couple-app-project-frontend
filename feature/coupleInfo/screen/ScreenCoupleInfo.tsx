@@ -1,6 +1,7 @@
 import StepLayout from 'layouts/StepLayout';
 import { useState } from 'react';
 import CoupleInfoForm from '../components/CoupleInfoForm';
+import { useMutationCoupleInfo } from '../queries/mutationFn';
 
 const ScreenCoupleInfo = () => {
     const [coupleData, setCoupleData] = useState({
@@ -14,6 +15,13 @@ const ScreenCoupleInfo = () => {
         });
     };
 
+    const coupleInfoMutation = useMutationCoupleInfo();
+
+    const createCoupleInfo = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        coupleInfoMutation(coupleData);
+    };
+
     return (
         <StepLayout
             title="커플이 된 날은 언제인가요?"
@@ -22,6 +30,7 @@ const ScreenCoupleInfo = () => {
             <CoupleInfoForm
                 coupleData={coupleData}
                 onChangeCoupleInfo={onChangeCoupleInfo}
+                createCoupleInfo={createCoupleInfo}
             />
         </StepLayout>
     );
