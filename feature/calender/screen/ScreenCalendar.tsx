@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Calendar, CalendarDayDetail, CalendarAddButton } from '../components';
+import {
+    Calendar,
+    CalendarDayDetail,
+    CalendarAddButton,
+    CalendarSearch,
+} from '../components';
 import { format } from 'date-fns';
 import { useQueryCalenders } from '../queries/queryFn';
+import useInput from 'hooks/useInput';
+import { useRecoilValue } from 'recoil';
+import isSearchState from 'recoil/isSearchState';
 
 const ScreenCalender = () => {
     const [selectedDay, setSelectedDay] = useState<Date | undefined>(
@@ -17,6 +25,10 @@ const ScreenCalender = () => {
 
     const { isLoading } = useQueryCalenders(selectDate);
 
+    const [search, onChangeSearch] = useInput('');
+
+    const isSearch = useRecoilValue(isSearchState);
+
     return (
         <CalenderWrapper>
             <Calendar
@@ -26,6 +38,7 @@ const ScreenCalender = () => {
             />
             <CalendarDayDetail selectedDay={selectedDay} />
             <CalendarAddButton />
+            {isSearch && <CalendarSearch />}
         </CalenderWrapper>
     );
 };
