@@ -1,15 +1,22 @@
 import styled from 'styled-components';
-import { Body_2 } from 'styles/fontTheme';
 import DropDown from 'public/images/icons/drop-down.svg';
 
 interface FormProps {
     coupleData: { anniversary: string; nickname: string };
     onChangeCoupleInfo: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    createCoupleInfo: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const CoupleInfoForm = ({ coupleData, onChangeCoupleInfo }: FormProps) => {
+const CoupleInfoForm = ({
+    coupleData,
+    onChangeCoupleInfo,
+    createCoupleInfo,
+}: FormProps) => {
     return (
-        <FormWrapper>
+        <FormWrapper
+            onSubmit={createCoupleInfo}
+            id="커플이 된 날은 언제인가요?"
+        >
             <div className="date-box">
                 <input
                     type="date"
@@ -26,7 +33,7 @@ const CoupleInfoForm = ({ coupleData, onChangeCoupleInfo }: FormProps) => {
                 <DropDown />
             </div>
             <div className="nickname-box">
-                <Body_2>꾸욱에서 사용할 상대방 애칭을 적어주세요.</Body_2>
+                <h3>꾸욱에서 사용할 상대방 애칭을 적어주세요.</h3>
                 <input
                     type="text"
                     name="nickname"
@@ -102,9 +109,10 @@ const FormWrapper = styled.form`
     }
 
     .nickname-box {
-        p {
+        h3 {
             margin-bottom: 0.375rem;
             color: ${(props) => props.theme.grey_6};
+            ${(props) => props.theme.Body_2}
         }
     }
 `;

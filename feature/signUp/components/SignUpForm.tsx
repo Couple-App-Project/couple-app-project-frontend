@@ -3,7 +3,6 @@ import type { FormPropsType } from '../types/FormPropsType';
 import GENDER_LIST from '../modules/variables/genderList';
 import { ElInput } from 'components';
 import DropDown from 'public/images/icons/drop-down.svg';
-import { Body_4 } from 'styles/fontTheme';
 
 const SignUpFrom = ({
     userInfo,
@@ -48,9 +47,9 @@ const SignUpFrom = ({
                     </CheckButton>
                 </ElInput>
                 {fieldFocus.email && fieldErr.email && (
-                    <Body_4 className="err-text">
+                    <p className="err-text">
                         이메일 형식에 맞게 입력해 주세요.
-                    </Body_4>
+                    </p>
                 )}
             </div>
             <ElInput
@@ -69,10 +68,10 @@ const SignUpFrom = ({
                 }}
             >
                 {fieldFocus.password && fieldErr.password && (
-                    <Body_4 className="err-text">
+                    <p className="err-text">
                         8~20자 이내로 영문 대소문자, 숫자를 3가지 이상 혼용하여
                         입력해 주세요.
-                    </Body_4>
+                    </p>
                 )}
             </ElInput>
             <ElInput
@@ -91,9 +90,7 @@ const SignUpFrom = ({
                 }}
             >
                 {fieldFocus.pwdConfirm && fieldErr.pwdConfirm && (
-                    <Body_4 className="err-text">
-                        비밀번호가 일치하지 않습니다.
-                    </Body_4>
+                    <p className="err-text">비밀번호가 일치하지 않습니다.</p>
                 )}
             </ElInput>
             <ElInput
@@ -152,6 +149,7 @@ const FormWrapper = styled.form`
     .err-text {
         margin-top: 5px;
         color: ${(props) => props.theme.grey_6};
+        ${(props) => props.theme.Body_4};
     }
 
     input:-webkit-autofill,

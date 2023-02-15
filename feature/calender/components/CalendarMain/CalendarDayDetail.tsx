@@ -5,7 +5,6 @@ import type { CalendarMainPropsType } from '../../types/CalendarMainPropsType';
 import { useRecoilValue } from 'recoil';
 import calendersState from 'recoil/calendersState';
 import { dayArray, changeGetDay } from '../../modules/functions';
-import { Body_2 } from 'styles/fontTheme';
 
 const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
@@ -17,15 +16,15 @@ const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
 
     return (
         <DayDetailWrpper>
-            <Body_2>{`${getMonth(selectedDay || new Date()) + 1}월 ${getDate(
+            <h3>{`${getMonth(selectedDay || new Date()) + 1}월 ${getDate(
                 selectedDay || new Date(),
-            )}일 (${changeGetDay(getDay(selectedDay || new Date()))})`}</Body_2>
+            )}일 (${changeGetDay(getDay(selectedDay || new Date()))})`}</h3>
             <ul>
                 {selectDetailList?.map((cur, idx) => {
                     return (
                         <li key={idx}>
                             <div className={`${cur.type}`} />
-                            <Body_2>{cur.title}</Body_2>
+                            <h4>{cur.title}</h4>
                             <span>{`${cur.startTime} - ${cur.endTime}`}</span>
                         </li>
                     );
@@ -42,12 +41,14 @@ const DayDetailWrpper = styled.div`
     background-color: ${(props) => props.theme.grey_1};
     padding: 1rem 1.5rem;
 
-    & > p {
+    h3 {
         margin-bottom: 0.75rem;
     }
 
-    p {
+    h3,
+    h4 {
         color: ${(props) => props.theme.grey_6};
+        ${(props) => props.theme.Body_2};
     }
 
     ul {

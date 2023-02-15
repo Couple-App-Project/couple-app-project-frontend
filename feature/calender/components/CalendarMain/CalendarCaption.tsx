@@ -2,12 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import { CaptionProps, CaptionDropdowns } from 'react-day-picker';
 import Search from 'public/images/icons/search.svg';
+import { useSetRecoilState } from 'recoil';
+import isSearchState from 'recoil/isSearchState';
 
 const CalendarCaption = (props: CaptionProps) => {
+    const isSearch = useSetRecoilState(isSearchState);
     return (
         <CaptionWrapper>
             <CaptionDropdowns displayMonth={props.displayMonth} />
-            <Search />
+            <div onClick={() => isSearch('search')}>
+                <Search />
+            </div>
         </CaptionWrapper>
     );
 };
