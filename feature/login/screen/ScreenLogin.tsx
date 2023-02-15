@@ -3,14 +3,21 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import useMutationLogin from 'feature/login/queries/mutationFn/mutationFn';
 import Grid from 'components/Grid';
-import { Title_3, Body_3 } from 'styles/fontTheme';
 
 const Header = styled.header`
     margin-bottom: 50px;
+
+    h1 {
+        ${(props) => props.theme.Title_3}
+    }
 `;
 const InputLabel = styled.label`
     display: flex;
     flex-direction: column;
+
+    h2 {
+        ${(props) => props.theme.Body_3};
+    }
 
     p {
         margin-bottom: 6px;
@@ -82,13 +89,13 @@ export default function ScreenLogin() {
     return (
         <Grid paddingTop="94px">
             <Header>
-                <Title_3>반가워요!</Title_3>
-                <Title_3>로그인 및 가입하기</Title_3>
+                <h1>반가워요!</h1>
+                <h1>로그인 및 가입하기</h1>
             </Header>
 
             <form onSubmit={(e) => e.preventDefault()}>
                 <InputLabel>
-                    <Body_3>이메일</Body_3>
+                    <h2>이메일</h2>
                     <input
                         type="email"
                         name="email"
@@ -99,7 +106,7 @@ export default function ScreenLogin() {
                 </InputLabel>
 
                 <InputLabel>
-                    <Body_3>비밀번호</Body_3>
+                    <h2>비밀번호</h2>
                     <input
                         type="password"
                         name="password"

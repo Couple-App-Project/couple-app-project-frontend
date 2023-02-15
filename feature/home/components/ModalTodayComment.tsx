@@ -7,7 +7,13 @@ const ModalTodayComment = (props: any) => {
 
     return (
         <Modal closeButton={closeButton} title="오늘의 한마디 작성">
-            <input placeholder="오늘의 한마디를 입력해 주세요" />
+            <form onSubmit={(e) => e.preventDefault()}>
+                <input placeholder="오늘의 한마디를 입력해 주세요" />
+                <p>
+                    <span>0</span>
+                    <span>/15</span>
+                </p>
+            </form>
         </Modal>
     );
 };
