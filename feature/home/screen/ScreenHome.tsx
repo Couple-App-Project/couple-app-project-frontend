@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import styled from 'styled-components';
@@ -8,6 +8,8 @@ import { getDday } from 'utils/getDday';
 import { pixelToRem, pixelToVh } from 'utils/utils';
 import { ICoupleInfo } from '../types/CoupleInfo';
 
+import ModalBackground from '../components/ModalBackground';
+// import ModalTodayComment from '../components/ModalTodayComment';
 import UpcomingSchedule from '../components/UpcomingSchedule';
 import Grid from 'components/Grid';
 
@@ -15,6 +17,7 @@ import Notification from 'public/icons/notification.svg';
 import Heart from 'public/icons/heart.svg';
 import Picture from 'public/icons/picture.svg';
 import Pencil from 'public/icons/pencil.svg';
+import ModalTodayComment from '../components/ModalTodayComment';
 
 const ProfileSection = styled.section`
     height: 100vh;
@@ -38,7 +41,6 @@ const ProfileSection = styled.section`
         margin-bottom: ${pixelToVh(18)};
     }
 `;
-
 const Nickname = styled.p`
     display: flex;
     justify-content: center;
@@ -106,8 +108,7 @@ const IconContainer = styled.div`
         align-items: center;
         width: 36px;
         height: 36px;
-        background: #000;
-        opacity: 48%;
+        background: rgba(0, 0, 0, 0.48);
         border-radius: 50%;
         margin-left: 8px;
     }
@@ -123,6 +124,9 @@ export default function ScreenHome() {
     const queryClient = useQueryClient();
     const mutate = useMutationHome();
 
+    const [openBgModal, setBgModal] = useState(false);
+    const [openCommentModal, setCommentModal] = useState(false);
+
     const coupleInfo: ICoupleInfo | undefined =
         queryClient.getQueryData('couple-info');
     useEffect(() => {
@@ -131,6 +135,13 @@ export default function ScreenHome() {
 
     return (
         <>
+            {openBgModal ? (
+                <ModalBackground closeButton={() => setBgModal(false)} />
+            ) : null}
+            {openCommentModal ? (
+                <ModalTodayComment closeButton={() => setCommentModal(false)} />
+            ) : null}
+
             {coupleInfo && (
                 <ProfileSection>
                     <Notification className="notification" />
@@ -154,10 +165,10 @@ export default function ScreenHome() {
                             <article>즐거운 하루 보내!</article>
 
                             <IconContainer>
-                                <button>
+                                <button onClick={() => setBgModal(true)}>
                                     <Picture />
                                 </button>
-                                <button>
+                                <button onClick={() => setCommentModal(true)}>
                                     <Pencil />
                                 </button>
                             </IconContainer>
