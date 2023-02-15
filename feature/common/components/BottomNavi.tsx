@@ -2,6 +2,7 @@ import React from 'react';
 
 import router from 'next/router';
 import styled from 'styled-components';
+import { pixelToVh } from 'utils/utils';
 
 const NaviContainer = styled.nav`
     display: flex;
@@ -10,8 +11,8 @@ const NaviContainer = styled.nav`
     bottom: 0;
     background: #fff;
     width: 100%;
-    height: 12.5%;
-`
+    height: ${pixelToVh(80)};
+`;
 
 export default function BottomNavi() {
     return (

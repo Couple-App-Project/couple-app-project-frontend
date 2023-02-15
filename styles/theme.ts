@@ -1,6 +1,5 @@
 import { DefaultTheme } from 'styled-components';
-
-const pixelToRem = (size: number) => `${size / 16}rem`;
+import { pixelToRem } from 'utils/utils';
 
 const defaultTheme: DefaultTheme = {
     primaryPink: '#ff6e7f',
