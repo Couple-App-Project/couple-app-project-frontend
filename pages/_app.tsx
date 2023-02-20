@@ -30,6 +30,16 @@ function MyApp({
     //         router.push('./login');
     //     }
     // }
+    const hasBottomNavi = (pathname: string) => {
+        if (
+            pathname === '/home' ||
+            pathname === '/calendar' ||
+            pathname === '/diary' ||
+            pathname === '/settings'
+        )
+            return true;
+        else return false;
+    };
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -44,7 +54,7 @@ function MyApp({
                             <Component {...pageProps} />
                         </RecoilRoot>
                     </Hydrate>
-                    {router.pathname !== '/login' ? <BottomNavi /> : ''}
+                    {hasBottomNavi(router.pathname) ? <BottomNavi /> : ''}
                 </Device>
             </ThemeProvider>
         </QueryClientProvider>
