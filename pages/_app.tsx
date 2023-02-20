@@ -23,13 +23,18 @@ function MyApp({
     const [queryClient] = React.useState(() => new QueryClient());
     const router = useRouter();
 
-    // if (typeof window !== 'undefined') {
-    //     const refreshToken = sessionStorage.getItem('refresh');
-    //     if (router.pathname !== '/login' && refreshToken === null) {
-    //         // alert('로그인 후 사용하세요');
-    //         router.push('./login');
-    //     }
-    // }
+    if (typeof window !== 'undefined') {
+        const refreshToken = sessionStorage.getItem('refresh');
+        if (
+            router.pathname !== '/login' &&
+            router.pathname !== '/signup' &&
+            refreshToken === null
+        ) {
+            // alert('로그인 후 사용하세요');
+            router.push('./login');
+        }
+    }
+
     const hasBottomNavi = (pathname: string) => {
         if (
             pathname === '/home' ||

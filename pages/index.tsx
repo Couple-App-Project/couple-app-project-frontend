@@ -4,11 +4,6 @@ import styles from '../styles/Home.module.css';
 import router from 'next/router';
 
 const Home: NextPage = () => {
-    // if (typeof window !== 'undefined') {
-    //     const isToken = sessionStorage.getItem('access');
-    //     isToken ? router.push('/home') : router.push('/login');
-    // }
-
     return (
         <div className={styles.container}>
             <Head>
