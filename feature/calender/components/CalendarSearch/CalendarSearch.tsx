@@ -1,22 +1,26 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Back from 'public/images/icons/arrow-back.svg';
-import { useSetRecoilState } from 'recoil';
-import isSearchState from 'recoil/isSearchState';
+import { useQueryCalendarSearch } from 'feature/calender/queries/queryFn';
+import { useRouter } from 'next/router';
 
-interface CalendarSearchPropsType {
-    search: { keyword: string; type?: string };
-    onChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+const CalendarSearch = () => {
+    const router = useRouter();
 
-const CalendarSearch = ({
-    search,
-    onChangeSearch,
-}: CalendarSearchPropsType) => {
-    const isSearch = useSetRecoilState(isSearchState);
+    const [search, setSearch] = useState({ keyword: '', type: undefined });
+
+    const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch((prev) => {
+            return { ...prev, [e.target.name]: e.target.value };
+        });
+    };
+
+    const { data } = useQueryCalendarSearch(search);
+
     return (
         <SearchContainer>
             <div className="search-input">
-                <div onClick={() => isSearch('')}>
+                <div onClick={() => router.push('/calendar')}>
                     <Back />
                 </div>
                 <input
