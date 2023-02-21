@@ -1,5 +1,5 @@
 interface CalendarSearchPropsType {
-    search: undefined | string;
+    search: string;
     onChangeSearch: (
         e?:
             | React.ChangeEvent<HTMLInputElement>

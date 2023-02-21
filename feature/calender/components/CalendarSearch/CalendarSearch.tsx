@@ -8,7 +8,7 @@ import {
 } from 'feature/calender/components';
 
 const CalendarSearch = () => {
-    const [search, setSearch] = useState({ keyword: '', type: undefined });
+    const [search, setSearch] = useState({ keyword: '', type: '' });
 
     const onChangeSearch = (
         e?:
