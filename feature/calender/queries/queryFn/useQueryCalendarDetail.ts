@@ -4,14 +4,15 @@ import queryKeys from '../queryKeys';
 import { useRouter } from 'next/router';
 
 const useQueryCalenderDetail = () => {
-    const router = useRouter()
-    const {calendarId} = router.query
-    // console.log(typeof calendarId)
+    const router = useRouter();
+    const { calendarId } = router.query;
 
-    return useQuery(queryKeys.calendarDetail(), () =>
-        apiKeys.getCalendarDetail(calendarId), {
+    return useQuery(
+        queryKeys.calendarDetail(),
+        () => apiKeys.getCalendarDetail(calendarId),
+        {
             enabled: typeof calendarId === 'string',
-        }
+        },
     );
 };
 

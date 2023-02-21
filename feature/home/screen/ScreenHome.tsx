@@ -9,7 +9,7 @@ import { pixelToRem, pixelToVh } from 'utils/utils';
 import { ICoupleInfo } from '../types/CoupleInfo';
 
 import ModalBackground from '../components/ModalBackground';
-// import ModalTodayComment from '../components/ModalTodayComment';
+import ModalTodayComment from '../components/ModalTodayComment';
 import UpcomingSchedule from '../components/UpcomingSchedule';
 import Grid from 'components/Grid';
 
@@ -17,7 +17,6 @@ import Notification from 'public/icons/notification.svg';
 import Heart from 'public/icons/heart.svg';
 import Picture from 'public/icons/picture.svg';
 import Pencil from 'public/icons/pencil.svg';
-import ModalTodayComment from '../components/ModalTodayComment';
 
 const ProfileSection = styled.section`
     height: 100vh;
@@ -161,8 +160,8 @@ export default function ScreenHome() {
                             />
                             <div className="colorFilter"></div>
 
-                            <article>오늘도 화이팅!</article>
-                            <article>즐거운 하루 보내!</article>
+                            <article>{coupleInfo?.myTodayComment}</article>
+                            <article>{coupleInfo?.yourTodayComment}</article>
 
                             <IconContainer>
                                 <button onClick={() => setBgModal(true)}>
