@@ -18,107 +18,87 @@ const NaviContainer = styled.nav`
     background: #fff;
     width: 100%;
     height: ${pixelToVh(80)};
+`;
+const NaviButton = styled.button<any>`
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    button {
-        all: unset;
+    div {
+        width: 24px;
+        height: 24px;
         display: flex;
-        flex-direction: column;
+        justify-content: center;
         align-items: center;
+    }
 
-        div {
-            width: 24px;
-            height: 24px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    span {
+        ${(props) => props.theme.Body_4};
+    }
 
-        span {
-            ${(props) => props.theme.Body_4};
-        }
+    path {
+        fill: ${(props) =>
+            props.currentPage === router.pathname ? '#3b3d49' : '#e2e4ea'};
+    }
+    span {
+        color: ${(props) =>
+            props.currentPage === router.pathname ? '#3b3d49' : '#e2e4ea'};
+    }
+`;
+const NaviRectButton = styled(NaviButton)`
+    path {
+        fill: white;
+    }
+    rect {
+        fill: ${(props) =>
+            props.currentPage === router.pathname ? '#3b3d49' : '#e2e4ea'};
     }
 `;
 
 export default function BottomNavi() {
     const [activePage, setActivePage] = useState(router.pathname);
-    console.log(activePage);
 
     const changePage = (pathname: string) => {
         setActivePage(pathname);
-        console.log(activePage);
         router.push(pathname);
     };
 
     return (
         <NaviContainer>
-            <button onClick={() => changePage('/home')}>
+            <NaviButton onClick={() => changePage('/home')} currentPage="/home">
                 <div>
-                    <Home
-                        fill={activePage === '/home' ? '#3b3d49' : '#e2e4ea'}
-                    />
+                    <Home />
                 </div>
-                <span
-                    style={
-                        activePage === '/home'
-                            ? { color: '#3b3d49' }
-                            : { color: '#e2e4ea' }
-                    }
-                >
-                    홈
-                </span>
-            </button>
-            <button onClick={() => changePage('/calendar')}>
+                <span>홈</span>
+            </NaviButton>
+            <NaviButton
+                onClick={() => changePage('/calendar')}
+                currentPage="/calendar"
+            >
                 <div>
-                    <CalendarFill
-                        fill={
-                            activePage === '/calendar' ? '#3b3d49' : '#e2e4ea'
-                        }
-                    />
+                    <CalendarFill />
                 </div>
-                <span
-                    style={
-                        activePage === '/calendar'
-                            ? { color: '#3b3d49' }
-                            : { color: '#e2e4ea' }
-                    }
-                >
-                    캘린더
-                </span>
-            </button>
-            <button onClick={() => changePage('/diary')}>
+                <span>캘린더</span>
+            </NaviButton>
+            <NaviRectButton
+                onClick={() => changePage('/diary')}
+                currentPage="/diary"
+            >
                 <div>
-                    <RectHeart
-                        fill={activePage === '/diary' ? '#3b3d49' : '#e2e4ea'}
-                    />
+                    <RectHeart />
                 </div>
-                <span
-                    style={
-                        activePage === '/diary'
-                            ? { color: '#3b3d49' }
-                            : { color: '#e2e4ea' }
-                    }
-                >
-                    다이어리
-                </span>
-            </button>
-            <button onClick={() => changePage('/settings')}>
+                <span>다이어리</span>
+            </NaviRectButton>
+            <NaviButton
+                onClick={() => changePage('/settings')}
+                currentPage="/settings"
+            >
                 <div>
-                    <User
-                        fill={
-                            activePage === '/settings' ? '#3b3d49' : '#e2e4ea'
-                        }
-                    />
+                    <User />
                 </div>
-                <span
-                    style={
-                        activePage === '/settings'
-                            ? { color: '#3b3d49' }
-                            : { color: '#e2e4ea' }
-                    }
-                >
-                    마이페이지
-                </span>
-            </button>
+                <span>마이페이지</span>
+            </NaviButton>
         </NaviContainer>
     );
 }
