@@ -6,3 +6,4 @@ export { default as CalendarAddButton } from './CalendarMain/CalendarAddButton';
 export { default as CalendarSearch } from './CalendarSearch/CalendarSearch';
 export { default as SearchInput } from './CalendarSearch/SearchInput';
 export { default as SearchType } from './CalendarSearch/SearchType';
+export { default as SearchList } from './CalendarSearch/SearchList';

@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useQueryCalendarSearch } from 'feature/calender/queries/queryFn';
-import { SearchInput, SearchType } from 'feature/calender/components';
+import {
+    SearchInput,
+    SearchType,
+    SearchList,
+} from 'feature/calender/components';
 
 const CalendarSearch = () => {
     const [search, setSearch] = useState({ keyword: '', type: undefined });
@@ -37,6 +41,7 @@ const CalendarSearch = () => {
                 onChangeSearch={onChangeSearch}
             />
             <SearchType search={search.type} onChangeSearch={onChangeSearch} />
+            <SearchList list={data?.data.data} search={search.keyword} />
         </SearchContainer>
     );
 };

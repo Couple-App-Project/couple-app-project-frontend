@@ -65,7 +65,7 @@ const DayDetailWrpper = styled.div`
 
             div {
                 position: absolute;
-                left: 24px;
+                left: 1.5rem;
                 top: 50%;
                 transform: translateY(-50%);
                 width: 0.5rem;
