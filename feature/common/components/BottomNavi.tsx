@@ -57,10 +57,7 @@ const NaviRectButton = styled(NaviButton)`
 `;
 
 export default function BottomNavi() {
-    const [activePage, setActivePage] = useState(router.pathname);
-
     const changePage = (pathname: string) => {
-        setActivePage(pathname);
         router.push(pathname);
     };
 
