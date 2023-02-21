@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
 import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
 import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar';
+import useMutationDeleteCalendar from '../queries/mutationFn/useMutationDeleteCalendar';
 
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
@@ -85,6 +86,7 @@ const CalendarForm = () => {
 
     const createCalendar = useMutationPostCalendar();
     const updateCalendar = useMutationUpdateCalendar();
+    const deleteCalendar = useMutationDeleteCalendar();
     const defaultDate = `${new Date().getFullYear()}-${String(
         new Date().getMonth() + 1,
     ).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`;
@@ -164,6 +166,12 @@ const CalendarForm = () => {
         }
     };
 
+    const deleteSchedule = () => {
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            deleteCalendar(router.query?.calendarId);
+        }
+    };
+
     return (
         <Grid>
             <Header>
@@ -238,7 +246,7 @@ const CalendarForm = () => {
             </IconInputContainer>
 
             {router.query?.calendarId ? (
-                <DeleteButton>
+                <DeleteButton onClick={deleteSchedule}>
                     <Trash />
                 </DeleteButton>
             ) : (
