@@ -6,6 +6,7 @@ import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCa
 
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { pixelToVh, pixelToVw } from 'utils/utils';
 import Grid from 'components/Grid';
 import Button from './Button';
 import FormInput from './FormInput';
@@ -15,6 +16,7 @@ import Calendar from 'public/icons/calendar.svg';
 import Clock from 'public/icons/clock.svg';
 import MarkerPin from 'public/icons/marker-pin.svg';
 import Memo from 'public/icons/memo.svg';
+import Trash from 'public/icons/trash.svg';
 
 const Header = styled.header`
     display: flex;
@@ -61,6 +63,20 @@ const IconInputContainer = styled(InputCommon)`
     input {
         margin-left: 16px;
     }
+`;
+
+const DeleteButton = styled.button`
+    all: unset;
+    position: absolute;
+    left: calc(50% - ${pixelToVw(20)});
+    bottom: ${pixelToVh(24)};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid ${(props) => props.theme.grey_2};
 `;
 
 const CalendarForm = () => {
@@ -220,6 +236,14 @@ const CalendarForm = () => {
                     _onChange={scheduleChange}
                 />
             </IconInputContainer>
+
+            {router.query?.calendarId ? (
+                <DeleteButton>
+                    <Trash />
+                </DeleteButton>
+            ) : (
+                ''
+            )}
         </Grid>
     );
 };
