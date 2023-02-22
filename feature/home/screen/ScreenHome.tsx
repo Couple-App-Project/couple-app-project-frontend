@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 import styled from 'styled-components';
@@ -85,13 +85,25 @@ const ImageContainer = styled.section`
 
         ${(props) => props.theme.Body_3}
 
-        &:nth-child(2) {
+        &:nth-child(4) {
             top: 100px;
-            left: 50px;
+            left: 30px;
         }
         &:nth-child(3) {
             top: 30px;
-            right: 10px;
+            right: 30px;
+        }
+
+        animation: motion 10s linear 0s infinite alternate;
+        margin-top: 0;
+
+        @keyframes motion {
+            0% {
+                margin-top: 0px;
+            }
+            100% {
+                margin-top: 200px;
+            }
         }
     }
 `;
@@ -160,8 +172,14 @@ export default function ScreenHome() {
                             />
                             <div className="colorFilter"></div>
 
-                            <article>{coupleInfo?.myTodayComment}</article>
-                            <article>{coupleInfo?.yourTodayComment}</article>
+                            {coupleInfo?.myTodayComment && (
+                                <article>{coupleInfo?.myTodayComment}</article>
+                            )}
+                            {coupleInfo?.yourTodayComment && (
+                                <article>
+                                    {coupleInfo?.yourTodayComment}
+                                </article>
+                            )}
 
                             <IconContainer>
                                 <button onClick={() => setBgModal(true)}>
@@ -172,9 +190,6 @@ export default function ScreenHome() {
                                 </button>
                             </IconContainer>
                         </ImageContainer>
-
-                        <div>{coupleInfo?.myTodayComment}</div>
-                        <div>{coupleInfo?.yourTodayComment}</div>
                     </Grid>
 
                     <ScheduleContainer>
