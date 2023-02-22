@@ -28,6 +28,12 @@ const apiKeys = {
             `/calendars/${calendarInfo.calendarId}`,
             calendarInfo.calendarInfo,
         ),
+
+    deleteCalendar: async (calendarId: any) => {
+        if (typeof calendarId !== 'undefined') {
+            return await instance.delete(`/calendars/${calendarId}`);
+        }
+    },
 };
 
 export default apiKeys;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 import styled from 'styled-components';
@@ -9,7 +9,7 @@ import { pixelToRem, pixelToVh } from 'utils/utils';
 import { ICoupleInfo } from '../types/CoupleInfo';
 
 import ModalBackground from '../components/ModalBackground';
-// import ModalTodayComment from '../components/ModalTodayComment';
+import ModalTodayComment from '../components/ModalTodayComment';
 import UpcomingSchedule from '../components/UpcomingSchedule';
 import Grid from 'components/Grid';
 
@@ -17,7 +17,6 @@ import Notification from 'public/icons/notification.svg';
 import Heart from 'public/icons/heart.svg';
 import Picture from 'public/icons/picture.svg';
 import Pencil from 'public/icons/pencil.svg';
-import ModalTodayComment from '../components/ModalTodayComment';
 
 const ProfileSection = styled.section`
     height: 100vh;
@@ -86,13 +85,25 @@ const ImageContainer = styled.section`
 
         ${(props) => props.theme.Body_3}
 
-        &:nth-child(2) {
+        &:nth-child(4) {
             top: 100px;
-            left: 50px;
+            left: 30px;
         }
         &:nth-child(3) {
             top: 30px;
-            right: 10px;
+            right: 30px;
+        }
+
+        animation: motion 10s linear 0s infinite alternate;
+        margin-top: 0;
+
+        @keyframes motion {
+            0% {
+                margin-top: 0px;
+            }
+            100% {
+                margin-top: 200px;
+            }
         }
     }
 `;
@@ -161,8 +172,14 @@ export default function ScreenHome() {
                             />
                             <div className="colorFilter"></div>
 
-                            <article>오늘도 화이팅!</article>
-                            <article>즐거운 하루 보내!</article>
+                            {coupleInfo?.myTodayComment && (
+                                <article>{coupleInfo?.myTodayComment}</article>
+                            )}
+                            {coupleInfo?.yourTodayComment && (
+                                <article>
+                                    {coupleInfo?.yourTodayComment}
+                                </article>
+                            )}
 
                             <IconContainer>
                                 <button onClick={() => setBgModal(true)}>
@@ -173,9 +190,6 @@ export default function ScreenHome() {
                                 </button>
                             </IconContainer>
                         </ImageContainer>
-
-                        <div>{coupleInfo?.myTodayComment}</div>
-                        <div>{coupleInfo?.yourTodayComment}</div>
                     </Grid>
 
                     <ScheduleContainer>

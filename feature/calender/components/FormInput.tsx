@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Input_1 } from 'styles/fontTheme';
 
-const Input = styled(Input_1)`
+const Input = styled.input`
+    ${(props) => props.theme.Input_1};
     width: 100%;
     padding: 18px 0;
     border: none;
-    color: ${props=>props.theme.grey_6};
-`
+    color: ${(props) => props.theme.grey_6};
+`;
 
 const FormInput = (props: any) => {
     const { _name, value, _onChange, _placeholder } = props;

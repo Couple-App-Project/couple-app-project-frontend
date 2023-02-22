@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
 import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
 import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar';
+import useMutationDeleteCalendar from '../queries/mutationFn/useMutationDeleteCalendar';
 
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { pixelToVh, pixelToVw } from 'utils/utils';
 import Grid from 'components/Grid';
 import Button from './Button';
 import FormInput from './FormInput';
@@ -15,6 +17,7 @@ import Calendar from 'public/icons/calendar.svg';
 import Clock from 'public/icons/clock.svg';
 import MarkerPin from 'public/icons/marker-pin.svg';
 import Memo from 'public/icons/memo.svg';
+import Trash from 'public/icons/trash.svg';
 
 const Header = styled.header`
     display: flex;
@@ -63,12 +66,27 @@ const IconInputContainer = styled(InputCommon)`
     }
 `;
 
+const DeleteButton = styled.button`
+    all: unset;
+    position: absolute;
+    left: calc(50% - ${pixelToVw(20)});
+    bottom: ${pixelToVh(24)};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid ${(props) => props.theme.grey_2};
+`;
+
 const CalendarForm = () => {
     const router = useRouter();
     const { calendarId } = router.query;
 
     const createCalendar = useMutationPostCalendar();
     const updateCalendar = useMutationUpdateCalendar();
+    const deleteCalendar = useMutationDeleteCalendar();
     const defaultDate = `${new Date().getFullYear()}-${String(
         new Date().getMonth() + 1,
     ).padStart(2, '0')}-${String(new Date().getDate()).padStart(2, '0')}`;
@@ -148,6 +166,12 @@ const CalendarForm = () => {
         }
     };
 
+    const deleteSchedule = () => {
+        if (confirm('정말로 삭제하시겠습니까?')) {
+            deleteCalendar(router.query?.calendarId);
+        }
+    };
+
     return (
         <Grid>
             <Header>
@@ -220,6 +244,14 @@ const CalendarForm = () => {
                     _onChange={scheduleChange}
                 />
             </IconInputContainer>
+
+            {router.query?.calendarId ? (
+                <DeleteButton onClick={deleteSchedule}>
+                    <Trash />
+                </DeleteButton>
+            ) : (
+                ''
+            )}
         </Grid>
     );
 };

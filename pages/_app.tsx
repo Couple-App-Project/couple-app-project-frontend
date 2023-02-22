@@ -23,13 +23,28 @@ function MyApp({
     const [queryClient] = React.useState(() => new QueryClient());
     const router = useRouter();
 
-    // if (typeof window !== 'undefined') {
-    //     const refreshToken = sessionStorage.getItem('refresh');
-    //     if (router.pathname !== '/login' && refreshToken === null) {
-    //         // alert('로그인 후 사용하세요');
-    //         router.push('./login');
-    //     }
-    // }
+    if (typeof window !== 'undefined') {
+        const refreshToken = sessionStorage.getItem('refresh');
+        if (
+            router.pathname !== '/login' &&
+            router.pathname !== '/signup' &&
+            refreshToken === null
+        ) {
+            // alert('로그인 후 사용하세요');
+            router.push('./login');
+        }
+    }
+
+    const hasBottomNavi = (pathname: string) => {
+        if (
+            pathname === '/home' ||
+            pathname === '/calendar' ||
+            pathname === '/diary' ||
+            pathname === '/settings'
+        )
+            return true;
+        else return false;
+    };
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -44,7 +59,7 @@ function MyApp({
                             <Component {...pageProps} />
                         </RecoilRoot>
                     </Hydrate>
-                    {router.pathname !== '/login' ? <BottomNavi /> : ''}
+                    {hasBottomNavi(router.pathname) ? <BottomNavi /> : ''}
                 </Device>
             </ThemeProvider>
         </QueryClientProvider>
