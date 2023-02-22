@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { pixelToVh } from 'utils/utils';
+import { pixelToVh, pixelToVw } from 'utils/utils';
 import Modal from './Modal';
 import Grid from 'components/Grid';
 import Camera from 'public/icons/camera.svg';
 import Paint from 'public/icons/paint.svg';
 import ChevronRight from 'public/icons/chevron-right.svg';
+import CheckSmall from 'public/icons/check-small.svg';
 
 const EditMenu = styled.article`
     display: flex;
@@ -28,13 +29,30 @@ const EditMenu = styled.article`
 
 const ColorChipsContainer = styled.article`
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: ${pixelToVw(24)};
 
-    div {
-        width: 24px;
-        height: 24px;
+    & > div {
+        position: relative;
+        width: ${pixelToVw(28)};
+        height: ${pixelToVw(28)};
         border-radius: 50%;
+    }
+
+    & > div > article > div {
+        position: absolute;
+        top: ${pixelToVw(-6)};
+        left: ${pixelToVw(-6)};
+        width: ${pixelToVw(40)};
+        height: ${pixelToVw(40)};
+        border: 1px solid #3b3d49;
+        border-radius: 50%;
+    }
+
+    svg {
+        position: absolute;
+        top: ${pixelToVw(9.2)};
+        left: ${pixelToVw(9)};
     }
 `;
 const ColorSaveButton = styled.button`
@@ -70,6 +88,11 @@ const ModalBackground = (props: any) => {
         '#FCE5E5',
     ];
 
+    const [bgColor, setBgColor] = useState('#F5F5F5');
+    const changeBgColor = (colorCode: string) => {
+        setBgColor(colorCode);
+    };
+
     return (
         <Modal closeButton={closeButton} title={title}>
             {title === '' ? (
@@ -92,13 +115,26 @@ const ModalBackground = (props: any) => {
                 </Grid>
             ) : (
                 <Grid paddingTop="24px">
-                    <ColorChipsContainer>
-                        {colorChips.map((el) => {
-                            return (
-                                <div key={el} style={{ background: el }}></div>
-                            );
-                        })}
-                    </ColorChipsContainer>
+                    <Grid paddingTop="0">
+                        <ColorChipsContainer>
+                            {colorChips.map((el) => {
+                                return (
+                                    <div
+                                        key={el}
+                                        style={{ background: el }}
+                                        onClick={() => changeBgColor(el)}
+                                    >
+                                        {el === bgColor && (
+                                            <article>
+                                                <CheckSmall />
+                                                <div></div>
+                                            </article>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                        </ColorChipsContainer>
+                    </Grid>
 
                     <ColorSaveButton>완료</ColorSaveButton>
                 </Grid>
