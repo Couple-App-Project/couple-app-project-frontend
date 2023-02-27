@@ -12,71 +12,64 @@ const myBucket = new AWS.S3({
 });
 
 const WriteInput = () => {
+    const [imagesUrl, setImagesUrl] = useState([]);
     const [imagesFile, setImagesFile] = useState([]);
 
-    const [imagesUrl, setImagesUrl] = useState([]);
-    console.log(imagesUrl);
-
     const uploadToClient = (e: any) => {
-        const fileArr = e.target.files;
+        const imageLists = e.target.files;
 
-        let fileURLs = [];
+        let imageUrlLists = [...imagesUrl];
 
-        let file;
-        let filesLength = fileArr.length > 10 ? 10 : fileArr.length;
+        let imagesFileLists = [...imagesFile];
 
-        for (let i = 0; i < filesLength; i++) {
-            file = fileArr[i];
-
-            let reader = new FileReader();
-            reader.onload = () => {
-                console.log(reader.result);
-                fileURLs[i] = reader.result;
-                setImagesUrl([...fileURLs]);
-            };
-            reader.readAsDataURL(file);
+        if (5 < imageLists.length) {
+            alert('사진은 최대 5장 이상만 업로드 가능합니다.');
+        } else {
+            for (let i = 0; i < imageLists.length; i++) {
+                const currentImageUrl = URL.createObjectURL(imageLists[i]);
+                imageUrlLists.push(currentImageUrl);
+                imagesFileLists.push(imageLists[i]);
+            }
         }
-        // if (e.target.files && e.target.files[0]) {
-        //     const i = e.target.files[0];
-        //     setImagesFile(i);
-        //     setImagesUrl(i);
-        // }
+
+        setImagesUrl(imageUrlLists);
+        setImagesFile(imagesFileLists);
     };
 
     const uploadFile = (file) => {
-        const fileName = file.name.replaceAll(' ', '');
-        const params = {
-            ACL: 'public-read',
-            Body: file,
-            Bucket: process.env.NEXT_PUBLIC_S3_BUCKET,
-            Key: fileName,
-        };
-
-        myBucket
-            .putObject(params)
-            .on('httpUploadProgress', (evt, response) => {})
-            .send((err, res) => {
-                if (err) console.log(err);
-                console.log(res);
-            });
+        for (let i = 0; i < file.length; i++) {
+            const fileName = file[i].name.replaceAll(' ', '');
+            const params = {
+                ACL: 'public-read',
+                Body: file[i],
+                Bucket: process.env.NEXT_PUBLIC_S3_BUCKET,
+                Key: fileName,
+            };
+            myBucket
+                .putObject(params)
+                .on('httpUploadProgress', (data) => {
+                    console.log(data);
+                })
+                .send((err, data) => {
+                    if (err) console.log(err);
+                    console.log(data);
+                });
+        }
     };
 
     return (
         <>
-            {/* {imagesUrl &&
-                imagesUrl?.map((el, i) => {
+            {imagesUrl.length &&
+                imagesUrl.map((el, i) => {
                     return <img src={el} key={i} />;
-                })} */}
+                })}
             <input
                 type="file"
                 accept="image/jpg,image/png,image/jpeg,image/gif"
                 multiple
                 onChange={(e) => uploadToClient(e)}
             />
-            <button onClick={() => uploadFile(imagesFile)}>
-                {' '}
-                Upload to S3
-            </button>
+            <button onClick={() => uploadFile(imagesFile)}>Upload to S3</button>
         </>
     );
 };
