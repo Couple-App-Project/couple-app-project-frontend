@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import WriteHead from './WriteHead';
+import { WriteHead, WriteInput } from '../index';
 
 const DiaryWrite = () => {
     return (
         <DiaryWriteWrapper>
             <WriteHead />
+            <WriteInput />
         </DiaryWriteWrapper>
     );
 };
