@@ -1,7 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import AWS from 'aws-sdk';
 
-const useS3Upload = () => {
+type useS3UploadType = [
+    (e: React.ChangeEvent<HTMLInputElement>) => void,
+    string[],
+    () => void,
+    string[],
+];
+
+const useS3Upload = (): useS3UploadType => {
     AWS.config.update({
         accessKeyId: process.env.NEXT_PUBLIC_ACCESS_KEY,
         secretAccessKey: process.env.NEXT_PUBLIC_SECRET_ACCESS_KEY,
@@ -12,11 +19,11 @@ const useS3Upload = () => {
         region: process.env.NEXT_PUBLIC_S3_BUCKET_REGION,
     });
 
-    const [imagesUrl, setImagesUrl] = useState([]);
-    const [imagesFile, setImagesFile] = useState([]);
-    const [fileUrl, setFileUrl] = useState([]);
+    const [imagesUrl, setImagesUrl] = useState<string[]>([]);
+    const [imagesFile, setImagesFile] = useState<FileList[]>([]);
+    const [fileUrl, setFileUrl] = useState<string[]>([]);
 
-    const uploadToClient = (e: any) => {
+    const uploadToClient = (e: React.ChangeEvent<HTMLInputElement>) => {
         const imageLists = e.target.files;
 
         let imageUrlLists = [...imagesUrl];
@@ -37,16 +44,18 @@ const useS3Upload = () => {
         setImagesFile(imagesFileLists);
     };
 
-    const uploadFile = (file) => {
-        let fileUrlList = [];
-        for (let i = 0; i < file.length; i++) {
-            const fileName = file[i].name.replaceAll(' ', '');
+    const uploadFile = () => {
+        let fileUrlList: string[] = [];
+
+        for (let i = 0; i < imagesFile.length; i++) {
+            const fileName = imagesFile[i].name.replaceAll(' ', '');
             const params = {
                 ACL: 'public-read',
-                Body: file[i],
+                Body: imagesFile[i],
                 Bucket: process.env.NEXT_PUBLIC_S3_BUCKET,
                 Key: fileName,
-            };
+            } as any;
+
             myBucket
                 .putObject(params)
                 .on('httpUploadProgress', (evt) => {})
