@@ -13,4 +13,22 @@ const WriteHead = ({ id }: any) => {
 
 export default WriteHead;
 
-const WriteHeadContainer = styled.div``;
+const WriteHeadContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    margin-bottom: 1.75rem;
+
+    h2,
+    span {
+        color: ${(props) => props.theme.grey_6};
+    }
+
+    h2 {
+        ${(props) => props.theme.Title_4}
+    }
+    span {
+        ${(props) => props.theme.Body_3}
+    }
+`;
