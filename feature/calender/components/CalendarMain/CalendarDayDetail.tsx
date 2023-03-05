@@ -5,6 +5,7 @@ import type { CalendarMainPropsType } from '../../types/CalendarMainPropsType';
 import { useRecoilValue } from 'recoil';
 import calendersState from 'recoil/calendersState';
 import { dayArray, changeGetDay } from '../../modules/functions';
+import Link from 'next/link';
 
 const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
@@ -22,11 +23,13 @@ const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
             <ul>
                 {selectDetailList?.map((cur, idx) => {
                     return (
-                        <li key={idx}>
-                            <div className={`${cur.type}`} />
-                            <h4>{cur.title}</h4>
-                            <span>{`${cur.startTime} - ${cur.endTime}`}</span>
-                        </li>
+                        <Link href={`/calendar/${cur.calendarId}`} key={idx}>
+                            <li>
+                                <div className={`${cur.type}`} />
+                                <h4>{cur.title}</h4>
+                                <span>{`${cur.startTime} - ${cur.endTime}`}</span>
+                            </li>
+                        </Link>
                     );
                 })}
             </ul>
