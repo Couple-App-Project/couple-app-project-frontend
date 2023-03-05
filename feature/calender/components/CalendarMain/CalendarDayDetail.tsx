@@ -40,6 +40,7 @@ const DayDetailWrpper = styled.div`
     flex: 1;
     background-color: ${(props) => props.theme.grey_1};
     padding: 1rem 1.5rem;
+    margin-bottom: 12vh;
     overflow: auto;
 
     h3 {
