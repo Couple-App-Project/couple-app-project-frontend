@@ -56,23 +56,14 @@ const useS3Upload = (): useS3UploadType => {
                 Key: fileName,
             } as any;
 
-            myBucket
-                .putObject(params)
-                .on('httpUploadProgress', (evt) => {})
-                .send((err) => {
-                    if (err) console.log(err);
-                });
-            myBucket.getSignedUrl(
-                'getObject',
-                {
-                    Bucket: params.Bucket,
-                    Key: params.Key,
+            const upload = myBucket.upload(params);
+            const promise = upload.promise();
+            promise.then(
+                (data) => {
+                    fileUrlList.push(data.Location);
                 },
-                (err, url) => {
-                    if (err) {
-                        throw err;
-                    }
-                    fileUrlList.push(url);
+                (err) => {
+                    console.log(err);
                 },
             );
         }
