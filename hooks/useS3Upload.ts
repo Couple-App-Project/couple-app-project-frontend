@@ -4,6 +4,7 @@ import AWS from 'aws-sdk';
 type useS3UploadType = [
     (e: React.ChangeEvent<HTMLInputElement>) => void,
     string[],
+    (value: string) => void,
     () => void,
     string[],
 ];
@@ -44,6 +45,15 @@ const useS3Upload = (): useS3UploadType => {
         setImagesFile(imagesFileLists);
     };
 
+    const deleteToClient = (value: string) => {
+        const index = imagesUrl.findIndex((v) => v === value);
+        const newImagesUrl = imagesUrl.filter((v) => v !== value);
+        const newImagesFile = imagesFile.filter((v, i) => i !== index);
+
+        setImagesUrl(newImagesUrl);
+        setImagesFile(newImagesFile);
+    };
+
     const uploadFile = () => {
         let fileUrlList: string[] = [];
 
@@ -70,7 +80,7 @@ const useS3Upload = (): useS3UploadType => {
         setFileUrl(fileUrlList);
     };
 
-    return [uploadToClient, imagesUrl, uploadFile, fileUrl];
+    return [uploadToClient, imagesUrl, deleteToClient, uploadFile, fileUrl];
 };
 
 export default useS3Upload;

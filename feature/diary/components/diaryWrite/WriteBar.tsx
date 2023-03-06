@@ -4,8 +4,8 @@ import ImageUpload from 'public/images/icons/image-upload.svg';
 import Emoticon from 'public/images/icons/emoticon.svg';
 import { useState } from 'react';
 
-interface WriteBarPropsType {
-    uploadToClient: (e: React.ChangeEvent<HTMLInputElement>) => void;
+interface WriteBarPropsTtpe {
+    handleUpload: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
 
 const Picker = dynamic(
@@ -15,7 +15,7 @@ const Picker = dynamic(
     { ssr: false },
 );
 
-const WriteBar = ({ uploadToClient }: WriteBarPropsType) => {
+const WriteBar = ({ handleUpload }: WriteBarPropsTtpe) => {
     const [showEmogi, setShowEmogi] = useState(false);
     return (
         <WriteBarContainer>
@@ -25,7 +25,7 @@ const WriteBar = ({ uploadToClient }: WriteBarPropsType) => {
                     type="file"
                     accept="image/jpg,image/png,image/jpeg,image/gif"
                     multiple
-                    onChange={(e) => uploadToClient(e)}
+                    onChange={(e) => handleUpload(e)}
                 />
             </div>
             <div className="emogi-content">

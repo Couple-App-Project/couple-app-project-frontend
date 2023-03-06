@@ -1,14 +1,34 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import useS3Upload from 'hooks/useS3Upload';
-import { WriteHead, WriteInput, WriteBar } from '../index';
+import { useRouter } from 'next/router';
+import useImage from 'feature/diary/hook/useImage';
+import { WriteHead, WriteContent, WriteBar } from '../index';
 
 const DiaryWrite = () => {
-    const [uploadToClient, imagesUrl, uploadFile, fileUrl] = useS3Upload();
+    const router = useRouter();
+    const { id, startDate, endDate } = router.query;
+    const [diary, setDiary] = useState({ title: '', content: '' });
+
+    const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDiary((prev) => {
+            return { ...prev, [e.target.name]: e.target.value };
+        });
+    };
+
+    const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
+
     return (
         <DiaryWriteWrapper>
-            <WriteHead uploadFile={uploadFile} fileUrl={fileUrl} />
-            <WriteInput imagesUrl={imagesUrl} />
-            <WriteBar uploadToClient={uploadToClient} />
+            <WriteHead />
+            <WriteContent
+                startDate={startDate}
+                endDate={endDate}
+                diary={diary}
+                onChangeContent={onChangeContent}
+                imgUrl={imgUrl}
+                handleDelete={handleDelete}
+            />
+            <WriteBar handleUpload={handleUpload} />
         </DiaryWriteWrapper>
     );
 };
