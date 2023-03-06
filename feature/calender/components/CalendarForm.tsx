@@ -6,6 +6,7 @@ import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCa
 import useMutationDeleteCalendar from '../queries/mutationFn/useMutationDeleteCalendar';
 
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { pixelToVh, pixelToVw } from 'utils/utils';
 import Grid from 'components/Grid';
@@ -245,6 +246,14 @@ const CalendarForm = () => {
                 />
             </IconInputContainer>
 
+            <Link
+                href={{
+                    pathname: '/diary/[id]',
+                    query: { id: calendarId },
+                }}
+            >
+                <p>다이어리 이동</p>
+            </Link>
             {router.query?.calendarId ? (
                 <DeleteButton onClick={deleteSchedule}>
                     <Trash />
