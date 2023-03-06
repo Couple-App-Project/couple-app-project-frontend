@@ -3,7 +3,7 @@ import useS3Upload from 'hooks/useS3Upload';
 const WriteInput = () => {
     const [uploadToClient, imagesUrl, uploadFile, fileUrl] = useS3Upload();
     return (
-        <>
+        <div>
             {imagesUrl.length &&
                 imagesUrl.map((el, i) => {
                     return <img src={el} key={i} />;
@@ -15,7 +15,7 @@ const WriteInput = () => {
                 onChange={(e) => uploadToClient(e)}
             />
             <button onClick={uploadFile}>Upload to S3</button>
-        </>
+        </div>
     );
 };
 

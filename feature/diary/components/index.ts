@@ -1,3 +1,3 @@
-export { default as DiaryWrite } from './DiaryWrite/DiaryWrite';
-export { default as WriteHead } from './DiaryWrite/WriteHead';
-export { default as WriteInput } from './DiaryWrite/WriteInput';
+export { default as DiaryWrite } from './diaryWrite/DiaryWrite';
+export { default as WriteHead } from './diaryWrite/WriteHead';
+export { default as WriteInput } from './diaryWrite/WriteInput';
