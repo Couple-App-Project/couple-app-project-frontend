@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Close from 'public/images/icons/close.svg';
 
-const WriteHead = ({ id }: any) => {
+const WriteHead = ({ test }: { test: () => void }) => {
     return (
         <WriteHeadContainer>
             <Close />
             <h2>다이어리</h2>
-            <span>{id ? '수정' : '저장'}</span>
+            <button onClick={test}>저장</button>
         </WriteHeadContainer>
     );
 };
