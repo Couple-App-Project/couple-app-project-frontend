@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useImage from 'feature/diary/hook/useImage';
 import { useMutationCreateDiary } from 'feature/diary/queries/mutationFn';
-import { WriteHead, WriteContent, WriteBar } from '../index';
+import { RegisterHead, RegisterContent, RegisterBar } from '../index';
 
 const DiaryWrite = () => {
     const router = useRouter();
@@ -18,27 +18,26 @@ const DiaryWrite = () => {
 
     const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
 
-    const test11 = useMutationCreateDiary();
+    const createDiaryMutation = useMutationCreateDiary();
 
-    const test = () => {
+    const handleCreateDiary = () => {
         const formData = new FormData();
 
-        for (let i = 0; i < imgFile.length; i++) {
-            formData.append('file', imgFile[i]);
-        }
+        formData.append('calendarId', id);
+        formData.append('title', diary.title);
+        formData.append('content', diary.content);
 
-        test11({
-            calendarId: id,
-            title: diary.title,
-            content: diary.content,
-            files: formData,
+        imgFile.forEach((v) => {
+            formData.append('files', v);
         });
+
+        createDiaryMutation(formData);
     };
 
     return (
         <DiaryWriteWrapper>
-            <WriteHead test={test} />
-            <WriteContent
+            <RegisterHead handleCreateDiary={handleCreateDiary} />
+            <RegisterContent
                 startDate={startDate}
                 endDate={endDate}
                 diary={diary}
@@ -46,7 +45,7 @@ const DiaryWrite = () => {
                 imgUrl={imgUrl}
                 handleDelete={handleDelete}
             />
-            <WriteBar handleUpload={handleUpload} />
+            <RegisterBar handleUpload={handleUpload} />
         </DiaryWriteWrapper>
     );
 };

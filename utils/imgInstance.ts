@@ -21,4 +21,13 @@ imgInstance.interceptors.request.use(
     },
 );
 
+imgInstance.interceptors.response.use(
+    (res) => {
+        return res;
+    },
+    async (err) => {
+        return Promise.reject(err);
+    },
+);
+
 export default imgInstance;

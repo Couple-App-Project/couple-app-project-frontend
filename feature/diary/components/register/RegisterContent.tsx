@@ -3,7 +3,7 @@ import Image from 'next/image';
 import CalendarIcon from 'public/images/icons/calendar-icon.svg';
 import Close from 'public/images/icons/close.svg';
 
-interface WriteContentPropsType {
+interface RegisterContentPropsType {
     startDate?: string | string[];
     endDate?: string | string[];
     imgUrl: string[];
@@ -12,16 +12,16 @@ interface WriteContentPropsType {
     handleDelete: (index: number) => void;
 }
 
-const WriteContent = ({
+const RegisterContent = ({
     startDate,
     endDate,
     imgUrl,
     diary,
     onChangeContent,
     handleDelete,
-}: WriteContentPropsType) => {
+}: RegisterContentPropsType) => {
     return (
-        <WriteInputContainer>
+        <RegisterInputContainer>
             <div className="date-content">
                 <CalendarIcon />
                 <span>
@@ -58,13 +58,13 @@ const WriteContent = ({
                         </div>
                     );
                 })}
-        </WriteInputContainer>
+        </RegisterInputContainer>
     );
 };
 
-export default WriteContent;
+export default RegisterContent;
 
-const WriteInputContainer = styled.div`
+const RegisterInputContainer = styled.div`
     padding: 0 1.5rem;
     .date-content {
         color: ${(props) => props.theme.grey_6};

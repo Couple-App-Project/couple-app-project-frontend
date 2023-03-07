@@ -4,7 +4,7 @@ import ImageUpload from 'public/images/icons/image-upload.svg';
 import Emoticon from 'public/images/icons/emoticon.svg';
 import { useState } from 'react';
 
-interface WriteBarPropsTtpe {
+interface RegisterBarPropsTtpe {
     handleUpload: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
 }
 
@@ -15,10 +15,10 @@ const Picker = dynamic(
     { ssr: false },
 );
 
-const WriteBar = ({ handleUpload }: WriteBarPropsTtpe) => {
+const RegisterBar = ({ handleUpload }: RegisterBarPropsTtpe) => {
     const [showEmogi, setShowEmogi] = useState(false);
     return (
-        <WriteBarContainer>
+        <RegisterBarContainer>
             <div className="image-upload-content">
                 <ImageUpload />
                 <input
@@ -32,13 +32,13 @@ const WriteBar = ({ handleUpload }: WriteBarPropsTtpe) => {
                 <Emoticon onClick={() => setShowEmogi(!showEmogi)} />
                 {showEmogi && <Picker />}
             </div>
-        </WriteBarContainer>
+        </RegisterBarContainer>
     );
 };
 
-export default WriteBar;
+export default RegisterBar;
 
-const WriteBarContainer = styled.div`
+const RegisterBarContainer = styled.div`
     .image-upload-content {
         position: relative;
         input {

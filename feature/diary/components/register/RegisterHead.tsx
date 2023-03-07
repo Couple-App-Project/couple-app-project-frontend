@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 import Close from 'public/images/icons/close.svg';
 
-const WriteHead = ({ test }: { test: () => void }) => {
+const RegisterHead = ({
+    handleCreateDiary,
+}: {
+    handleCreateDiary: () => void;
+}) => {
     return (
-        <WriteHeadContainer>
+        <RegisterHeadContainer>
             <Close />
             <h2>다이어리</h2>
-            <button onClick={test}>저장</button>
-        </WriteHeadContainer>
+            <button onClick={handleCreateDiary}>저장</button>
+        </RegisterHeadContainer>
     );
 };
 
-export default WriteHead;
+export default RegisterHead;
 
-const WriteHeadContainer = styled.div`
+const RegisterHeadContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
