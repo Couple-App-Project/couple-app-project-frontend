@@ -1,7 +1,7 @@
 import { DiaryRegister } from 'feature/diary/components';
 
-const Write = () => {
+const Register = () => {
     return <DiaryRegister />;
 };
 
-export default Write;
+export default Register;

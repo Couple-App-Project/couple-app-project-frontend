@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 import Close from 'public/images/icons/close.svg';
 
 const RegisterHead = ({ onSendDiary }: { onSendDiary: () => void }) => {
+    const router = useRouter();
     return (
         <RegisterHeadContainer>
-            <Close />
+            <Close onClick={() => router.push('/diary')} />
             <h2>다이어리</h2>
             <button onClick={onSendDiary}>저장</button>
         </RegisterHeadContainer>
