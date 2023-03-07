@@ -11,7 +11,7 @@ import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
 
 const DiaryWrite = () => {
     const router = useRouter();
-    const { id, startDate, endDate } = router.query;
+    const { id, startDate } = router.query;
 
     const { isLoading, data } = useQueryDiaryDetail(id);
 
@@ -26,7 +26,13 @@ const DiaryWrite = () => {
 
     const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDiary((prev) => {
-            return { ...prev, [e.target.name]: e.target.value };
+            return { ...prev, [e.target.className]: e.target.value };
+        });
+    };
+
+    const onEmojiClick = (emojiObject: any) => {
+        setDiary((prev) => {
+            return { ...prev, content: prev.content + emojiObject.emoji };
         });
     };
 
@@ -55,14 +61,16 @@ const DiaryWrite = () => {
         <DiaryWriteWrapper>
             <RegisterHead onSendDiary={onSendDiary} />
             <RegisterContent
-                startDate={startDate}
-                endDate={endDate}
+                startDate={startDate || data?.calendar?.startDate}
                 diary={diary}
                 onChangeContent={onChangeContent}
                 imgUrl={imgUrl}
                 handleDelete={handleDelete}
             />
-            <RegisterBar handleUpload={handleUpload} />
+            <RegisterBar
+                handleUpload={handleUpload}
+                onEmojiClick={onEmojiClick}
+            />
         </DiaryWriteWrapper>
     );
 };

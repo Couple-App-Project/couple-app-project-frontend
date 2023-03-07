@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 interface RegisterBarPropsTtpe {
     handleUpload: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
+    onEmojiClick: (emojiObject: any) => void;
 }
 
 const Picker = dynamic(
@@ -15,13 +16,16 @@ const Picker = dynamic(
     { ssr: false },
 );
 
-const RegisterBar = ({ handleUpload }: RegisterBarPropsTtpe) => {
+const RegisterBar = ({ handleUpload, onEmojiClick }: RegisterBarPropsTtpe) => {
     const [showEmogi, setShowEmogi] = useState(false);
     return (
         <RegisterBarContainer>
             <div className="image-upload-content">
-                <ImageUpload />
+                <label htmlFor="upload">
+                    <ImageUpload />
+                </label>
                 <input
+                    id="upload"
                     type="file"
                     accept="image/jpg,image/png,image/jpeg,image/gif"
                     multiple
@@ -30,7 +34,7 @@ const RegisterBar = ({ handleUpload }: RegisterBarPropsTtpe) => {
             </div>
             <div className="emogi-content">
                 <Emoticon onClick={() => setShowEmogi(!showEmogi)} />
-                {showEmogi && <Picker />}
+                {showEmogi && <Picker onEmojiClick={onEmojiClick} />}
             </div>
         </RegisterBarContainer>
     );
@@ -39,15 +43,16 @@ const RegisterBar = ({ handleUpload }: RegisterBarPropsTtpe) => {
 export default RegisterBar;
 
 const RegisterBarContainer = styled.div`
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-top: 1px solid ${(props) => props.theme.grey_2};
     .image-upload-content {
-        position: relative;
         input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            width: 22px;
-            height: 20px;
+            display: none;
         }
+    }
+    .emogi-content {
+        margin-left: 1.75rem;
     }
 `;

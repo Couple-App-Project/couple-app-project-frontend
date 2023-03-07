@@ -21,14 +21,15 @@ const RegisterHeadContainer = styled.div`
     margin-bottom: 1.75rem;
 
     h2,
-    span {
+    button {
         color: ${(props) => props.theme.grey_6};
     }
 
     h2 {
         ${(props) => props.theme.Title_4}
     }
-    span {
+    button {
+        background-color: transparent;
         ${(props) => props.theme.Body_3}
     }
 `;
