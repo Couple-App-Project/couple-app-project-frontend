@@ -1,5 +1,5 @@
 import { getMonth, getDate, getDay } from 'date-fns';
-import { changeGetDay } from 'feature/calender/modules/functions';
+import { changeGetDay } from 'utils/functions';
 import styled from 'styled-components';
 
 const SearchList = ({ list, search }: any) => {
