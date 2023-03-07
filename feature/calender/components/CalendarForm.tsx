@@ -248,14 +248,14 @@ const CalendarForm = () => {
 
             <Link
                 href={{
-                    pathname: '/diary/[id]',
+                    pathname: '/diary/register/[id]',
                     query: {
                         id: calendarId,
                         startDate: schedule.startDate,
                         endDate: schedule.endDate,
                     },
                 }}
-                as={`/diary/${calendarId}`}
+                as={`/diary/register/${calendarId}`}
             >
                 <p>다이어리 이동</p>
             </Link>
