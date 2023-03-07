@@ -20,7 +20,16 @@ function MyApp({
     Component,
     pageProps,
 }: AppProps<{ dehydratedState: DehydratedState }>) {
-    const [queryClient] = React.useState(() => new QueryClient());
+    const [queryClient] = React.useState(
+        () =>
+            new QueryClient({
+                defaultOptions: {
+                    queries: {
+                        refetchOnWindowFocus: false,
+                    },
+                },
+            }),
+    );
     const router = useRouter();
 
     if (typeof window !== 'undefined') {

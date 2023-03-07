@@ -1,16 +1,12 @@
 import styled from 'styled-components';
 import Close from 'public/images/icons/close.svg';
 
-const RegisterHead = ({
-    handleCreateDiary,
-}: {
-    handleCreateDiary: () => void;
-}) => {
+const RegisterHead = ({ onSendDiary }: { onSendDiary: () => void }) => {
     return (
         <RegisterHeadContainer>
             <Close />
             <h2>다이어리</h2>
-            <button onClick={handleCreateDiary}>저장</button>
+            <button onClick={onSendDiary}>저장</button>
         </RegisterHeadContainer>
     );
 };

@@ -2,14 +2,26 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useImage from 'feature/diary/hook/useImage';
-import { useMutationCreateDiary } from 'feature/diary/queries/mutationFn';
+import {
+    useMutationCreateDiary,
+    useMutationEditDiary,
+} from 'feature/diary/queries/mutationFn';
 import { RegisterHead, RegisterContent, RegisterBar } from '../index';
 import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
 
 const DiaryWrite = () => {
     const router = useRouter();
     const { id, startDate, endDate } = router.query;
-    console.log(router.query);
+
+    const { isLoading, data } = useQueryDiaryDetail(id);
+
+    useEffect(() => {
+        if (data) {
+            setDiary({ title: data.title, content: data.content });
+            console.log(data.images);
+        }
+    }, [data]);
+
     const [diary, setDiary] = useState({ title: '', content: '' });
 
     const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,8 +33,9 @@ const DiaryWrite = () => {
     const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
 
     const createDiaryMutation = useMutationCreateDiary();
+    const editDiaryMutation = useMutationEditDiary();
 
-    const handleCreateDiary = () => {
+    const onSendDiary = () => {
         const formData = new FormData();
 
         formData.append('calendarId', id);
@@ -33,21 +46,14 @@ const DiaryWrite = () => {
             formData.append('files', v);
         });
 
-        createDiaryMutation(formData);
+        data.id
+            ? editDiaryMutation({ diaryId: data.id, data: formData })
+            : createDiaryMutation(formData);
     };
-
-    const { isLoading, data } = useQueryDiaryDetail(id);
-
-    useEffect(() => {
-        if (data) {
-            setDiary({ title: data.title, content: data.content });
-            console.log(data.images);
-        }
-    }, [data]);
 
     return (
         <DiaryWriteWrapper>
-            <RegisterHead handleCreateDiary={handleCreateDiary} />
+            <RegisterHead onSendDiary={onSendDiary} />
             <RegisterContent
                 startDate={startDate}
                 endDate={endDate}
