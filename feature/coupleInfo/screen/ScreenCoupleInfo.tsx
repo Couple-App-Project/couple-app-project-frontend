@@ -1,33 +1,39 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import {
-  InfoStepCount,
-  CoupleCodeStep,
-  CoupleDataStep,
-  CoupleStartStap,
-} from "../components";
+import StepLayout from 'layouts/StepLayout';
+import { useState } from 'react';
+import CoupleInfoForm from '../components/CoupleInfoForm';
+import { useMutationCoupleInfo } from '../queries/mutationFn';
 
 const ScreenCoupleInfo = () => {
-  const [step, setStep] = useState(0);
+    const [coupleData, setCoupleData] = useState({
+        anniversary: '',
+        nickname: '',
+    });
 
-  const NextStep = () => {
-    setStep((prev) => prev + 1);
-  };
+    const onChangeCoupleInfo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCoupleData((prev) => {
+            return { ...prev, [e.target.name]: e.target.value };
+        });
+    };
 
-  const CoupleInfoConent = [
-    <CoupleCodeStep key="CoupleCodeStep" NextStep={NextStep} />,
-    <CoupleDataStep key="CoupleDataStep" NextStep={NextStep} />,
-    <CoupleStartStap key="CoupleStartStap" />,
-  ];
+    const coupleInfoMutation = useMutationCoupleInfo();
 
-  return (
-    <CoupleInfoWrap>
-      <InfoStepCount />
-      <div className="couple-info-content">{CoupleInfoConent[step]}</div>
-    </CoupleInfoWrap>
-  );
+    const createCoupleInfo = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        coupleInfoMutation(coupleData);
+    };
+
+    return (
+        <StepLayout
+            title="커플이 된 날은 언제인가요?"
+            disabled={Object.values(coupleData).includes('') ? true : false}
+        >
+            <CoupleInfoForm
+                coupleData={coupleData}
+                onChangeCoupleInfo={onChangeCoupleInfo}
+                createCoupleInfo={createCoupleInfo}
+            />
+        </StepLayout>
+    );
 };
 
 export default ScreenCoupleInfo;
-
-const CoupleInfoWrap = styled.div``;

@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+
+@font-face {
+    font-family: 'Apple SD Gothic';
+    font-weight: 400;
+    font-style: normal;
+    src: url('../public/fonts/AppleSDGothicNeoR.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Apple SD Gothic';
+    font-weight: 500;
+    font-style: normal;
+    src: url('../public/fonts/AppleSDGothicNeoM.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Apple SD Gothic';
+    font-weight: 600;
+    font-style: normal;
+    src: url('../public/fonts/AppleSDGothicNeoSB.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Apple SD Gothic';
+    font-weight: 700;
+    font-style: normal;
+    src: url('../public/fonts/AppleSDGothicNeoB.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'UhBeemysen';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeemysen.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

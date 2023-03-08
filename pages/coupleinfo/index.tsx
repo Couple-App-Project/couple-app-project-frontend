@@ -1,7 +1,7 @@
-import ScreenCoupleInfo from "../../feature/coupleInfo/screen/ScreenCoupleInfo";
+import ScreenCoupleInfo from 'feature/coupleInfo/screen/ScreenCoupleInfo';
 
 const CoupleInfo = () => {
-  return <ScreenCoupleInfo />;
+    return <ScreenCoupleInfo />;
 };
 
 export default CoupleInfo;
