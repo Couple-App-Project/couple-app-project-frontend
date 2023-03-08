@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
