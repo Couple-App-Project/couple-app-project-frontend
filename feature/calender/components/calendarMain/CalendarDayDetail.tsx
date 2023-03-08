@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { format, getMonth, getDate, getDay } from 'date-fns';
+import { format } from 'date-fns';
 import type { CalendarMainPropsType } from '../../types/CalendarMainPropsType';
 import { useRecoilValue } from 'recoil';
 import calendersState from 'recoil/calendersState';
-import { dayArray, changeGetDay } from '../../modules/functions';
+import { dayArray } from '../../modules/functions';
+import { changeDate } from 'utils/functions';
+import Link from 'next/link';
 
 const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
@@ -16,17 +18,17 @@ const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
 
     return (
         <DayDetailWrpper>
-            <h3>{`${getMonth(selectedDay || new Date()) + 1}월 ${getDate(
-                selectedDay || new Date(),
-            )}일 (${changeGetDay(getDay(selectedDay || new Date()))})`}</h3>
+            <h3>{changeDate(selectedDay!)}</h3>
             <ul>
                 {selectDetailList?.map((cur, idx) => {
                     return (
-                        <li key={idx}>
-                            <div className={`${cur.type}`} />
-                            <h4>{cur.title}</h4>
-                            <span>{`${cur.startTime} - ${cur.endTime}`}</span>
-                        </li>
+                        <Link href={`/calendar/${cur.calendarId}`} key={idx}>
+                            <li>
+                                <div className={`${cur.type}`} />
+                                <h4>{cur.title}</h4>
+                                <span>{`${cur.startTime} - ${cur.endTime}`}</span>
+                            </li>
+                        </Link>
                     );
                 })}
             </ul>
@@ -40,6 +42,7 @@ const DayDetailWrpper = styled.div`
     flex: 1;
     background-color: ${(props) => props.theme.grey_1};
     padding: 1rem 1.5rem;
+    margin-bottom: 12vh;
     overflow: auto;
 
     h3 {

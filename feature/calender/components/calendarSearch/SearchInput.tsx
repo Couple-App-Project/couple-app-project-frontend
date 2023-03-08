@@ -15,7 +15,7 @@ const SearchInput = ({ search, onChangeSearch }: CalendarSearchPropsType) => {
                 <input
                     type="text"
                     placeholder="일정을 키워드로 검색해 보세요."
-                    value={search}
+                    value={search || ''}
                     name="keyword"
                     onChange={(e) => onChangeSearch(e)}
                 />
