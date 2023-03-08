@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const nextConfig = {
     reactStrictMode: true,
@@ -10,13 +11,16 @@ const nextConfig = {
     module: {
         rules: [
             {
-                test: /\.(jpg|png|gif|woff|eot|ttf|svg)/,
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        limit: 50000,
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '/public/font', // <-- This is what was helping.
+                        },
                     },
-                },
+                    'css-loader',
+                ],
             },
         ],
     },
