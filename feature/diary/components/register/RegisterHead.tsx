@@ -2,13 +2,19 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import Close from 'public/images/icons/close.svg';
 
-const RegisterHead = ({ onSendDiary }: { onSendDiary: () => void }) => {
+const RegisterHead = ({
+    onSendDiary,
+    isEdit,
+}: {
+    onSendDiary: () => void;
+    isEdit: any;
+}) => {
     const router = useRouter();
     return (
         <RegisterHeadContainer>
             <Close onClick={() => router.push('/diary')} />
             <h2>다이어리</h2>
-            <button onClick={onSendDiary}>저장</button>
+            <button onClick={onSendDiary}>{isEdit ? '수정' : '저장'}</button>
         </RegisterHeadContainer>
     );
 };

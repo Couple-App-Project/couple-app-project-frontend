@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { changeDate } from 'utils/functions';
 import CalendarIcon from 'public/images/icons/calendar-icon.svg';
+import Edit from 'public/images/icons/edit.svg';
+import { useRouter } from 'next/router';
 
 interface ContentPropsType {
     title: string;
@@ -8,6 +10,8 @@ interface ContentPropsType {
     _onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     disabled: boolean;
     date: string;
+    edit: boolean;
+    id?: string;
 }
 
 const Content = ({
@@ -16,12 +20,24 @@ const Content = ({
     _onChange,
     disabled,
     date,
+    edit,
+    id,
 }: ContentPropsType) => {
+    const router = useRouter();
     return (
         <ContentContainer>
             <div className="date-content">
-                <CalendarIcon />
-                <span>{changeDate(new Date(date))}</span>
+                <div>
+                    <CalendarIcon />
+                    <span>{changeDate(new Date(date))}</span>
+                </div>
+                {edit && (
+                    <div>
+                        <Edit
+                            onClick={() => router.push(`/diary/register/${id}`)}
+                        />
+                    </div>
+                )}
             </div>
             <input
                 type="text"
@@ -46,12 +62,18 @@ const Content = ({
 Content.defaultProps = {
     _onChange: () => {},
     disabled: false,
+    edit: false,
+    id: null,
 };
 
 export default Content;
 
 const ContentContainer = styled.div`
     .date-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
         margin-bottom: 0.875rem;
         color: ${(props) => props.theme.grey_6};
         ${(props) => props.theme.Body_2}

@@ -52,14 +52,14 @@ const DiaryWrite = () => {
             formData.append('files', v);
         });
 
-        data.id
+        data
             ? editDiaryMutation({ diaryId: data.id, data: formData })
             : createDiaryMutation(formData);
     };
 
     return (
         <DiaryWriteWrapper>
-            <RegisterHead onSendDiary={onSendDiary} />
+            <RegisterHead onSendDiary={onSendDiary} isEdit={data} />
             <RegisterContent
                 startDate={startDate || data?.calendar?.startDate}
                 diary={diary}
