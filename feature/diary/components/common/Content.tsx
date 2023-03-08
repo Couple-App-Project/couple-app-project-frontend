@@ -11,7 +11,7 @@ interface ContentPropsType {
     disabled: boolean;
     date: string;
     edit: boolean;
-    id?: string;
+    id?: any;
 }
 
 const Content = ({

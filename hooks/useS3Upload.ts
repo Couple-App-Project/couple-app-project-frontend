@@ -30,13 +30,16 @@ const useS3Upload = (): useS3UploadType => {
         let imageUrlLists = [...imagesUrl];
 
         let imagesFileLists = [...imagesFile];
-
+        //@ts-ignore
         if (5 < imageLists.length) {
             alert('사진은 최대 5장 이상만 업로드 가능합니다.');
         } else {
+            //@ts-ignore
             for (let i = 0; i < imageLists.length; i++) {
+                //@ts-ignore
                 const currentImageUrl = URL.createObjectURL(imageLists[i]);
                 imageUrlLists.push(currentImageUrl);
+                //@ts-ignore
                 imagesFileLists.push(imageLists[i]);
             }
         }
@@ -58,6 +61,7 @@ const useS3Upload = (): useS3UploadType => {
         let fileUrlList: string[] = [];
 
         for (let i = 0; i < imagesFile.length; i++) {
+            //@ts-ignore
             const fileName = imagesFile[i].name.replaceAll(' ', '');
             const params = {
                 ACL: 'public-read',

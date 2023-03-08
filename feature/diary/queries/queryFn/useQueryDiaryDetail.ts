@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import apiKeys from '../apiKeys';
 import queryKeys from '../queryKeys';
 
-const useQueryDiaryDetail = (calendarId: number) => {
+const useQueryDiaryDetail = (calendarId: any) => {
     return useQuery(
         queryKeys.diaryDetail(calendarId),
         () => apiKeys.getDiaryDetail(calendarId),

@@ -44,6 +44,7 @@ const DiaryWrite = () => {
     const onSendDiary = () => {
         const formData = new FormData();
 
+        //@ts-ignore
         formData.append('calendarId', id);
         formData.append('title', diary.title);
         formData.append('content', diary.content);
