@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import Image from 'next/image';
-import CalendarIcon from 'public/images/icons/calendar-icon.svg';
 import Close from 'public/images/icons/close.svg';
-import { changeDate } from 'utils/functions';
+import Content from '../common/Content';
 
 interface RegisterContentPropsType {
     startDate: string;
@@ -21,23 +20,11 @@ const RegisterContent = ({
 }: RegisterContentPropsType) => {
     return (
         <RegisterInputContainer>
-            <div className="date-content">
-                <CalendarIcon />
-                <span>{changeDate(new Date(startDate))}</span>
-            </div>
-            <input
-                type="text"
-                value={diary.title || ''}
-                placeholder="제목"
-                className="title"
-                onChange={(e) => onChangeContent(e)}
-            />
-            <input
-                type="text"
-                value={diary.content || ''}
-                placeholder="둘만의 이야기를 기록해 보세요."
-                className="content"
-                onChange={(e) => onChangeContent(e)}
+            <Content
+                title={diary.title}
+                content={diary.content}
+                _onChange={(e) => onChangeContent(e)}
+                date={startDate}
             />
             {imgUrl &&
                 imgUrl.map((el, i) => {
@@ -63,30 +50,6 @@ export default RegisterContent;
 
 const RegisterInputContainer = styled.div`
     padding: 0 1.5rem;
-    .date-content {
-        margin-bottom: 0.875rem;
-        color: ${(props) => props.theme.grey_6};
-        ${(props) => props.theme.Body_2}
-
-        span {
-            margin-left: 0.4rem;
-        }
-    }
-    input {
-        width: 100%;
-        padding: 0;
-        border: none;
-        &::placeholder {
-            color: ${(props) => props.theme.grey_4};
-        }
-        &.title {
-            ${(props) => props.theme.Subhead_3}
-            margin-bottom: 0.4rem;
-        }
-        &.content {
-            ${(props) => props.theme.Body_2}
-        }
-    }
 
     .image-content {
         position: relative;
