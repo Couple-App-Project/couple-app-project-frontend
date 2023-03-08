@@ -2,6 +2,7 @@ import instance from 'utils/api';
 import imgInstance from 'utils/imgInstance';
 
 const apiKeys = {
+  getDiaries: async () => await instance.get(`/diaries`),
     createDiary: async (data: FormData) =>
         await imgInstance.post('/diaries', data),
     editDiary: async ({ diaryId, data }: { diaryId: number; data: FormData }) =>

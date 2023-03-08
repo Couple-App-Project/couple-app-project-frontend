@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { pixelToVh, pixelToVw } from 'utils/utils';
+import { useMutationCoupleInfo } from 'feature/coupleInfo/queries/mutationFn';
+// import useMutationHome from '../queries/mutationFn/mutationFn';
+
 import Modal from './Modal';
 import Grid from 'components/Grid';
 import Camera from 'public/icons/camera.svg';
@@ -23,6 +26,10 @@ const EditMenu = styled.article`
         span {
             padding-left: 12px;
             ${(props) => props.theme.Body_1};
+        }
+
+        input {
+            display: none;
         }
     }
 `;
@@ -68,7 +75,7 @@ const ColorSaveButton = styled.button`
 `;
 
 const ModalBackground = (props: any) => {
-    const { closeButton } = props;
+    const { closeButton, background } = props;
     const [title, setTitle] = useState('');
 
     const colorChipPage = () => {
@@ -88,19 +95,42 @@ const ModalBackground = (props: any) => {
         '#FCE5E5',
     ];
 
-    const [bgColor, setBgColor] = useState('#F5F5F5');
+    const [bgColor, setBgColor] = useState<string>(background ?? '#F5F5F5');
     const changeBgColor = (colorCode: string) => {
         setBgColor(colorCode);
+    };
+
+    const coupleInfoMutation = useMutationCoupleInfo();
+    // const mutate = useMutationHome();
+
+    // useEffect(() => {
+    //     mutate();
+    //     console.log('엄');
+    // }, [coupleInfoMutation, mutate]);
+
+    const saveBackground = () => {
+        coupleInfoMutation({ backgroundColor: bgColor });
+        closeButton();
+    };
+
+    const setBackground = () => {
+        let myInput = document.getElementById('backgroundInput');
+        myInput?.click();
     };
 
     return (
         <Modal closeButton={closeButton} title={title}>
             {title === '' ? (
                 <Grid paddingTop="0">
-                    <EditMenu>
+                    <EditMenu onClick={setBackground}>
                         <button>
                             <Camera width="18" height="18" />
                             <span>배경 사진</span>
+                            <input
+                                id="backgroundInput"
+                                type="file"
+                                accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
+                            />
                         </button>
                         <ChevronRight />
                     </EditMenu>
@@ -136,7 +166,9 @@ const ModalBackground = (props: any) => {
                         </ColorChipsContainer>
                     </Grid>
 
-                    <ColorSaveButton>완료</ColorSaveButton>
+                    <ColorSaveButton onClick={saveBackground}>
+                        완료
+                    </ColorSaveButton>
                 </Grid>
             )}
         </Modal>

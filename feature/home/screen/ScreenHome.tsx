@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { useQueryClient } from 'react-query';
 import useMutationHome from '../../home/queries/mutationFn/mutationFn';
+import { useMutationCoupleInfo } from 'feature/coupleInfo/queries/mutationFn';
 import { getDday } from 'utils/getDday';
 import { pixelToRem, pixelToVh } from 'utils/utils';
 import { ICoupleInfo } from '../types/CoupleInfo';
@@ -18,9 +19,9 @@ import Heart from 'public/icons/heart.svg';
 import Picture from 'public/icons/picture.svg';
 import Pencil from 'public/icons/pencil.svg';
 
-const ProfileSection = styled.section`
+const ProfileSection = styled.section<{ background: string }>`
     height: 100vh;
-    background: #ffeeee;
+    background: ${(props: any) => props.background ?? '#F5F5F5'};
     overflow: hidden;
 
     .notification {
@@ -134,27 +135,33 @@ const ScheduleContainer = styled.section`
 export default function ScreenHome() {
     const queryClient = useQueryClient();
     const mutate = useMutationHome();
+    const coupleInfoMutation = useMutationCoupleInfo();
 
     const [openBgModal, setBgModal] = useState(false);
     const [openCommentModal, setCommentModal] = useState(false);
 
     const coupleInfo: ICoupleInfo | undefined =
         queryClient.getQueryData('couple-info');
+
     useEffect(() => {
         mutate();
-    }, [mutate]);
+        // console.log('어어');
+    }, [mutate, coupleInfoMutation]);
 
     return (
         <>
             {openBgModal ? (
-                <ModalBackground closeButton={() => setBgModal(false)} />
+                <ModalBackground
+                    closeButton={() => setBgModal(false)}
+                    background={coupleInfo?.backgroundColor}
+                />
             ) : null}
             {openCommentModal ? (
                 <ModalTodayComment closeButton={() => setCommentModal(false)} />
             ) : null}
 
             {coupleInfo && (
-                <ProfileSection>
+                <ProfileSection background={coupleInfo?.backgroundColor}>
                     <Notification className="notification" />
                     <Grid>
                         <Nickname>
