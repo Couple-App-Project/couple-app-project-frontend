@@ -1,11 +1,31 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+
 import Image from 'next/image';
 import styled from 'styled-components';
+import Bookmark from 'public/icons/bookmark.svg';
 
-const CardContainer = styled.article`
+const CardContainer = styled.article<{ selected: boolean }>`
     div {
+        position: relative;
         width: 100%;
         border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 9px;
+
+        svg {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            z-index: 1;
+            fill: ${(props) =>
+                props.selected ? props.theme.primaryPink : 'none'};
+        }
+
+        path {
+            stroke: ${(props) =>
+                props.selected ? props.theme.primaryPink : '#fff'};
+        }
     }
 `;
 const Title = styled.h1`
@@ -13,23 +33,38 @@ const Title = styled.h1`
 `;
 const ScheduleDate = styled.h2`
     ${(props) => props.theme.Body_3};
-    ${(props) => props.theme.grey_4};
+    color: ${(props) => props.theme.grey_4};
 `;
 
-const DiaryCard = () => {
+const DiaryCard = (props: any) => {
+    const router = useRouter();
+
+    const { diaryInfo } = props;
+    const calendarCreatedAt = new Date(diaryInfo?.calendar.createdAt);
+    const dateFormat = `${calendarCreatedAt.getFullYear()}.${String(
+        calendarCreatedAt.getMonth() + 1,
+    ).padStart(2, '0')}.${String(calendarCreatedAt.getDate()).padStart(
+        2,
+        '0',
+    )}`;
+
     return (
-        <CardContainer>
+        <CardContainer
+            selected={diaryInfo?.labeled}
+            onClick={() => router.push(`/diary/${diaryInfo?.id}`)}
+        >
             <div>
+                <Bookmark stroke="#fff" />
                 <Image
                     src="/slider_img.png"
                     alt="다이어리 썸네일"
-                    // layout="fill"
                     width="100%"
                     height="100%"
+                    layout="responsive"
                 />
             </div>
-            <Title>제주도 여행 같이 간 날</Title>
-            <ScheduleDate>2023.03.07</ScheduleDate>
+            <Title>{diaryInfo?.title}</Title>
+            <ScheduleDate>{dateFormat}</ScheduleDate>
         </CardContainer>
     );
 };
