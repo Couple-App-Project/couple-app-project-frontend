@@ -1,45 +1,35 @@
+import Grid from 'components/Grid';
 import styled from 'styled-components';
+import DiaryCard from '../components/DiaryCard';
+import useQueryDiary from 'feature/diary/queries/queryFn/useQueryDiary';
 
 const ScreenDiary = () => {
-    const list = [
-        {
-            id: 1,
-            date: '2022-12-02',
-            title: '전시회',
-            content: '',
-        },
-        {
-            id: 2,
-            date: '2022-12-14',
-            title: '해리포터 봄',
-            content: '',
-        },
-        {
-            id: 3,
-            date: '2022-12-25',
-            title: '크리스마스',
-            content: '',
-        },
-    ];
+    const diaryQuery = useQueryDiary();
+    const diaries = diaryQuery?.data?.data?.data;
 
     return (
-        <DiaryWrapper>
-            <h2>일정 완료 다이어리</h2>
-            <div className="diary-list">
-                {list.map((el) => {
-                    return (
-                        <div key={el.id}>
-                            <h3>{el.title}</h3>
-                            <span>{el.date}</span>
-                            <p>{el.content}</p>
-                        </div>
-                    );
-                })}
-            </div>
-        </DiaryWrapper>
+        <Grid>
+            <DiaryWrapper>
+                <section className="diary-list">
+                    {diaries &&
+                        diaries.map((el: any) => {
+                            return <DiaryCard key={el} />;
+                        })}
+
+                    {/* TODO: diaries 등록된거 생기면 밑에 코드 삭제하기 */}
+                    <DiaryCard />
+                </section>
+            </DiaryWrapper>
+        </Grid>
     );
 };
 
 export default ScreenDiary;
 
-const DiaryWrapper = styled.div``;
+const DiaryWrapper = styled.div`
+    section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 13px;
+    }
+`;
