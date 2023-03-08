@@ -51,7 +51,7 @@ const DiaryCard = (props: any) => {
     return (
         <CardContainer
             selected={diaryInfo?.labeled}
-            onClick={() => router.push(`/diary/${diaryInfo?.id}`)}
+            onClick={() => router.push(`/diary/detail/${diaryInfo?.id}`)}
         >
             <div>
                 <Bookmark stroke="#fff" />
