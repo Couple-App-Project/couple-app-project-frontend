@@ -1,7 +1,7 @@
 interface CalendarParamsType {
-    month?: string;
+    month?: any;
     keyword?: string;
-    type: string | null;
+    type?: string | null;
 }
 
 export type { CalendarParamsType };
