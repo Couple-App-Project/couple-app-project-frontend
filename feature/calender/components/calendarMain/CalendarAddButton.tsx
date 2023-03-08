@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import AddBtnIcon from 'public/images/icons/add-button.svg';
+import Link from 'next/link';
 
 const CalendarAddButton = () => {
     return (
         <AddBtn>
-            <AddBtnIcon />
+            <Link href="/calendar/register">
+                <AddBtnIcon />
+            </Link>
         </AddBtn>
     );
 };
