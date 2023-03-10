@@ -15,10 +15,27 @@ const DiaryWrite = () => {
 
     const { isLoading, data } = useQueryDiaryDetail(id);
 
+    const urlToFile = async () => {
+        let imgArray = [];
+
+        for await (const img of data.images) {
+            const imgDownload = await fetch(img);
+            const blob = await imgDownload.blob();
+
+            imgArray.push(
+                new File([blob], `image ${blob.size}`, {
+                    type: blob.type,
+                }),
+            );
+        }
+
+        handleUpload({ target: { files: imgArray } });
+    };
+
     useEffect(() => {
         if (data) {
             setDiary({ title: data.title, content: data.content });
-            console.log(data.images);
+            urlToFile();
         }
     }, [data]);
 

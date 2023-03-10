@@ -3,7 +3,7 @@ import { useState } from 'react';
 type useImageType = [
     File[],
     string[],
-    (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>,
+    (e: React.ChangeEvent<HTMLInputElement> | any) => Promise<void>,
     (index: number) => void,
 ];
 
@@ -11,7 +11,9 @@ const useImage = (): useImageType => {
     const [imgFile, setImgFile] = useState<File[]>([]);
     const [imgUrl, setImgUrl] = useState<string[]>([]);
 
-    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleUpload = async (
+        e: React.ChangeEvent<HTMLInputElement> | any,
+    ) => {
         const imageLists = e.target.files!;
 
         let imageUrlLists = [...imgUrl];
@@ -19,7 +21,7 @@ const useImage = (): useImageType => {
         let imagesFileLists = [...imgFile];
 
         if (5 < imageLists.length) {
-            alert('사진은 최대 5장 이상만 업로드 가능합니다.');
+            alert('사진은 최대 5장까지만 업로드 가능합니다.');
         } else {
             for (let i = 0; i < imageLists.length; i++) {
                 const currentImageUrl = URL.createObjectURL(imageLists[i]);
