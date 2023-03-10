@@ -26,7 +26,7 @@ imgInstance.interceptors.response.use(
         return res;
     },
     async (err) => {
-        if (err.status === 401) {
+        if (err.response.status === 401) {
             const originalConfig = err.config;
             const refreshToken = sessionStorage.getItem('refresh');
             try {
