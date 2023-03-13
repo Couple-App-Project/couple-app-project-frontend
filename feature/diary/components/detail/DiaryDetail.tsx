@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 import styled from 'styled-components';
+import { Sliders } from 'components';
 import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
 import Content from '../common/Content';
 import { useMutationDeleteDiary } from 'feature/diary/queries/mutationFn';
@@ -13,6 +15,20 @@ const DiaryDetail = () => {
 
     return (
         <div>
+            <Sliders className="slider-wrap">
+                {data?.images.map((el: string, i: number) => {
+                    return (
+                        <div className="slider-items" key={i}>
+                            <Image
+                                src={el}
+                                alt={`slider 0${i}`}
+                                layout="fill"
+                                className="slider-img"
+                            />
+                        </div>
+                    );
+                })}
+            </Sliders>
             <Inner>
                 <Content
                     title={data?.title}
