@@ -8,7 +8,7 @@ import sliderItems from '../modules/variables/sliderItems';
 const ScreenOnboarding = () => {
     return (
         <OnboardingWrapper>
-            <Sliders className="slider-wrap" dots autoplay>
+            <Sliders className="sliders" margin="5rem" dots autoplay>
                 {sliderItems.map((el, i) => {
                     return (
                         <div className="slider-items" key={i}>

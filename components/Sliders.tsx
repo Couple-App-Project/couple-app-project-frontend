@@ -4,7 +4,13 @@ import 'slick-carousel/slick/slick-theme.css';
 import type { SliderPropsType } from 'types/SliderPropsType';
 import styled from 'styled-components';
 
-const Sliders = ({ children, className, dots, autoplay }: SliderPropsType) => {
+const Sliders = ({
+    children,
+    className,
+    dots,
+    autoplay,
+    margin,
+}: SliderPropsType) => {
     const settings = {
         dots: dots ? true : false,
         infinite: true,
@@ -17,7 +23,7 @@ const Sliders = ({ children, className, dots, autoplay }: SliderPropsType) => {
     };
 
     return (
-        <SliderWrapper className={className}>
+        <SliderWrapper className={className} margin={margin}>
             <Slider {...settings}>{children}</Slider>
         </SliderWrapper>
     );
@@ -25,9 +31,9 @@ const Sliders = ({ children, className, dots, autoplay }: SliderPropsType) => {
 
 export default Sliders;
 
-const SliderWrapper = styled.section`
+const SliderWrapper = styled.section<{ margin: string }>`
     position: relative;
-    margin-bottom: 80px;
+    margin-bottom: ${(props) => props.margin};
 
     /* & .slick-dots {
         position: static;

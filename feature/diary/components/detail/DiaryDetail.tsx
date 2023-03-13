@@ -17,7 +17,7 @@ const DiaryDetail = () => {
         <DiaryDetailWrapper>
             <div className="slider-container">
                 <DetailHead bookmark={data?.labeled} />
-                <Sliders className="slider">
+                <Sliders className="sliders" margin="1.25rem">
                     {data?.images.map((el: string, i: number) => {
                         return (
                             <div className="slider-items" key={i}>
@@ -43,7 +43,6 @@ const DiaryDetail = () => {
                     id={id}
                 />
             </div>
-            <button onClick={() => deleteDiaryMutation(data.id)}>삭제</button>
         </DiaryDetailWrapper>
     );
 };
