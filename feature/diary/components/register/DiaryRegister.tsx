@@ -37,7 +37,7 @@ const DiaryWrite = () => {
             setDiary({ title: data.title, content: data.content });
             urlToFile();
         }
-    }, [data]);
+    }, []);
 
     const [diary, setDiary] = useState({ title: '', content: '' });
 
