@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { Sliders } from 'components';
 import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
-import Content from '../common/Content';
+import { Content, DetailHead } from '../index';
 import { useMutationDeleteDiary } from 'feature/diary/queries/mutationFn';
 
 const DiaryDetail = () => {
@@ -14,22 +14,25 @@ const DiaryDetail = () => {
     const deleteDiaryMutation = useMutationDeleteDiary();
 
     return (
-        <div>
-            <Sliders className="slider-wrap">
-                {data?.images.map((el: string, i: number) => {
-                    return (
-                        <div className="slider-items" key={i}>
-                            <Image
-                                src={el}
-                                alt={`slider 0${i}`}
-                                layout="fill"
-                                className="slider-img"
-                            />
-                        </div>
-                    );
-                })}
-            </Sliders>
-            <Inner>
+        <DiaryDetailWrapper>
+            <div className="slider-container">
+                <DetailHead />
+                <Sliders className="slider">
+                    {data?.images.map((el: string, i: number) => {
+                        return (
+                            <div className="slider-items" key={i}>
+                                <Image
+                                    src={el}
+                                    alt={`slider ${i}`}
+                                    layout="fill"
+                                    className="slider-img"
+                                />
+                            </div>
+                        );
+                    })}
+                </Sliders>
+            </div>
+            <div className="inner">
                 <Content
                     title={data?.title}
                     content={data?.content}
@@ -38,14 +41,33 @@ const DiaryDetail = () => {
                     edit
                     id={id}
                 />
-            </Inner>
+            </div>
             <button onClick={() => deleteDiaryMutation(data.id)}>삭제</button>
-        </div>
+        </DiaryDetailWrapper>
     );
 };
 
 export default DiaryDetail;
 
-const Inner = styled.div`
-    padding: 0 1.5rem;
+const DiaryDetailWrapper = styled.div`
+    .slider-container {
+        position: relative;
+
+        .slider-items {
+            width: 100%;
+
+            & > span {
+                position: unset !important;
+                & .slider-img {
+                    object-fit: cover !important;
+                    position: relative !important;
+                    height: 38vh !important;
+                }
+            }
+        }
+    }
+
+    .inner {
+        padding: 0 1.5rem;
+    }
 `;
