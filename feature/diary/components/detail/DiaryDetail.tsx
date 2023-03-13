@@ -16,7 +16,7 @@ const DiaryDetail = () => {
     return (
         <DiaryDetailWrapper>
             <div className="slider-container">
-                <DetailHead />
+                <DetailHead bookmark={data?.labeled} />
                 <Sliders className="slider">
                     {data?.images.map((el: string, i: number) => {
                         return (
@@ -26,6 +26,7 @@ const DiaryDetail = () => {
                                     alt={`slider ${i}`}
                                     layout="fill"
                                     className="slider-img"
+                                    priority
                                 />
                             </div>
                         );
@@ -55,6 +56,7 @@ const DiaryDetailWrapper = styled.div`
 
         .slider-items {
             width: 100%;
+            position: relative;
 
             & > span {
                 position: unset !important;

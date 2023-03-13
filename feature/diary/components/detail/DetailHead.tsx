@@ -3,12 +3,12 @@ import Close from 'public/images/icons/close.svg';
 import Bookmark from 'public/icons/bookmark.svg';
 import { useRouter } from 'next/router';
 
-const DetailHead = () => {
+const DetailHead = ({ bookmark }: any) => {
     const router = useRouter();
     return (
         <DetailHeadContainer>
             <Close onClick={() => router.push('/diary')} />
-            <Bookmark />
+            <Bookmark className={`bookmark-${bookmark}`} />
         </DetailHeadContainer>
     );
 };
@@ -27,9 +27,14 @@ const DetailHeadContainer = styled.div`
     padding: 0 1.5rem;
 
     svg {
-        fill: none;
+        &.bookmark-false {
+            fill: none;
+        }
+        &.bookmark-true {
+            fill: ${(props) => props.theme.primaryPink};
+        }
         path {
-            stroke: #fff;
+            stroke: ${(props) => props.theme.white};
         }
     }
 `;
