@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import useMutationSetting from '../queries/mutationFn/useMutationSetting';
 import useMutationMypage from '../queries/mutationFn/useMutationMypage';
+import useMutationLogout from '../queries/mutationFn/useMutationLogout';
 import { ICoupleInfo } from '../types/CoupleInfo';
 import { useQueryClient } from 'react-query';
 
+import ModalInput from 'feature/common/components/ModalInput';
 import Grid from 'components/Grid';
 import { Menu } from 'styles/menuStyle';
 import ChevronRight from 'public/icons/chevron-right.svg';
@@ -63,8 +64,8 @@ const LogoutButton = styled.button`
 
 const ScreenMypage = () => {
     const queryClient = useQueryClient();
-    const mutate = useMutationSetting();
-    const logoutMutate = useMutationMypage();
+    const mutate = useMutationMypage();
+    const logoutMutate = useMutationLogout();
 
     const coupleInfo: ICoupleInfo | undefined =
         queryClient.getQueryData('couple-info');
@@ -76,6 +77,9 @@ const ScreenMypage = () => {
     );
     const [anniversary, setAnniversary] = useState(coupleInfo?.anniversary);
     const [dDay, setDday] = useState(getDday(coupleInfo?.anniversary));
+
+    const [openNicknameModal, setNicknameModal] = useState(false);
+    const [openAnniversaryModal, setAnniversaryModal] = useState(false);
 
     const handleAnniversary = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAnniversary = event.target.value;
@@ -110,6 +114,24 @@ const ScreenMypage = () => {
 
     return (
         <>
+            {openNicknameModal ? (
+                <ModalInput
+                    closeButton={() => setNicknameModal(false)}
+                    title="애칭 수정"
+                    placeholder="애칭을 입력해 주세요."
+                    maxLength="8"
+                    buttonText="완료"
+                />
+            ) : null}
+            {openAnniversaryModal ? (
+                <ModalInput
+                    closeButton={() => setAnniversaryModal(false)}
+                    title="애칭 수정"
+                    placeholder="오늘의 한마디를 입력해 주세요"
+                    maxLength="15"
+                />
+            ) : null}
+
             <ProfileHeader>
                 <Grid>
                     <h1>
@@ -121,7 +143,7 @@ const ScreenMypage = () => {
 
             <Grid paddingTop="27px">
                 <Title>정보 관리</Title>
-                <Menu>
+                <Menu onClick={() => setNicknameModal(true)}>
                     <button>
                         <Icon>
                             <Image
@@ -145,7 +167,7 @@ const ScreenMypage = () => {
                     defaultValue={name}
                     onChange={(e) => setName(e.target.value)}
                 /> */}
-                <Menu>
+                <Menu onClick={() => setAnniversaryModal(true)}>
                     <button>
                         <Icon>
                             <Image

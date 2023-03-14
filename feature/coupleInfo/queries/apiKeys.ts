@@ -1,7 +1,7 @@
 import instance from 'utils/api';
 
 const apiKeys = {
-    createCoupleInfo: async (coupleData: {
+    editCoupleInfo: async (coupleData: {
         anniversary?: string;
         nickname?: string;
         backgroundColor?: string;

@@ -2,7 +2,7 @@ import { useMutation } from 'react-query';
 import { apiKeys } from '../apiKey';
 import { useQueryClient } from 'react-query';
 
-const useMutationSetting = () => {
+const useMutationMypage = () => {
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation(apiKeys.getCoupleInfo, {
@@ -20,4 +20,4 @@ const useMutationSetting = () => {
     return mutate;
 };
 
-export default useMutationSetting;
+export default useMutationMypage;

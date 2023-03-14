@@ -5,7 +5,7 @@ import apiKeys from '../apiKeys';
 const useMutationCoupleInfo = () => {
     const router = useRouter();
 
-    const { mutate } = useMutation(apiKeys.createCoupleInfo, {
+    const { mutate } = useMutation(apiKeys.editCoupleInfo, {
         onMutate: (variables) => {
             console.log(variables);
         },
@@ -14,7 +14,10 @@ const useMutationCoupleInfo = () => {
         },
         onSuccess: (data, variables, context) => {
             console.log(data, variables, context);
-            router.push('/home');
+
+            if (router.pathname === '/coupleinfo') {
+                router.push('/home');
+            }
         },
     });
 
