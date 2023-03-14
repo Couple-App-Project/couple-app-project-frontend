@@ -8,11 +8,15 @@ const useMutationDeleteDiary = (calendarId: any) => {
 
     const { mutate } = useMutation(apiKeys.deleteDiary, {
         onSuccess: () => {
-            queryClient.setQueryData(['diaryDetail', calendarId], []);
+            queryClient.setQueryData(['diary'], ({ data }: any) => {
+                return data.data.filter(
+                    (diary: any) => diary.calendarId !== calendarId,
+                );
+            });
         },
         onSettled: () => {
             queryClient.invalidateQueries({
-                queryKey: ['diary', 'diaryDetail', calendarId],
+                queryKey: ['diaryDetail', calendarId],
                 refetchActive: false,
             });
             router.push('/diary');
