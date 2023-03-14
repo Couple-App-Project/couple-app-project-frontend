@@ -1,6 +1,6 @@
 import instance from 'utils/api';
 
-export const apis = {
-    getCoupleInfo: async () =>
-        await instance.get('/couples/info'),
+export const apiKeys = {
+    getCoupleInfo: async () => await instance.get('/couples/info'),
+    logout: async () => await instance.get('/auth/logout'),
 };

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
-// import Image from 'next/image';
-// import cat from 'public/cat.jpeg';
-import useMutationSetting from '../queries/mutationFn/mutationFn';
+
+import useMutationSetting from '../queries/mutationFn/useMutationSetting';
+import useMutationMypage from '../queries/mutationFn/useMutationMypage';
 import { ICoupleInfo } from '../types/CoupleInfo';
 import { useQueryClient } from 'react-query';
 
@@ -64,6 +64,7 @@ const LogoutButton = styled.button`
 const ScreenMypage = () => {
     const queryClient = useQueryClient();
     const mutate = useMutationSetting();
+    const logoutMutate = useMutationMypage();
 
     const coupleInfo: ICoupleInfo | undefined =
         queryClient.getQueryData('couple-info');
@@ -81,6 +82,10 @@ const ScreenMypage = () => {
 
         setAnniversary(newAnniversary);
         setDday(getDday(newAnniversary));
+    };
+
+    const handleLogout = () => {
+        if (confirm('정말 로그아웃 하시겠습니까?')) logoutMutate();
     };
 
     // @ts-ignore
@@ -165,7 +170,7 @@ const ScreenMypage = () => {
                     defaultValue={anniversary}
                     onChange={handleAnniversary}
                 /> */}
-                <LogoutButton>로그아웃</LogoutButton>
+                <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
             </Grid>
         </>
     );
