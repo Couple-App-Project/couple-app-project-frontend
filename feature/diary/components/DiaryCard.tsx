@@ -7,7 +7,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import Bookmark from 'public/icons/bookmark.svg';
 
-const CardContainer = styled.article<{ selected: boolean }>`
+const CardContainer = styled.article<{ isLabeled: boolean }>`
     & > div {
         position: relative;
         width: 100%;
@@ -21,12 +21,12 @@ const CardContainer = styled.article<{ selected: boolean }>`
             top: 10px;
             z-index: 1;
             fill: ${(props) =>
-                props.selected ? props.theme.primaryPink : 'none'};
+                props.isLabeled ? props.theme.primaryPink : 'none'};
         }
 
         path {
             stroke: ${(props) =>
-                props.selected ? props.theme.primaryPink : '#fff'};
+                props.isLabeled ? props.theme.primaryPink : '#fff'};
         }
     }
 `;
@@ -57,7 +57,7 @@ const DiaryCard = (props: any) => {
     };
 
     return (
-        <CardContainer selected={diaryInfo?.labeled}>
+        <CardContainer isLabeled={diaryInfo?.labeled}>
             <div>
                 <Bookmark stroke="#fff" onClick={toggleLabel} />
                 <Image
