@@ -6,6 +6,7 @@ import Content from '../common/Content';
 interface RegisterContentPropsType {
     startDate: string;
     imgUrl: string[];
+    calendarTitle: string;
     diary: { title: string; content: string };
     onChangeContent: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleDelete: (index: number) => void;
@@ -13,6 +14,7 @@ interface RegisterContentPropsType {
 
 const RegisterContent = ({
     startDate,
+    calendarTitle,
     imgUrl,
     diary,
     onChangeContent,
@@ -21,6 +23,7 @@ const RegisterContent = ({
     return (
         <RegisterInputContainer>
             <Content
+                calendarTitle={calendarTitle}
                 title={diary.title}
                 content={diary.content}
                 _onChange={(e) => onChangeContent(e)}

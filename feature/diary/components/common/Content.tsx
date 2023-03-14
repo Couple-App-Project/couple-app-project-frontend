@@ -13,7 +13,7 @@ interface ContentPropsType {
     disabled: boolean;
     date: string;
     edit: boolean;
-    handlerDelete: () => void;
+    handlerDelete?: () => void;
     id?: any;
 }
 

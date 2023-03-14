@@ -9,8 +9,8 @@ const useMutationDeleteDiary = (calendarId: any) => {
     const { mutate } = useMutation(apiKeys.deleteDiary, {
         onSuccess: () => {
             queryClient.setQueryData(['diary'], ({ data }: any) => {
-                return data.data.filter(
-                    (diary: any) => diary.calendarId !== calendarId,
+                data.data.filter(
+                    (diary: any) => diary.calendarId !== Number(calendarId),
                 );
             });
         },
