@@ -24,7 +24,7 @@ const DetailHeadContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 0 1.5rem;
+    padding: 1rem 1.5rem;
 
     svg {
         &.bookmark-false {

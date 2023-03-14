@@ -13,6 +13,10 @@ const DiaryDetail = () => {
 
     const deleteDiaryMutation = useMutationDeleteDiary();
 
+    const handlerDelete = () => {
+        deleteDiaryMutation(data?.id);
+    };
+
     return (
         <DiaryDetailWrapper>
             <div className="slider-container">
@@ -35,11 +39,13 @@ const DiaryDetail = () => {
             </div>
             <div className="inner">
                 <Content
+                    calendarTitle={data?.calendar.title}
                     title={data?.title}
                     content={data?.content}
                     date={data?.calendar?.startDate}
                     disabled
                     edit
+                    handlerDelete={handlerDelete}
                     id={id}
                 />
             </div>
