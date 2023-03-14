@@ -11,7 +11,7 @@ const DiaryDetail = () => {
     const { id } = router.query;
     const { isLoading, data } = useQueryDiaryDetail(id);
 
-    const deleteDiaryMutation = useMutationDeleteDiary();
+    const deleteDiaryMutation = useMutationDeleteDiary(id);
 
     const handlerDelete = () => {
         deleteDiaryMutation(data?.id);

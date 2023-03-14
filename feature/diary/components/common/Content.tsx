@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { changeDate } from 'utils/functions';
 import CalendarIcon from 'public/images/icons/calendar-icon.svg';
-import CalendarTitle from 'public/images/icons/calendar-title.svg';
 import Edit from 'public/images/icons/edit.svg';
 import Delete from 'public/icons/trash.svg';
 import { useRouter } from 'next/router';
@@ -33,12 +32,11 @@ const Content = ({
     return (
         <ContentContainer>
             <div className="calendar-title">
-                <CalendarTitle />
+                <CalendarIcon />
                 <span>{calendarTitle}</span>
             </div>
             <div className="date-content">
                 <div>
-                    <CalendarIcon />
                     <span>{changeDate(new Date(date))}</span>
                 </div>
                 {edit && (
@@ -101,10 +99,6 @@ const ContentContainer = styled.div`
         margin-bottom: 0.875rem;
         color: ${(props) => props.theme.grey_6};
         ${(props) => props.theme.Body_2}
-
-        span {
-            margin-left: 0.4rem;
-        }
     }
 
     input {

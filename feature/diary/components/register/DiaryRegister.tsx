@@ -56,7 +56,7 @@ const DiaryWrite = () => {
     const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
 
     const createDiaryMutation = useMutationCreateDiary();
-    const editDiaryMutation = useMutationEditDiary();
+    const editDiaryMutation = useMutationEditDiary(id);
 
     const onSendDiary = () => {
         const formData = new FormData();

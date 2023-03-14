@@ -1,16 +1,12 @@
+import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import apiKeys from '../apiKeys';
 
 const useMutationCreateDiary = () => {
+    const router = useRouter();
     const { mutate } = useMutation(apiKeys.createDiary, {
-        onMutate(variables) {
-            console.log(variables);
-        },
-        onError(error, variables, context) {
-            console.log(error);
-        },
-        onSuccess(data, variables, context) {
-            console.log(data);
+        onSuccess: () => {
+            router.push('/diary');
         },
     });
 

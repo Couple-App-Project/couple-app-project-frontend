@@ -26,6 +26,7 @@ function MyApp({
                 defaultOptions: {
                     queries: {
                         refetchOnWindowFocus: false,
+                        retry: false,
                     },
                 },
             }),
