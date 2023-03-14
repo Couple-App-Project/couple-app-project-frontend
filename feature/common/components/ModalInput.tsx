@@ -57,9 +57,11 @@ const ModalInput = (props: any) => {
 
         if (props.title.includes('애칭')) {
             coupleInfoMutation({ nickname: inputText });
-            closeButton();
         } else if (props.title.includes('한마디')) {
+            coupleInfoMutation({ todayComment: inputText });
         }
+
+        closeButton();
     };
 
     return (
