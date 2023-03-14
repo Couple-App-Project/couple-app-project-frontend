@@ -8,11 +8,11 @@ import { ICoupleInfo } from '../types/CoupleInfo';
 import { useQueryClient } from 'react-query';
 
 import ModalInput from 'feature/common/components/ModalInput';
+import ModalDate from 'feature/common/components/ModalDate';
 import Grid from 'components/Grid';
 import { Menu } from 'styles/menuStyle';
 import ChevronRight from 'public/icons/chevron-right.svg';
 
-import { getDday } from 'utils/getDday';
 import { pixelToVh } from 'utils/utils';
 
 // const Input = styled.input`
@@ -69,23 +69,15 @@ const ScreenMypage = () => {
 
     const coupleInfo: ICoupleInfo | undefined =
         queryClient.getQueryData('couple-info');
-    // TODO: 하나로 합치거나 불필요한 코드 줄일 방법
-    // const [profile, setProfile] = useState(cat);
-    const [name, setName] = useState(coupleInfo?.yourNickname);
-    const [birthday, setBirthday] = useState(
-        coupleInfo?.myBirthday.slice(0, 10),
-    );
+
     const [anniversary, setAnniversary] = useState(coupleInfo?.anniversary);
-    const [dDay, setDday] = useState(getDday(coupleInfo?.anniversary));
 
     const [openNicknameModal, setNicknameModal] = useState(false);
     const [openAnniversaryModal, setAnniversaryModal] = useState(false);
 
     const handleAnniversary = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newAnniversary = event.target.value;
-
         setAnniversary(newAnniversary);
-        setDday(getDday(newAnniversary));
     };
 
     const handleLogout = () => {
@@ -104,10 +96,7 @@ const ScreenMypage = () => {
     // };
 
     useEffect(() => {
-        setName(coupleInfo?.yourNickname);
-        setBirthday(coupleInfo?.myBirthday.slice(0, 10));
         setAnniversary(coupleInfo?.anniversary);
-        setDday(getDday(coupleInfo?.anniversary));
 
         mutate();
     }, [coupleInfo, mutate]);
@@ -124,11 +113,9 @@ const ScreenMypage = () => {
                 />
             ) : null}
             {openAnniversaryModal ? (
-                <ModalInput
+                <ModalDate
                     closeButton={() => setAnniversaryModal(false)}
-                    title="애칭 수정"
-                    placeholder="오늘의 한마디를 입력해 주세요"
-                    maxLength="15"
+                    anniversaryInfo={anniversary}
                 />
             ) : null}
 
