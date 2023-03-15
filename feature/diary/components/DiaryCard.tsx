@@ -1,12 +1,14 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 
+import useMutationLabel from '../queries/mutationFn/useMutationLabel';
+
 import Image from 'next/image';
 import styled from 'styled-components';
 import Bookmark from 'public/icons/bookmark.svg';
 
-const CardContainer = styled.article<{ selected: boolean }>`
-    div {
+const CardContainer = styled.article<{ isLabeled: boolean }>`
+    & > div {
         position: relative;
         width: 100%;
         border-radius: 8px;
@@ -19,12 +21,12 @@ const CardContainer = styled.article<{ selected: boolean }>`
             top: 10px;
             z-index: 1;
             fill: ${(props) =>
-                props.selected ? props.theme.primaryPink : 'none'};
+                props.isLabeled ? props.theme.primaryPink : 'none'};
         }
 
         path {
             stroke: ${(props) =>
-                props.selected ? props.theme.primaryPink : '#fff'};
+                props.isLabeled ? props.theme.primaryPink : '#fff'};
         }
     }
 `;
@@ -37,9 +39,11 @@ const ScheduleDate = styled.h2`
 `;
 
 const DiaryCard = (props: any) => {
-    const router = useRouter();
-
     const { diaryInfo } = props;
+
+    const router = useRouter();
+    const labelMutation = useMutationLabel();
+
     const calendarCreatedAt = new Date(diaryInfo?.calendar.createdAt);
     const dateFormat = `${calendarCreatedAt.getFullYear()}.${String(
         calendarCreatedAt.getMonth() + 1,
@@ -48,21 +52,23 @@ const DiaryCard = (props: any) => {
         '0',
     )}`;
 
+    const toggleLabel = () => {
+        labelMutation(diaryInfo?.id);
+    };
+
     return (
-        <CardContainer
-            selected={diaryInfo?.labeled}
-            onClick={() =>
-                router.push(`/diary/detail/${diaryInfo?.calendarId}`)
-            }
-        >
+        <CardContainer isLabeled={diaryInfo?.labeled}>
             <div>
-                <Bookmark stroke="#fff" />
+                <Bookmark stroke="#fff" onClick={toggleLabel} />
                 <Image
                     src="/slider_img.png"
                     alt="다이어리 썸네일"
                     width="100%"
                     height="100%"
                     layout="responsive"
+                    onClick={() =>
+                        router.push(`/diary/detail/${diaryInfo?.calendarId}`)
+                    }
                 />
             </div>
             <Title>{diaryInfo?.title}</Title>

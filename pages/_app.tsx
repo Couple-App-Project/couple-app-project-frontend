@@ -26,6 +26,7 @@ function MyApp({
                 defaultOptions: {
                     queries: {
                         refetchOnWindowFocus: false,
+                        retry: false,
                     },
                 },
             }),
@@ -49,7 +50,7 @@ function MyApp({
             pathname === '/home' ||
             pathname === '/calendar' ||
             pathname === '/diary' ||
-            pathname === '/settings'
+            pathname === '/mypage'
         )
             return true;
         else return false;

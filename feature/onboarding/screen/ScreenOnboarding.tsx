@@ -1,13 +1,14 @@
 import React from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { OnboardingSlider, RouteBtnContent } from '../components';
+import { Sliders } from 'components';
+import { RouteBtnContent } from '../components';
 import sliderItems from '../modules/variables/sliderItems';
 
 const ScreenOnboarding = () => {
     return (
         <OnboardingWrapper>
-            <OnboardingSlider className="slider-wrap">
+            <Sliders className="sliders" margin="5rem" dots autoplay>
                 {sliderItems.map((el, i) => {
                     return (
                         <div className="slider-items" key={i}>
@@ -20,7 +21,7 @@ const ScreenOnboarding = () => {
                         </div>
                     );
                 })}
-            </OnboardingSlider>
+            </Sliders>
             <RouteBtnContent />
         </OnboardingWrapper>
     );

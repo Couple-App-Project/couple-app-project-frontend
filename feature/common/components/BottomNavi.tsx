@@ -88,8 +88,8 @@ export default function BottomNavi() {
                 <span>다이어리</span>
             </NaviRectButton>
             <NaviButton
-                onClick={() => changePage('/settings')}
-                currentPage="/settings"
+                onClick={() => changePage('/mypage')}
+                currentPage="/mypage"
             >
                 <div>
                     <User />
