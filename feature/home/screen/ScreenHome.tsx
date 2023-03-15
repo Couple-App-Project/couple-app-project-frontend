@@ -9,8 +9,8 @@ import { getDday } from 'utils/getDday';
 import { pixelToRem, pixelToVh } from 'utils/utils';
 import { ICoupleInfo } from '../types/CoupleInfo';
 
-import ModalBackground from '../components/ModalBackground';
-import ModalTodayComment from '../components/ModalTodayComment';
+import ModalBackground from 'feature/common/components/ModalBackground';
+import ModalInput from 'feature/common/components/ModalInput';
 import UpcomingSchedule from '../components/UpcomingSchedule';
 import Grid from 'components/Grid';
 
@@ -157,7 +157,13 @@ export default function ScreenHome() {
                 />
             ) : null}
             {openCommentModal ? (
-                <ModalTodayComment closeButton={() => setCommentModal(false)} />
+                <ModalInput
+                    closeButton={() => setCommentModal(false)}
+                    title="오늘의 한마디 작성"
+                    placeholder="오늘의 한마디를 입력해 주세요"
+                    maxLength="15"
+                    buttonText="등록"
+                />
             ) : null}
 
             {coupleInfo && (

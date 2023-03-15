@@ -6,33 +6,34 @@ import { useMutationCoupleInfo } from 'feature/coupleInfo/queries/mutationFn';
 
 import Modal from './Modal';
 import Grid from 'components/Grid';
+import { Menu } from 'styles/menuStyle';
 import Camera from 'public/icons/camera.svg';
 import Paint from 'public/icons/paint.svg';
 import ChevronRight from 'public/icons/chevron-right.svg';
 import CheckSmall from 'public/icons/check-small.svg';
 
-const EditMenu = styled.article`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: ${pixelToVh(55)};
-    border-bottom: 1px solid ${(props) => props.theme.grey_2};
+// const EditMenu = styled.article`
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     height: ${pixelToVh(55)};
+//     border-bottom: 1px solid ${(props) => props.theme.grey_2};
 
-    button {
-        all: unset;
-        display: flex;
-        align-items: center;
+//     button {
+//         all: unset;
+//         display: flex;
+//         align-items: center;
 
-        span {
-            padding-left: 12px;
-            ${(props) => props.theme.Body_1};
-        }
+//         span {
+//             padding-left: 12px;
+//             ${(props) => props.theme.Body_1};
+//         }
 
-        input {
-            display: none;
-        }
-    }
-`;
+//         input {
+//             display: none;
+//         }
+//     }
+// `;
 
 const ColorChipsContainer = styled.article`
     display: grid;
@@ -122,7 +123,7 @@ const ModalBackground = (props: any) => {
         <Modal closeButton={closeButton} title={title}>
             {title === '' ? (
                 <Grid paddingTop="0">
-                    <EditMenu onClick={setBackground}>
+                    <Menu onClick={setBackground}>
                         <button>
                             <Camera width="18" height="18" />
                             <span>배경 사진</span>
@@ -133,15 +134,15 @@ const ModalBackground = (props: any) => {
                             />
                         </button>
                         <ChevronRight />
-                    </EditMenu>
+                    </Menu>
 
-                    <EditMenu onClick={colorChipPage}>
+                    <Menu onClick={colorChipPage}>
                         <button>
                             <Paint width="18" height="18" />
                             <span>배경 색상</span>
                         </button>
                         <ChevronRight />
-                    </EditMenu>
+                    </Menu>
                 </Grid>
             ) : (
                 <Grid paddingTop="24px">

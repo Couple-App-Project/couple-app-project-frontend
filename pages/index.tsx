@@ -7,10 +7,10 @@ const Home: NextPage = () => {
     return (
         <div className={styles.container}>
             <Head>
-                <meta
+                {/* <meta
                     http-equiv="Content-Security-Policy"
                     content="upgrade-insecure-requests"
-                />
+                /> */}
                 <title>꾸욱</title>
             </Head>
         </div>
