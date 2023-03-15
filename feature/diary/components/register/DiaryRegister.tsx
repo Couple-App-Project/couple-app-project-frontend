@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 import useImage from 'feature/diary/hook/useImage';
@@ -15,12 +15,31 @@ const DiaryWrite = () => {
 
     const { isLoading, data } = useQueryDiaryDetail(id);
 
+    const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
+
+    const urlToFile = useCallback(async () => {
+        let imgArray = [];
+
+        for await (const img of data.images) {
+            const imgDownload = await fetch(img);
+            const blob = await imgDownload.blob();
+
+            imgArray.push(
+                new File([blob], `image ${blob.size}`, {
+                    type: blob.type,
+                }),
+            );
+        }
+
+        handleUpload({ target: { files: imgArray } });
+    }, []);
+
     useEffect(() => {
         if (data) {
             setDiary({ title: data.title, content: data.content });
-            console.log(data.images);
+            urlToFile();
         }
-    }, [data]);
+    }, [data, urlToFile]);
 
     const [diary, setDiary] = useState({ title: '', content: '' });
 
@@ -36,10 +55,8 @@ const DiaryWrite = () => {
         });
     };
 
-    const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
-
     const createDiaryMutation = useMutationCreateDiary();
-    const editDiaryMutation = useMutationEditDiary();
+    const editDiaryMutation = useMutationEditDiary(id);
 
     const onSendDiary = () => {
         const formData = new FormData();
@@ -63,6 +80,7 @@ const DiaryWrite = () => {
             <RegisterHead onSendDiary={onSendDiary} isEdit={data} />
             <RegisterContent
                 startDate={startDate || data?.calendar?.startDate}
+                calendarTitle={'타이틀넣어줘' || data?.calendar?.title}
                 diary={diary}
                 onChangeContent={onChangeContent}
                 imgUrl={imgUrl}

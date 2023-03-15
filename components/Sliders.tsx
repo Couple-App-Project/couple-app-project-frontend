@@ -1,36 +1,42 @@
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import type { SliderPropsType } from '../types/SliderPropsType';
+import type { SliderPropsType } from 'types/SliderPropsType';
 import styled from 'styled-components';
 
-const OnboardingSlider = ({ children, className }: SliderPropsType) => {
+const Sliders = ({
+    children,
+    className,
+    dots,
+    autoplay,
+    margin,
+}: SliderPropsType) => {
     const settings = {
-        dots: true,
+        dots: dots ? true : false,
         infinite: true,
         speed: 300,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: autoplay ? true : false,
         autoplaySpeed: 3000,
         arrows: false,
     };
 
     return (
-        <SliderWrapper className={className}>
+        <SliderWrapper className={className} margin={margin}>
             <Slider {...settings}>{children}</Slider>
         </SliderWrapper>
     );
 };
 
-export default OnboardingSlider;
+export default Sliders;
 
-const SliderWrapper = styled.section`
+const SliderWrapper = styled.section<{ margin: string }>`
     position: relative;
-    margin-bottom: 80px;
+    margin-bottom: ${(props) => props.margin};
 
-    & .slick-dots {
+    /* & .slick-dots {
         position: static;
         bottom: 0px;
-    }
+    } */
 `;

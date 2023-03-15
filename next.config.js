@@ -1,5 +1,4 @@
 /** @type {import('next').NextConfig} */
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const nextConfig = {
     reactStrictMode: true,
@@ -7,6 +6,16 @@ const nextConfig = {
     compiler: {
         // Enables the styled-components SWC transform
         styledComponents: true,
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'couple-app-dev.s3.ap-northeast-2.amazonaws.com',
+                port: '',
+                pathname: '/diaries/**',
+            },
+        ],
     },
     webpack: (config) => {
         config.module.rules.push({
