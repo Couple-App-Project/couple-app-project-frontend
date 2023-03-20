@@ -6,42 +6,27 @@ import {
     SearchType,
     SearchList,
 } from 'feature/calender/components';
+import useInput from 'hooks/useInput';
 
 const CalendarSearch = () => {
-    const [search, setSearch] = useState({ keyword: '', type: null });
+    const [keyword, onChangeKeyword] = useInput('');
+    const [type, setType] = useState<null | string>();
 
-    const onChangeSearch = (
-        e?:
-            | React.ChangeEvent<HTMLInputElement>
-            | React.MouseEvent<HTMLButtonElement>,
-    ) => {
-        if (e) {
-            setSearch((prev) => {
-                return {
-                    ...prev,
-                    [e.target.name]: (e.target as HTMLButtonElement).value,
-                };
-            });
-        } else {
-            setSearch((prev) => {
-                return {
-                    ...prev,
-                    keyword: '',
-                };
-            });
-        }
+    const onChangeType = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setType(
+            (e.target as HTMLButtonElement).value === type
+                ? null
+                : (e.target as HTMLButtonElement).value,
+        );
     };
 
-    const { data } = useQueryCalendarSearch(search);
+    const { data } = useQueryCalendarSearch({ keyword, type });
 
     return (
         <SearchContainer>
-            <SearchInput
-                search={search.keyword}
-                onChangeSearch={onChangeSearch}
-            />
-            <SearchType search={search.type} onChangeSearch={onChangeSearch} />
-            <SearchList list={data?.data.data} search={search.keyword} />
+            <SearchInput keyword={keyword} onChangeKeyword={onChangeKeyword} />
+            <SearchType type={type} onChangeType={onChangeType} />
+            <SearchList list={data?.data.data} search={keyword} />
         </SearchContainer>
     );
 };

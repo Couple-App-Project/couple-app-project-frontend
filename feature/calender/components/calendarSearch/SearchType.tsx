@@ -1,22 +1,22 @@
 import styled from 'styled-components';
 import { CalendarSearchPropsType } from 'feature/calender/types/CalendarSearchPropsType';
 
-const SearchType = ({ search, onChangeSearch }: CalendarSearchPropsType) => {
+const SearchType = ({ type, onChangeType }: CalendarSearchPropsType) => {
     return (
         <SearchTypeContainer className="search-type">
             <button
                 name="type"
                 value="데이트"
-                className={search === '데이트' ? 'date' : ''}
-                onClick={(e) => onChangeSearch(e)}
+                className={type === '데이트' ? 'date' : ''}
+                onClick={(e) => onChangeType(e)}
             >
                 데이트
             </button>
             <button
                 name="type"
                 value="기념일"
-                className={search === '기념일' ? 'anniversary' : ''}
-                onClick={(e) => onChangeSearch(e)}
+                className={type === '기념일' ? 'anniversary' : ''}
+                onClick={(e) => onChangeType(e)}
             >
                 기념일
             </button>

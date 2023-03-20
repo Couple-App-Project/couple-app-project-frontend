@@ -23,11 +23,11 @@ const SearchList = ({ list, search }: any) => {
 
     return (
         <SearchListContainer>
-            {!list ? (
+            {!list || list?.length < 1 ? (
                 <p className="not-list">검색 결과가 없습니다</p>
             ) : (
                 <>
-                    {searchMonth.map((el: any, index: any) => {
+                    {searchMonth?.map((el: any, index: any) => {
                         return (
                             <div key={index} className="list-content">
                                 <div>
@@ -95,6 +95,14 @@ const SearchListContainer = styled.div`
     h4 {
         color: ${(props) => props.theme.grey_6};
         ${(props) => props.theme.Body_3}
+    }
+
+    .not-list {
+        margin: 1.25rem 0.3rem;
+        color: #a8aab2;
+        font-size: 1rem;
+        line-height: 1.375rem;
+        font-weight: 400;
     }
 
     .list-content {
