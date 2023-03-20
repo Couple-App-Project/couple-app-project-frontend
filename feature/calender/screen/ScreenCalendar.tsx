@@ -15,6 +15,7 @@ const ScreenCalender = () => {
 
     const changeDate = (e: any) => {
         setSelectDate(format(e, 'yyMM'));
+        setSelectedDay(e);
     };
 
     const userInfo = useRecoilValue(userInfoState);

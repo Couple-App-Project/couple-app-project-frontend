@@ -34,6 +34,22 @@ const CalendarDayDetail = ({
                         </Link>
                     );
                 })}
+                {day?.slice(6) === coupleDay?.slice(6) && (
+                    <li>
+                        <div className="기념일" />
+                        <h4>
+                            {Number(day?.split('-')[0]) -
+                                Number(coupleDay?.split('-')[0]) ===
+                            0
+                                ? '처음 만난 날'
+                                : `${
+                                      Number(day?.split('-')[0]) -
+                                      Number(coupleDay?.split('-')[0])
+                                  }주년`}
+                        </h4>
+                        <span>하루종일</span>
+                    </li>
+                )}
             </ul>
         </DayDetailWrpper>
     );
