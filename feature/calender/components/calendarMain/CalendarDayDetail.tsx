@@ -8,7 +8,10 @@ import { dayArray } from '../../modules/functions';
 import { changeDate } from 'utils/functions';
 import Link from 'next/link';
 
-const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
+const CalendarDayDetail = ({
+    selectedDay,
+    coupleDay,
+}: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
     const day = selectedDay && format(selectedDay, 'yyyy-MM-dd');
 

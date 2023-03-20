@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Calendar, CalendarDayDetail, CalendarAddButton } from '../components';
 import { format } from 'date-fns';
 import { useQueryCalendars } from '../queries/queryFn';
+import { useRecoilValue } from 'recoil';
+import { userInfoState } from 'recoil/userState';
 
 const ScreenCalender = () => {
     const [selectedDay, setSelectedDay] = useState<Date | undefined>(
@@ -15,6 +17,8 @@ const ScreenCalender = () => {
         setSelectDate(format(e, 'yyMM'));
     };
 
+    const userInfo = useRecoilValue(userInfoState);
+
     const { isLoading } = useQueryCalendars(selectDate);
 
     return (
@@ -23,8 +27,15 @@ const ScreenCalender = () => {
                 selectedDay={selectedDay}
                 setSelectedDay={setSelectedDay}
                 changeDate={changeDate}
+                coupleDay={`20${selectDate.slice(
+                    0,
+                    2,
+                )}-${userInfo.anniversary.slice(6)}`}
             />
-            <CalendarDayDetail selectedDay={selectedDay} />
+            <CalendarDayDetail
+                selectedDay={selectedDay}
+                coupleDay={userInfo.anniversary}
+            />
             <CalendarAddButton />
         </CalenderWrapper>
     );
