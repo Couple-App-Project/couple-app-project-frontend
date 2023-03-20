@@ -21,7 +21,24 @@ const CalendarDayDetail = ({
 
     return (
         <DayDetailWrpper>
-            <h3>{changeDate(selectedDay!)}</h3>
+            <div className="day-detail-head">
+                <h3>{changeDate(selectedDay!)}</h3>
+                {Math.floor(
+                    (new Date(selectedDay!).getTime() -
+                        new Date(coupleDay!).getTime()) /
+                        (1000 * 60 * 60 * 24) +
+                        1,
+                ) > 0 && (
+                    <span>
+                        {`사귄 지 ${Math.floor(
+                            (new Date(selectedDay!).getTime() -
+                                new Date(coupleDay!).getTime()) /
+                                (1000 * 60 * 60 * 24) +
+                                1,
+                        )}일째`}
+                    </span>
+                )}
+            </div>
             <ul>
                 {selectDetailList?.map((cur, idx) => {
                     return (
@@ -64,14 +81,22 @@ const DayDetailWrpper = styled.div`
     margin-bottom: 12vh;
     overflow: auto;
 
-    h3 {
-        margin-bottom: 0.75rem;
-    }
-
     h3,
     h4 {
         color: ${(props) => props.theme.grey_6};
         ${(props) => props.theme.Body_2};
+    }
+
+    .day-detail-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+
+        span {
+            color: ${(props) => props.theme.grey_4};
+            ${(props) => props.theme.Body_3};
+        }
     }
 
     ul {
