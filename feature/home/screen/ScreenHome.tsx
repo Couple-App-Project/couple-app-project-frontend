@@ -2,12 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 import styled from 'styled-components';
-import { useQueryClient } from 'react-query';
-import useMutationHome from '../../home/queries/mutationFn/mutationFn';
-import { useMutationCoupleInfo } from 'feature/coupleInfo/queries/mutationFn';
+import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
 import { getDday } from 'utils/getDday';
 import { pixelToRem, pixelToVh } from 'utils/utils';
-import { ICoupleInfo } from '../types/CoupleInfo';
+// import { ICoupleInfo } from '../types/CoupleInfo';
 
 import ModalBackground from 'feature/common/components/ModalBackground';
 import ModalInput from 'feature/common/components/ModalInput';
@@ -133,20 +131,11 @@ const ScheduleContainer = styled.section`
 `;
 
 export default function ScreenHome() {
-    const queryClient = useQueryClient();
-    const mutate = useMutationHome();
-    const coupleInfoMutation = useMutationCoupleInfo();
+    const coupleInfoQuery = useQueryCoupleInfo();
+    const coupleInfo = coupleInfoQuery?.data?.data?.data;
 
     const [openBgModal, setBgModal] = useState(false);
     const [openCommentModal, setCommentModal] = useState(false);
-
-    const coupleInfo: ICoupleInfo | undefined =
-        queryClient.getQueryData('couple-info');
-
-    useEffect(() => {
-        mutate();
-        // console.log('어어');
-    }, [mutate, coupleInfoMutation]);
 
     return (
         <>
