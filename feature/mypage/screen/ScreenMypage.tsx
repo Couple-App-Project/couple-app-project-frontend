@@ -114,7 +114,7 @@ const ScreenMypage = () => {
                     <h1>
                         <span>{coupleInfo?.myNickname}</span>님
                     </h1>
-                    <h3>이메일주소</h3>
+                    <h3>{coupleInfo?.myEmail}</h3>
                 </Grid>
             </ProfileHeader>
 
