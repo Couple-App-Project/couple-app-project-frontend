@@ -30,14 +30,14 @@ const CalendarDayDetail = ({
                 {Math.floor(
                     (selectedDay!.getTime() - new Date(coupleDay!).getTime()) /
                         (1000 * 60 * 60 * 24) +
-                        2,
+                        1,
                 ) > 0 && (
                     <span>
                         {`사귄 지 ${Math.floor(
                             (selectedDay!.getTime() -
                                 new Date(coupleDay!).getTime()) /
                                 (1000 * 60 * 60 * 24) +
-                                2,
+                                1,
                         )}일째`}
                     </span>
                 )}
