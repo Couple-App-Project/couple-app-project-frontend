@@ -32,10 +32,22 @@ const ScreenCalender = () => {
                     0,
                     2,
                 )}-${userInfo.anniversary.slice(6)}`}
+                myBirthday={`20${selectDate.slice(
+                    0,
+                    2,
+                )}-${userInfo.myBirthday.slice(5, 10)}`}
+                yourBirthday={`20${selectDate.slice(
+                    0,
+                    2,
+                )}-${userInfo.yourBirthday.slice(5, 10)}`}
             />
             <CalendarDayDetail
                 selectedDay={selectedDay}
                 coupleDay={userInfo.anniversary}
+                myBirthday={userInfo.myBirthday.slice(5, 10)}
+                myNickname={userInfo.myNickname}
+                yourBirthday={userInfo.yourBirthday.slice(5, 10)}
+                yourNickname={userInfo.yourNickname}
             />
             <CalendarAddButton />
         </CalenderWrapper>

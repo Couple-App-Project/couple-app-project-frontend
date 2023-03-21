@@ -11,6 +11,10 @@ import Link from 'next/link';
 const CalendarDayDetail = ({
     selectedDay,
     coupleDay,
+    myBirthday,
+    myNickname,
+    yourBirthday,
+    yourNickname,
 }: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
     const day = selectedDay && format(selectedDay, 'yyyy-MM-dd');
@@ -24,17 +28,16 @@ const CalendarDayDetail = ({
             <div className="day-detail-head">
                 <h3>{changeDate(selectedDay!)}</h3>
                 {Math.floor(
-                    (new Date(selectedDay!).getTime() -
-                        new Date(coupleDay!).getTime()) /
+                    (selectedDay!.getTime() - new Date(coupleDay!).getTime()) /
                         (1000 * 60 * 60 * 24) +
-                        1,
+                        2,
                 ) > 0 && (
                     <span>
                         {`사귄 지 ${Math.floor(
-                            (new Date(selectedDay!).getTime() -
+                            (selectedDay!.getTime() -
                                 new Date(coupleDay!).getTime()) /
                                 (1000 * 60 * 60 * 24) +
-                                1,
+                                2,
                         )}일째`}
                     </span>
                 )}
@@ -51,7 +54,7 @@ const CalendarDayDetail = ({
                         </Link>
                     );
                 })}
-                {day?.slice(6) === coupleDay?.slice(6) && (
+                {day?.slice(5) === coupleDay?.slice(5) && (
                     <li>
                         <div className="기념일" />
                         <h4>
@@ -64,6 +67,18 @@ const CalendarDayDetail = ({
                                       Number(coupleDay?.split('-')[0])
                                   }주년`}
                         </h4>
+                        <span>하루종일</span>
+                    </li>
+                )}
+                {(day?.slice(5) === myBirthday ||
+                    day?.slice(5) === yourBirthday) && (
+                    <li>
+                        <div className="기념일" />
+                        <h4>{`${
+                            day?.slice(5) === myBirthday
+                                ? myNickname
+                                : yourNickname
+                        } 생일`}</h4>
                         <span>하루종일</span>
                     </li>
                 )}
