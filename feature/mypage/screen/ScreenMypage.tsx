@@ -137,7 +137,7 @@ const ScreenMypage = () => {
                                 accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
                             /> */}
                     </button>
-                    <ChevronRight />
+                    <ChevronRight stroke="#3B3D49" />
                 </Menu>
                 {/* <Input
                     type="text"
@@ -161,7 +161,7 @@ const ScreenMypage = () => {
                                 accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
                             /> */}
                     </button>
-                    <ChevronRight />
+                    <ChevronRight stroke="#3B3D49" />
                 </Menu>
                 {/* D+<span>{dDay} </span> */}
                 {/* <Input

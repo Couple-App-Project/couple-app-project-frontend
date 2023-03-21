@@ -133,7 +133,7 @@ const ModalBackground = (props: any) => {
                                 accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
                             />
                         </button>
-                        <ChevronRight />
+                        <ChevronRight stroke="#3B3D49" />
                     </Menu>
 
                     <Menu onClick={colorChipPage}>
@@ -141,7 +141,7 @@ const ModalBackground = (props: any) => {
                             <Paint width="18" height="18" />
                             <span>배경 색상</span>
                         </button>
-                        <ChevronRight />
+                        <ChevronRight stroke="#3B3D49" />
                     </Menu>
                 </Grid>
             ) : (
