@@ -1,6 +1,7 @@
 import instance from 'utils/api';
 
 const apiKeys = {
+    getCoupleInfo: async () => await instance.get('/couples/info'),
     editCoupleInfo: async (coupleData: {
         anniversary?: string;
         nickname?: string;

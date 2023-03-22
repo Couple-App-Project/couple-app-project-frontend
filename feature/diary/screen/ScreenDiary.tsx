@@ -30,9 +30,9 @@ const ScreenDiary = () => {
     const [isShowLabels, toggleLabels] = useState(false);
     const [diaries, setDiaries] = useState(totalDiaries);
 
-    const toggleBookmark = () => {
-        toggleLabels(!isShowLabels);
-        if (isShowLabels) {
+    const toggleBookmark = (showLabel: boolean) => {
+        toggleLabels(!showLabel);
+        if (showLabel) {
             setDiaries(totalDiaries);
         } else {
             setDiaries(totalDiaries.filter((diary: any) => diary.labeled));
@@ -45,7 +45,10 @@ const ScreenDiary = () => {
 
     return (
         <Grid>
-            <BookmarkButton labelStatus={isShowLabels} onClick={toggleBookmark}>
+            <BookmarkButton
+                labelStatus={isShowLabels}
+                onClick={() => toggleBookmark(isShowLabels)}
+            >
                 <Bookmark />
             </BookmarkButton>
 

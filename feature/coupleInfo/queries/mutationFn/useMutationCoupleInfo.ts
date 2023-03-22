@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import apiKeys from '../apiKeys';
 
 const useMutationCoupleInfo = () => {
     const router = useRouter();
+    const queryClient = useQueryClient();
 
     const { mutate } = useMutation(apiKeys.editCoupleInfo, {
         onMutate: (variables) => {
@@ -18,6 +19,9 @@ const useMutationCoupleInfo = () => {
             if (router.pathname === '/coupleinfo') {
                 router.push('/home');
             }
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['coupleInfo']);
         },
     });
 
