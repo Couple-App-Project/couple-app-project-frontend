@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { pixelToVh, pixelToVw } from 'utils/utils';
-import useImage from 'feature/diary/hook/useImage';
 import { useMutationCoupleInfo } from 'feature/coupleInfo/queries/mutationFn';
 import useMutationCreateBackground from 'feature/home/queries/mutationFn/useMutationCreateBackground';
-// import useMutationHome from '../queries/mutationFn/mutationFn';
 
 import Modal from './Modal';
 import Grid from 'components/Grid';
@@ -13,29 +11,6 @@ import Camera from 'public/icons/camera.svg';
 import Paint from 'public/icons/paint.svg';
 import ChevronRight from 'public/icons/chevron-right.svg';
 import CheckSmall from 'public/icons/check-small.svg';
-
-// const EditMenu = styled.article`
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     height: ${pixelToVh(55)};
-//     border-bottom: 1px solid ${(props) => props.theme.grey_2};
-
-//     button {
-//         all: unset;
-//         display: flex;
-//         align-items: center;
-
-//         span {
-//             padding-left: 12px;
-//             ${(props) => props.theme.Body_1};
-//         }
-
-//         input {
-//             display: none;
-//         }
-//     }
-// `;
 
 const ColorChipsContainer = styled.article`
     display: grid;
@@ -80,7 +55,6 @@ const ColorSaveButton = styled.button`
 const ModalBackground = (props: any) => {
     const { closeButton, background } = props;
 
-    const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
     const createBackground = useMutationCreateBackground();
 
     const [title, setTitle] = useState('');
@@ -108,12 +82,6 @@ const ModalBackground = (props: any) => {
     };
 
     const coupleInfoMutation = useMutationCoupleInfo();
-    // const mutate = useMutationHome();
-
-    // useEffect(() => {
-    //     mutate();
-    //     console.log('엄');
-    // }, [coupleInfoMutation, mutate]);
 
     const saveBackground = () => {
         coupleInfoMutation({ backgroundColor: bgColor });
@@ -143,16 +111,10 @@ const ModalBackground = (props: any) => {
                         <button>
                             <Camera width="18" height="18" />
                             <span>배경 사진</span>
-                            {/* <input
-                                id="backgroundInput"
-                                type="file"
-                                accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
-                            /> */}
                             <input
                                 id="backgroundInput"
                                 type="file"
                                 accept="image/jpg,image/png,image/jpeg,image/gif,image/*;capture=camera"
-                                // multiple
                                 onChange={changeBackgroundImage}
                             />
                         </button>
