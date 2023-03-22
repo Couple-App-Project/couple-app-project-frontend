@@ -8,7 +8,14 @@ import { dayArray } from '../../modules/functions';
 import { changeDate } from 'utils/functions';
 import Link from 'next/link';
 
-const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
+const CalendarDayDetail = ({
+    selectedDay,
+    coupleDay,
+    myBirthday,
+    myNickname,
+    yourBirthday,
+    yourNickname,
+}: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
     const day = selectedDay && format(selectedDay, 'yyyy-MM-dd');
 
@@ -18,7 +25,23 @@ const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
 
     return (
         <DayDetailWrpper>
-            <h3>{changeDate(selectedDay!)}</h3>
+            <div className="day-detail-head">
+                <h3>{changeDate(selectedDay!)}</h3>
+                {Math.floor(
+                    (selectedDay!.getTime() - new Date(coupleDay!).getTime()) /
+                        (1000 * 60 * 60 * 24) +
+                        1,
+                ) > 0 && (
+                    <span>
+                        {`사귄 지 ${Math.floor(
+                            (selectedDay!.getTime() -
+                                new Date(coupleDay!).getTime()) /
+                                (1000 * 60 * 60 * 24) +
+                                1,
+                        )}일째`}
+                    </span>
+                )}
+            </div>
             <ul>
                 {selectDetailList?.map((cur, idx) => {
                     return (
@@ -31,6 +54,34 @@ const CalendarDayDetail = ({ selectedDay }: CalendarMainPropsType) => {
                         </Link>
                     );
                 })}
+                {day?.slice(5) === coupleDay?.slice(5) && (
+                    <li>
+                        <div className="기념일" />
+                        <h4>
+                            {Number(day?.split('-')[0]) -
+                                Number(coupleDay?.split('-')[0]) ===
+                            0
+                                ? '처음 만난 날'
+                                : `${
+                                      Number(day?.split('-')[0]) -
+                                      Number(coupleDay?.split('-')[0])
+                                  }주년`}
+                        </h4>
+                        <span>하루종일</span>
+                    </li>
+                )}
+                {(day?.slice(5) === myBirthday ||
+                    day?.slice(5) === yourBirthday) && (
+                    <li>
+                        <div className="기념일" />
+                        <h4>{`${
+                            day?.slice(5) === myBirthday
+                                ? myNickname
+                                : yourNickname
+                        } 생일`}</h4>
+                        <span>하루종일</span>
+                    </li>
+                )}
             </ul>
         </DayDetailWrpper>
     );
@@ -45,14 +96,22 @@ const DayDetailWrpper = styled.div`
     margin-bottom: 12vh;
     overflow: auto;
 
-    h3 {
-        margin-bottom: 0.75rem;
-    }
-
     h3,
     h4 {
         color: ${(props) => props.theme.grey_6};
         ${(props) => props.theme.Body_2};
+    }
+
+    .day-detail-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+
+        span {
+            color: ${(props) => props.theme.grey_4};
+            ${(props) => props.theme.Body_3};
+        }
     }
 
     ul {

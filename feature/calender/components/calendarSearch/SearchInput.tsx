@@ -3,7 +3,7 @@ import { CalendarSearchPropsType } from 'feature/calender/types/CalendarSearchPr
 import { useRouter } from 'next/router';
 import Back from 'public/images/icons/arrow-back.svg';
 
-const SearchInput = ({ search, onChangeSearch }: CalendarSearchPropsType) => {
+const SearchInput = ({ keyword, onChangeKeyword }: CalendarSearchPropsType) => {
     const router = useRouter();
 
     return (
@@ -15,14 +15,14 @@ const SearchInput = ({ search, onChangeSearch }: CalendarSearchPropsType) => {
                 <input
                     type="text"
                     placeholder="일정을 키워드로 검색해 보세요."
-                    value={search || ''}
+                    value={keyword || ''}
                     name="keyword"
-                    onChange={(e) => onChangeSearch(e)}
+                    onChange={(e) => onChangeKeyword(e)}
                 />
-                {search && (
+                {keyword && (
                     <div
                         className="search-clear"
-                        onClick={() => onChangeSearch()}
+                        onClick={() => onChangeKeyword()}
                     />
                 )}
             </div>

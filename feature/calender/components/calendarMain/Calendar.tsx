@@ -14,6 +14,9 @@ const Calendar = ({
     changeDate,
     selectedDay,
     setSelectedDay,
+    coupleDay,
+    myBirthday,
+    yourBirthday,
 }: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
     const date = dayArray(calenderList)
@@ -27,7 +30,12 @@ const Calendar = ({
         .reduce((acc, cur) => {
             return acc.concat(...cur.dateArray);
         }, [] as string[])
-        .map((el) => new Date(el));
+        .map((el) => new Date(el))
+        .concat(
+            new Date(coupleDay!),
+            new Date(myBirthday!),
+            new Date(yourBirthday!),
+        );
 
     return (
         <DayPickers

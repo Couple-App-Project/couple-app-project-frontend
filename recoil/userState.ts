@@ -5,9 +5,31 @@ const loginState = atom<boolean>({
     default: false,
 });
 
-const userInfoState = atom<object>({
+const userInfoState = atom<{
+    anniversary: string;
+    backgroundColor: string;
+    myBirthday: string;
+    myEmail: string;
+    myNickname: string;
+    myTodayComment: string;
+    specialPlace: null;
+    yourBirthday: string;
+    yourNickname: string;
+    yourTodayComment: string;
+}>({
     key: 'userInfoState',
-    default: {},
+    default: {
+        anniversary: '',
+        backgroundColor: '',
+        myBirthday: '',
+        myEmail: '',
+        myNickname: '',
+        myTodayComment: '',
+        specialPlace: null,
+        yourBirthday: '',
+        yourNickname: '',
+        yourTodayComment: '',
+    },
 });
 
 // const currentUserInfoState = selector({

@@ -19,7 +19,7 @@ const ScheduleContainer = styled.article`
 
         p {
             text-align: left;
-    
+
             &:nth-child(1) {
                 ${(props) => props.theme.Body_4};
                 color: ${(props) => props.theme.grey_4};
@@ -29,6 +29,7 @@ const ScheduleContainer = styled.article`
                 font-weight: 400;
                 margin: 0;
             }
+        }
     }
 `;
 
