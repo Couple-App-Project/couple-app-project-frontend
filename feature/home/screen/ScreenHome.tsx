@@ -3,6 +3,8 @@ import Image from 'next/image';
 
 import styled from 'styled-components';
 import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
+import useQueryBackground from '../queries/queryFn/useQueryBackground';
+import useImage from 'feature/diary/hook/useImage';
 import { getDday } from 'utils/getDday';
 import { pixelToRem, pixelToVh } from 'utils/utils';
 // import { ICoupleInfo } from '../types/CoupleInfo';
@@ -131,11 +133,24 @@ const ScheduleContainer = styled.section`
 `;
 
 export default function ScreenHome() {
+    // const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
+
     const coupleInfoQuery = useQueryCoupleInfo();
     const coupleInfo = coupleInfoQuery?.data?.data?.data;
+    const backgroundQuery = useQueryBackground();
+    const [backgroundImage, setBackground] = useState('/slider_img.png');
+    // '/slider_img.png' ?? backgroundQuery?.data?.data?.data[0];
+    // console.log(backgroundImage);
 
     const [openBgModal, setBgModal] = useState(false);
     const [openCommentModal, setCommentModal] = useState(false);
+
+    useEffect(() => {
+        setBackground(
+            '/slider_img.png' ?? backgroundQuery?.data?.data?.data[0],
+        );
+        console.log(backgroundQuery?.data?.data?.data[0]);
+    }, [backgroundQuery]);
 
     return (
         <>
@@ -168,7 +183,7 @@ export default function ScreenHome() {
 
                         <ImageContainer>
                             <Image
-                                src="/slider_img.png"
+                                src={backgroundImage}
                                 alt="메인화면 배경사진"
                                 layout="fill"
                             />
