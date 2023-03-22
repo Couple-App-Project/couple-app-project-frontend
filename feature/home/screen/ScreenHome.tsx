@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import styled from 'styled-components';
 import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
 import useQueryBackground from '../queries/queryFn/useQueryBackground';
-import useImage from 'feature/diary/hook/useImage';
 import { getDday } from 'utils/getDday';
 import { pixelToRem, pixelToVh } from 'utils/utils';
-// import { ICoupleInfo } from '../types/CoupleInfo';
 
 import ModalBackground from 'feature/common/components/ModalBackground';
 import ModalInput from 'feature/common/components/ModalInput';
@@ -133,24 +131,31 @@ const ScheduleContainer = styled.section`
 `;
 
 export default function ScreenHome() {
-    // const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
-
     const coupleInfoQuery = useQueryCoupleInfo();
     const coupleInfo = coupleInfoQuery?.data?.data?.data;
     const backgroundQuery = useQueryBackground();
     const [backgroundImage, setBackground] = useState('/slider_img.png');
-    // '/slider_img.png' ?? backgroundQuery?.data?.data?.data[0];
-    // console.log(backgroundImage);
 
     const [openBgModal, setBgModal] = useState(false);
     const [openCommentModal, setCommentModal] = useState(false);
 
+    const urlToSrc = async (url: string) => {
+        const imgDownload = await fetch(url);
+        const blob = await imgDownload.blob();
+
+        const image = new File([blob], `image ${blob.size}`, {
+            type: blob.type,
+        });
+
+        setBackground(URL.createObjectURL(image));
+    };
+
     useEffect(() => {
-        setBackground(
-            '/slider_img.png' ?? backgroundQuery?.data?.data?.data[0],
-        );
-        console.log(backgroundQuery?.data?.data?.data[0]);
-    }, [backgroundQuery]);
+        const url = backgroundQuery?.data?.data?.data[0] ?? '/slider_img.png';
+        if (url !== '/slider_img.png') {
+            urlToSrc(url);
+        }
+    }, [backgroundQuery?.data?.data?.data]);
 
     return (
         <>
