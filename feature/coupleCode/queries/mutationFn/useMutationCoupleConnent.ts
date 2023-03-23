@@ -9,9 +9,11 @@ const useMutationCoupleConnent = () => {
         onError: (err: any) => {
             alert(err.response.data.message);
         },
-        onSuccess: (data, variables, context) => {
+        onSuccess: (data) => {
             alert(data.data.data.message);
-            router.push('/coupleinfo');
+            if (!data.data.data.status) {
+                router.push('/coupleinfo');
+            }
         },
     });
 

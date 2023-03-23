@@ -22,7 +22,7 @@ const ScreenCoupleCode = () => {
             disabled={inviteCode !== '' ? false : true}
         >
             <CoupleCodeForm
-                userCode={data?.data.data.userCode}
+                userCode={data?.userCode}
                 inviteCode={inviteCode}
                 onChangeCode={onChangeCode}
                 createCoupleConnet={createCoupleConnet}

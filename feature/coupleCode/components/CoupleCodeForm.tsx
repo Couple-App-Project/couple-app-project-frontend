@@ -15,7 +15,7 @@ const CoupleCodeForm = ({
             <div className="user-code-content">
                 <h3>내 코드를 상대방에게 복사 또는 공유하세요.</h3>
                 <div>
-                    <input type="text" defaultValue={userCode} disabled />
+                    <input type="text" value={userCode} disabled />
                     <div className="icon-content">
                         <Copy onClick={() => handlerCopy(userCode)} />
                     </div>
