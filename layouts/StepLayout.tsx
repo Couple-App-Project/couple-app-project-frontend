@@ -1,9 +1,10 @@
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { ElButton } from 'components';
 import Back from 'public/images/icons/back.svg';
 import Close from 'public/images/icons/close.svg';
 import Calendar from 'public/images/illustrations/calendar.svg';
-import { useRouter } from 'next/router';
+import { pixelToRem } from 'utils/utils';
 
 interface StepLayoutProps {
     title: string;
@@ -154,6 +155,6 @@ const StepLayoutWrapper = styled.div`
     }
 
     .form-box {
-        margin-bottom: 1.5rem;
+        margin-bottom: ${pixelToRem(24)};
     }
 `;

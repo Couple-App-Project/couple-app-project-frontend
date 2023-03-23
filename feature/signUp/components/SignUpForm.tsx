@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ElInput } from 'components';
 import DropDown from 'public/images/icons/drop-down.svg';
+import { pixelToRem } from 'utils/utils';
 import type { FormPropsType } from '../types';
 import GENDER_LIST from '../modules/variables/genderList';
 
@@ -126,22 +127,12 @@ const SignUpFrom = ({
 export default SignUpFrom;
 
 const FormWrapper = styled.form`
-    margin-top: 1.25rem;
-
-    & > div:not(:last-child) {
-        margin-bottom: 1rem;
-    }
+    margin-top: ${pixelToRem(20)};
 
     .err-text {
-        margin-top: 5px;
-        color: ${(props) => props.theme.grey_6};
-        ${(props) => props.theme.Body_4};
-    }
-
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus {
-        -webkit-box-shadow: 0 0 0px 40rem ${(props) => props.theme.white} inset;
+        margin-top: ${pixelToRem(5)};
+        color: ${({ theme }) => theme.grey_6};
+        ${({ theme }) => theme.Body_4};
     }
 
     .select-box,
@@ -149,14 +140,11 @@ const FormWrapper = styled.form`
         display: flex;
         select,
         input[type='date'] {
-            margin: 0;
-            padding: 0;
-            min-width: 0;
             display: block;
             width: 100%;
-            font-size: 0.875rem;
-            line-height: 2.25rem;
-            font-weight: 400;
+            min-width: 0;
+            padding: ${pixelToRem(18)} 0;
+            ${({ theme }) => theme.Body_2}
             border-top: none;
             border-left: none;
             border-right: none;
@@ -169,10 +157,10 @@ const FormWrapper = styled.form`
                 outline: none;
             }
             &.selected {
-                color: ${(props) => props.theme.grey_6};
+                color: ${({ theme }) => theme.grey_6};
             }
             &.placeholder {
-                color: ${(props) => props.theme.grey_4};
+                color: ${({ theme }) => theme.grey_4};
             }
         }
         input[type='date']::before {
@@ -186,22 +174,21 @@ const FormWrapper = styled.form`
             background: transparent;
         }
         svg {
-            margin-left: -1.75rem;
+            margin-left: -${pixelToRem(28)};
             align-self: center;
             path {
-                stroke: ${(props) => props.theme.grey_4};
+                stroke: ${({ theme }) => theme.grey_4};
             }
         }
     }
 `;
 
 const CheckButton = styled('button')<{ isEmail: boolean }>`
-    width: 5.7rem;
-    height: 2rem;
-    border: 1px solid ${(props) => props.theme.primaryBlue};
-    border-radius: 50px;
-    font-size: 0.875rem;
-    font-weight: 400;
+    width: ${pixelToRem(90)};
+    height: ${pixelToRem(32)};
+    ${({ theme }) => theme.Body_3};
+    border: 1px solid ${({ theme }) => theme.primaryBlue};
+    border-radius: ${pixelToRem(62)};
     background-color: ${(props) =>
         props.isEmail ? props.theme.primaryBlue : props.theme.white};
     color: ${(props) =>
