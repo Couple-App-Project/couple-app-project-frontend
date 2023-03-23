@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ElInput } from 'components';
 import DropDown from 'public/images/icons/drop-down.svg';
-import type { FormPropsType } from '../types/FormPropsType';
+import type { FormPropsType } from '../types';
 import GENDER_LIST from '../modules/variables/genderList';
 
 const SignUpFrom = ({

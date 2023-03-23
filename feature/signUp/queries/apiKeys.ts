@@ -1,5 +1,5 @@
 import instance from 'utils/api';
-import type { UserInfoStateType } from '../types/UserInfoState';
+import type { UserInfoStateType } from '../types/UserInfoStateType';
 
 const apiKeys = {
     createUser: async (userData: UserInfoStateType) =>

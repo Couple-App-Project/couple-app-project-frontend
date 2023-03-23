@@ -1,5 +1,4 @@
-import type { UseFieldErrorStateType } from './UseFieldErrorStateType';
-import type { UserInfoStateType } from './UserInfoState';
+import type { UserInfoStateType, UseFieldErrorStateType } from './index';
 
 interface FormPropsType {
     userInfo: UserInfoStateType;

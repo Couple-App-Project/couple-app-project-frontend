@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import type { IsErrorType } from '../types/IsErrorType';
-import type { UseFieldErrorStateType } from '../types/UseFieldErrorStateType';
-import type { UseFieldErrorType } from '../types/UseFieldErrorType';
+import type {
+    UseFieldErrorStateType,
+    IsErrorType,
+    UseFieldErrorType,
+} from '../types';
 import { emailCheck, passwordCheck } from '../modules/variables/regExp';
 
 /**
