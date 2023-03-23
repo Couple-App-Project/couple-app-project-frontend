@@ -38,6 +38,8 @@ function MyApp({
         if (
             router.pathname !== '/login' &&
             router.pathname !== '/signup' &&
+            router.pathname !== '/couplecode' &&
+            router.pathname !== '/coupleinfo' &&
             refreshToken === null
         ) {
             // alert('로그인 후 사용하세요');
