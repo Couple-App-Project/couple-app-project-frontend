@@ -1,3 +1,29 @@
 {
-  "extends": "next/core-web-vitals"
+    "extends": ["next/core-web-vitals", "plugin:import/recommended"],
+    "plugins": ["import"],
+    "rules": {
+        "import/order": [
+            "warn",
+            {
+                "groups": ["builtin", "external", "internal", "type"],
+                "pathGroups": [
+                    {
+                        "pattern": "next/*",
+                        "group": "builtin",
+                        "position": "before"
+                    },
+                    {
+                        "pattern": "react*",
+                        "group": "builtin",
+                        "position": "before"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": ["builtin"],
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ]
+    }
 }

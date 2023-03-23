@@ -1,14 +1,12 @@
 import styled from 'styled-components';
-import type { FormPropsType } from '../types/FormPropsType';
-import GENDER_LIST from '../modules/variables/genderList';
 import { ElInput } from 'components';
 import DropDown from 'public/images/icons/drop-down.svg';
+import type { FormPropsType } from '../types/FormPropsType';
+import GENDER_LIST from '../modules/variables/genderList';
 
 const SignUpFrom = ({
     userInfo,
     onChangeInfo,
-    fieldFocus,
-    focusHandler,
     fieldErr,
     errorHandler,
     checkHandler,
@@ -27,10 +25,6 @@ const SignUpFrom = ({
                         onChangeInfo(e);
                         errorHandler(e);
                     }}
-                    _onFocus={(e) => {
-                        focusHandler(e);
-                        errorHandler(e);
-                    }}
                 >
                     <CheckButton
                         type="button"
@@ -46,7 +40,7 @@ const SignUpFrom = ({
                         중복확인
                     </CheckButton>
                 </ElInput>
-                {fieldFocus.email && fieldErr.email && (
+                {fieldErr.email && (
                     <p className="err-text">
                         이메일 형식에 맞게 입력해 주세요.
                     </p>
@@ -62,12 +56,8 @@ const SignUpFrom = ({
                     onChangeInfo(e);
                     errorHandler(e);
                 }}
-                _onFocus={(e) => {
-                    focusHandler(e);
-                    errorHandler(e);
-                }}
             >
-                {fieldFocus.password && fieldErr.password && (
+                {fieldErr.password && (
                     <p className="err-text">
                         8~20자 이내로 영문 대소문자, 숫자를 3가지 이상 혼용하여
                         입력해 주세요.
@@ -79,17 +69,13 @@ const SignUpFrom = ({
                 placeholder="비밀번호 확인"
                 type="password"
                 name="pwdConfirm"
-                value={userInfo.pwdConfirm}
+                value={userInfo.pwdConfirm!}
                 _onChange={(e) => {
                     onChangeInfo(e);
                     errorHandler(e, userInfo.password);
                 }}
-                _onFocus={(e) => {
-                    focusHandler(e);
-                    errorHandler(e, userInfo.password);
-                }}
             >
-                {fieldFocus.pwdConfirm && fieldErr.pwdConfirm && (
+                {fieldErr.pwdConfirm && (
                     <p className="err-text">비밀번호가 일치하지 않습니다.</p>
                 )}
             </ElInput>
@@ -110,7 +96,7 @@ const SignUpFrom = ({
                     <option value="" disabled hidden>
                         성별
                     </option>
-                    {Object.entries(GENDER_LIST).map((el, i) => {
+                    {Object.entries(GENDER_LIST).map((el) => {
                         return (
                             <option key={el[0]} value={el[1].value}>
                                 {el[1].text}

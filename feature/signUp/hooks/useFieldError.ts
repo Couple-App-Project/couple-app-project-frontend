@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
-import type { UseInputErrorType } from '../types/UseInputErrorType';
-import type { UseInputErrorStateType } from '../types/UseInputErrorStateType';
 import type { IsErrorType } from '../types/IsErrorType';
+import type { UseFieldErrorStateType } from '../types/UseFieldErrorStateType';
+import type { UseFieldErrorType } from '../types/UseFieldErrorType';
 import { emailCheck, passwordCheck } from '../modules/variables/regExp';
 
-const useInputError = (
-    initialValue: UseInputErrorStateType,
-): UseInputErrorType => {
+/**
+ * 회원가입 error check custom hook
+ * @param initialValue  사용자 이메일, 비밀번호, 비밀번호 확인
+ * @returns [각 input error boolen, error Fn]
+ */
+const useFieldError = (
+    initialValue: UseFieldErrorStateType,
+): UseFieldErrorType => {
     const [fieldErr, setFieldErr] = useState(initialValue);
 
     const isError: IsErrorType = {
@@ -55,4 +60,4 @@ const useInputError = (
     return [fieldErr, errorHandler];
 };
 
-export default useInputError;
+export default useFieldError;

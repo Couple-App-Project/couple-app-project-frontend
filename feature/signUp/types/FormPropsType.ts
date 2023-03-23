@@ -1,15 +1,12 @@
+import type { UseFieldErrorStateType } from './UseFieldErrorStateType';
 import type { UserInfoStateType } from './UserInfoState';
-import type { FieldFocusStateType } from './FieldFocusStateType';
-import type { UseInputErrorStateType } from './UseInputErrorStateType';
 
 interface FormPropsType {
     userInfo: UserInfoStateType;
     onChangeInfo: (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) => void;
-    fieldFocus: FieldFocusStateType;
-    focusHandler: (e: React.FocusEvent<HTMLInputElement>) => void;
-    fieldErr: UseInputErrorStateType;
+    fieldErr: UseFieldErrorStateType;
     errorHandler: (
         e: React.ChangeEvent<HTMLInputElement>,
         password?: string | undefined,

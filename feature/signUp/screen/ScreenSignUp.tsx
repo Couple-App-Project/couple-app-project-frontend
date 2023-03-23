@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import useInputError from '../hooks/useInputError';
-import { useMutationSignUp } from '../queries/mutationFn';
 import StepLayout from 'layouts/StepLayout';
 import { SignUpForm } from '../components';
+import useFieldError from '../hooks/useFieldError';
+import { useMutationSignUp } from '../queries/mutationFn';
 import { useQueryEmailCheck } from '../queries/queryFn';
 
 const ScreenSignUp = () => {
@@ -23,38 +23,32 @@ const ScreenSignUp = () => {
         });
     };
 
+    /**
+     * err custom hook
+     */
+    const [fieldErr, errorHandler] = useFieldError({
+        email: false,
+        password: false,
+        pwdConfirm: false,
+    });
+
+    /**
+     * 이메일 중복 확인
+     */
     const { data, refetch } = useQueryEmailCheck(userInfo.email);
 
     const checkHandler = () => {
         refetch();
     };
 
+    /**
+     * 회원가입
+     * @param e form event
+     */
     const createSignUp = useMutationSignUp();
-
-    const [fieldFocus, setFieldFocus] = useState({
-        email: false,
-        password: false,
-        pwdConfirm: false,
-    });
-
-    const focusHandler = (e: React.FocusEvent<HTMLInputElement>) => {
-        setFieldFocus((prev) => {
-            return {
-                ...prev,
-                [e.target.name]: true,
-            };
-        });
-    };
-
-    const [fieldErr, errorHandler] = useInputError({
-        email: false,
-        password: false,
-        pwdConfirm: false,
-    });
 
     const sendSignUp = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         const { pwdConfirm, ...userData } = userInfo;
         createSignUp(userData);
     };
@@ -65,7 +59,7 @@ const ScreenSignUp = () => {
             disabled={
                 Object.values(fieldErr).includes(true) ||
                 Object.values(userInfo).includes('') ||
-                !data?.data.success
+                !data.success
                     ? true
                     : false
             }
@@ -73,12 +67,10 @@ const ScreenSignUp = () => {
             <SignUpForm
                 userInfo={userInfo}
                 onChangeInfo={onChangeInfo}
-                fieldFocus={fieldFocus}
-                focusHandler={focusHandler}
                 fieldErr={fieldErr}
                 errorHandler={errorHandler}
                 checkHandler={checkHandler}
-                isEmail={data?.data.success}
+                isEmail={data?.success}
                 sendSignUp={sendSignUp}
             />
         </StepLayout>

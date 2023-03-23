@@ -1,5 +1,5 @@
 const queryKeys = {
-    userEmailCheck: (email: string) => ['userEmailCheck', email],
+    userCheckEmail: (email: string) => ['userCheckEmail', email],
 };
 
 export default queryKeys;
