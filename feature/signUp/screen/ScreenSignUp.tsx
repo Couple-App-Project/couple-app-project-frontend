@@ -41,11 +41,11 @@ const ScreenSignUp = () => {
         refetch();
     };
 
-    const createSignUp = useMutationSignUp();
     /**
      * 회원가입
-     * @param e form event
      */
+    const createSignUp = useMutationSignUp();
+
     const sendSignUp = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const { pwdConfirm, ...userData } = userInfo;
