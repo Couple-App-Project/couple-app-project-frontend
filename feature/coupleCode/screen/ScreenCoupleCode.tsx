@@ -1,4 +1,5 @@
 import React from 'react';
+import { QueryClient } from 'react-query';
 import { GetServerSideProps } from 'next';
 import useInput from 'hooks/useInput';
 import StepLayout from 'layouts/StepLayout';
@@ -34,6 +35,6 @@ const ScreenCoupleCode = () => {
 
 export default ScreenCoupleCode;
 
-// export const getServerSideProps: GetServerSideProps = async () => {
-
-// }
+export const getServerSideProps: GetServerSideProps = async () => {
+    const queryClient = new QueryClient();
+};

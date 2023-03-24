@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Hydrate,
     QueryClient,
@@ -20,12 +20,13 @@ function MyApp({
     Component,
     pageProps,
 }: AppProps<{ dehydratedState: DehydratedState }>) {
-    const [queryClient] = React.useState(
+    const [queryClient] = useState(
         () =>
             new QueryClient({
                 defaultOptions: {
                     queries: {
                         refetchOnWindowFocus: false,
+                        refetchOnMount: false,
                         retry: false,
                     },
                 },
@@ -61,23 +62,19 @@ function MyApp({
     return (
         <QueryClientProvider client={queryClient}>
             <ReactQueryDevtools />
-            <ThemeProvider theme={defaultTheme}>
-                <Device>
-                    <Hydrate state={pageProps.dehydratedState}>
-                        <RecoilRoot>
+            <Hydrate state={pageProps.dehydratedState}>
+                <RecoilRoot>
+                    <ThemeProvider theme={defaultTheme}>
+                        <Device>
                             <Head>
                                 <title>꾸욱</title>
                             </Head>
                             <Component {...pageProps} />
-                            {hasBottomNavi(router.pathname) ? (
-                                <BottomNavi />
-                            ) : (
-                                ''
-                            )}
-                        </RecoilRoot>
-                    </Hydrate>
-                </Device>
-            </ThemeProvider>
+                            {hasBottomNavi(router.pathname) && <BottomNavi />}
+                        </Device>
+                    </ThemeProvider>
+                </RecoilRoot>
+            </Hydrate>
         </QueryClientProvider>
     );
 }
