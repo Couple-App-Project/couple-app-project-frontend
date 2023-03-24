@@ -1,3 +1,7 @@
+/**
+ * 사용자 코드 복사 Fn
+ * @param userCode 사용자 코드
+ */
 const handlerCopy = (userCode: string) => {
     if (navigator.clipboard) {
         navigator.clipboard

@@ -1,7 +1,11 @@
+import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import apiKeys from '../apiKeys';
-import { useRouter } from 'next/router';
 
+/**
+ * 커플 연결 Fn
+ * @returns mutation Fn
+ */
 const useMutationCoupleConnent = () => {
     const router = useRouter();
 

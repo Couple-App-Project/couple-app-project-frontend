@@ -1,5 +1,5 @@
-import { detectMobileDevice, detectInAppBrowser } from 'utils/deviceDetector';
 import { PropsWithChildren, useEffect, useState } from 'react';
+import { detectMobileDevice, detectInAppBrowser } from 'utils/deviceDetector';
 
 const Device = ({ children }: PropsWithChildren) => {
     const [mobileDevice, setMobileDevice] = useState(false);
@@ -13,7 +13,7 @@ const Device = ({ children }: PropsWithChildren) => {
         }
     }, []);
 
-    return <>{mobileDevice ? <div>{children}</div> : <div>pc 화면</div>}</>;
+    return <div>{children}</div>;
 };
 
 export default Device;

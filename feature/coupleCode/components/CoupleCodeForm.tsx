@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import type { FormPropsType } from '../types/FormPropsTypes';
-import { handlerCopy, handlerShare } from '../modules/functions';
 import Copy from 'public/images/icons/copy.svg';
 import Share from 'public/images/icons/share.svg';
+import type { FormPropsType } from '../types/FormPropsTypes';
+import { handlerCopy, handlerShare } from '../modules/functions';
 
 const CoupleCodeForm = ({
     userCode,
