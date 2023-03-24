@@ -1,6 +1,8 @@
 interface CalendarSearchPropsType {
-    search: any;
-    onChangeSearch: any;
+    keyword?: any;
+    type?: any;
+    onChangeKeyword?: any;
+    onChangeType?: any;
 }
 
 export type { CalendarSearchPropsType };

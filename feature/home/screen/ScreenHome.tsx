@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import styled from 'styled-components';
-import { useQueryClient } from 'react-query';
-import useMutationHome from '../../home/queries/mutationFn/mutationFn';
-import { useMutationCoupleInfo } from 'feature/coupleInfo/queries/mutationFn';
+import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
+import useQueryBackground from '../queries/queryFn/useQueryBackground';
 import { getDday } from 'utils/getDday';
 import { pixelToRem, pixelToVh } from 'utils/utils';
-import { ICoupleInfo } from '../types/CoupleInfo';
 
 import ModalBackground from 'feature/common/components/ModalBackground';
 import ModalInput from 'feature/common/components/ModalInput';
@@ -133,20 +131,31 @@ const ScheduleContainer = styled.section`
 `;
 
 export default function ScreenHome() {
-    const queryClient = useQueryClient();
-    const mutate = useMutationHome();
-    const coupleInfoMutation = useMutationCoupleInfo();
+    const coupleInfoQuery = useQueryCoupleInfo();
+    const coupleInfo = coupleInfoQuery?.data?.data?.data;
+    const backgroundQuery = useQueryBackground();
+    const [backgroundImage, setBackground] = useState('/slider_img.png');
 
     const [openBgModal, setBgModal] = useState(false);
     const [openCommentModal, setCommentModal] = useState(false);
 
-    const coupleInfo: ICoupleInfo | undefined =
-        queryClient.getQueryData('couple-info');
+    const urlToSrc = async (url: string) => {
+        const imgDownload = await fetch(url);
+        const blob = await imgDownload.blob();
+
+        const image = new File([blob], `image ${blob.size}`, {
+            type: blob.type,
+        });
+
+        setBackground(URL.createObjectURL(image));
+    };
 
     useEffect(() => {
-        mutate();
-        // console.log('어어');
-    }, [mutate, coupleInfoMutation]);
+        const url = backgroundQuery?.data?.data?.data[0] ?? '/slider_img.png';
+        if (url !== '/slider_img.png') {
+            urlToSrc(url);
+        }
+    }, [backgroundQuery?.data?.data?.data]);
 
     return (
         <>
@@ -179,7 +188,7 @@ export default function ScreenHome() {
 
                         <ImageContainer>
                             <Image
-                                src="/slider_img.png"
+                                src={backgroundImage}
                                 alt="메인화면 배경사진"
                                 layout="fill"
                             />

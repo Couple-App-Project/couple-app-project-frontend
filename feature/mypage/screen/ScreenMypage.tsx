@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import useMutationMypage from '../queries/mutationFn/useMutationMypage';
+import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
 import useMutationLogout from '../queries/mutationFn/useMutationLogout';
-import { ICoupleInfo } from '../types/CoupleInfo';
-import { useQueryClient } from 'react-query';
 
 import ModalInput from 'feature/common/components/ModalInput';
 import ModalDate from 'feature/common/components/ModalDate';
@@ -14,10 +12,6 @@ import { Menu } from 'styles/menuStyle';
 import ChevronRight from 'public/icons/chevron-right.svg';
 
 import { pixelToVh } from 'utils/utils';
-
-// const Input = styled.input`
-//     all: unset;
-// `;
 
 const ProfileHeader = styled.header`
     width: 100%;
@@ -63,22 +57,20 @@ const LogoutButton = styled.button`
 `;
 
 const ScreenMypage = () => {
-    const queryClient = useQueryClient();
-    const mutate = useMutationMypage();
     const logoutMutate = useMutationLogout();
 
-    const coupleInfo: ICoupleInfo | undefined =
-        queryClient.getQueryData('couple-info');
+    const coupleInfoQuery = useQueryCoupleInfo();
+    const coupleInfo = coupleInfoQuery?.data?.data?.data;
 
     const [anniversary, setAnniversary] = useState(coupleInfo?.anniversary);
 
     const [openNicknameModal, setNicknameModal] = useState(false);
     const [openAnniversaryModal, setAnniversaryModal] = useState(false);
 
-    const handleAnniversary = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newAnniversary = event.target.value;
-        setAnniversary(newAnniversary);
-    };
+    // const handleAnniversary = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const newAnniversary = event.target.value;
+    //     setAnniversary(newAnniversary);
+    // };
 
     const handleLogout = () => {
         if (confirm('정말 로그아웃 하시겠습니까?')) logoutMutate();
@@ -97,9 +89,7 @@ const ScreenMypage = () => {
 
     useEffect(() => {
         setAnniversary(coupleInfo?.anniversary);
-
-        mutate();
-    }, [coupleInfo, mutate]);
+    }, [coupleInfo]);
 
     return (
         <>
@@ -124,7 +114,7 @@ const ScreenMypage = () => {
                     <h1>
                         <span>{coupleInfo?.myNickname}</span>님
                     </h1>
-                    <h3>이메일주소</h3>
+                    <h3>{coupleInfo?.myEmail}</h3>
                 </Grid>
             </ProfileHeader>
 
@@ -147,7 +137,7 @@ const ScreenMypage = () => {
                                 accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
                             /> */}
                     </button>
-                    <ChevronRight />
+                    <ChevronRight stroke="#3B3D49" />
                 </Menu>
                 {/* <Input
                     type="text"
@@ -171,7 +161,7 @@ const ScreenMypage = () => {
                                 accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
                             /> */}
                     </button>
-                    <ChevronRight />
+                    <ChevronRight stroke="#3B3D49" />
                 </Menu>
                 {/* D+<span>{dDay} </span> */}
                 {/* <Input
