@@ -135,6 +135,15 @@ const FormWrapper = styled.form`
         ${({ theme }) => theme.Body_4};
     }
 
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        box-shadow: 0 0 0 ${pixelToRem(50)} ${(props) => props.theme.white}
+            inset;
+        -webkit-box-shadow: 0 0 0 ${pixelToRem(50)}
+            ${(props) => props.theme.white} inset;
+    }
+
     .select-box,
     .date-box {
         display: flex;
@@ -150,9 +159,8 @@ const FormWrapper = styled.form`
             border-right: none;
             border-bottom: 1px solid ${(props) => props.theme.grey_2};
             background-color: transparent;
-            -webkit-appearance: none;
-            -moz-appearance: none;
             appearance: none;
+            -webkit-appearance: none;
             &:focus {
                 outline: none;
             }

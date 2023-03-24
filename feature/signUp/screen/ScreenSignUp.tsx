@@ -24,7 +24,7 @@ const ScreenSignUp = () => {
     };
 
     /**
-     * err custom hook
+     * helper text custom hook
      */
     const [fieldErr, errorHandler] = useFieldError({
         email: false,
@@ -58,7 +58,7 @@ const ScreenSignUp = () => {
             disabled={
                 Object.values(fieldErr).includes(true) ||
                 Object.values(userInfo).includes('') ||
-                !data.success
+                !data?.success
                     ? true
                     : false
             }

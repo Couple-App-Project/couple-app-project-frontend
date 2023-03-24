@@ -1,11 +1,13 @@
 import React from 'react';
-import { QueryClient } from 'react-query';
+import { dehydrate, QueryClient } from 'react-query';
 import { GetServerSideProps } from 'next';
 import useInput from 'hooks/useInput';
 import StepLayout from 'layouts/StepLayout';
 import { CoupleCodeForm } from '../components';
+import apiKeys from '../queries/apiKeys';
 import { useMutationCoupleConnent } from '../queries/mutationFn';
 import { useQueryCoupleCode } from '../queries/queryFn';
+import queryKeys from '../queries/queryKeys';
 
 const ScreenCoupleCode = () => {
     const { data } = useQueryCoupleCode();
@@ -35,6 +37,17 @@ const ScreenCoupleCode = () => {
 
 export default ScreenCoupleCode;
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    const queryClient = new QueryClient();
-};
+// export const getServerSideProps: GetServerSideProps = async () => {
+//     const queryClient = new QueryClient();
+
+//     await queryClient.prefetchQuery(
+//         queryKeys.userCoupleCode,
+//         apiKeys.getCoupleCode,
+//     );
+
+//     return {
+//         props: {
+//             dehydratedState: dehydrate(queryClient),
+//         },
+//     };
+// };
