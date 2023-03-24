@@ -1,9 +1,10 @@
 import React from 'react';
+import { GetServerSideProps } from 'next';
+import useInput from 'hooks/useInput';
 import StepLayout from 'layouts/StepLayout';
 import { CoupleCodeForm } from '../components';
-import { useQueryCoupleCode } from '../queries/queryFn';
 import { useMutationCoupleConnent } from '../queries/mutationFn';
-import useInput from 'hooks/useInput';
+import { useQueryCoupleCode } from '../queries/queryFn';
 
 const ScreenCoupleCode = () => {
     const { data } = useQueryCoupleCode();
@@ -32,3 +33,7 @@ const ScreenCoupleCode = () => {
 };
 
 export default ScreenCoupleCode;
+
+// export const getServerSideProps: GetServerSideProps = async () => {
+
+// }

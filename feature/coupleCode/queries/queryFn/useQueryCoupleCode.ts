@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import queryKeys from '../queryKeys';
 import apiKeys from '../apiKeys';
+import queryKeys from '../queryKeys';
 
 const useQueryCoupleCode = () => {
     return useQuery(queryKeys.userCoupleCode, apiKeys.getCoupleCode, {

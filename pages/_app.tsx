@@ -1,19 +1,19 @@
-import React from 'react';
 import type { AppProps } from 'next/app';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import React from 'react';
 import {
     Hydrate,
     QueryClient,
     QueryClientProvider,
     DehydratedState,
 } from 'react-query';
-import { useRouter } from 'next/router';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
+import { ThemeProvider } from 'styled-components';
 import BottomNavi from 'feature/common/components/BottomNavi';
 import Device from 'layouts/Device';
-import Head from 'next/head';
-import { ThemeProvider } from 'styled-components';
 import defaultTheme from 'styles/theme';
 
 function MyApp({
@@ -69,9 +69,13 @@ function MyApp({
                                 <title>꾸욱</title>
                             </Head>
                             <Component {...pageProps} />
+                            {hasBottomNavi(router.pathname) ? (
+                                <BottomNavi />
+                            ) : (
+                                ''
+                            )}
                         </RecoilRoot>
                     </Hydrate>
-                    {hasBottomNavi(router.pathname) ? <BottomNavi /> : ''}
                 </Device>
             </ThemeProvider>
         </QueryClientProvider>
