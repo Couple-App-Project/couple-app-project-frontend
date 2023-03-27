@@ -1,62 +1,31 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { ElButton } from 'components';
-import Back from 'public/images/icons/back.svg';
-import Close from 'public/images/icons/close.svg';
 import Calendar from 'public/images/illustrations/calendar.svg';
 import { pixelToRem } from 'utils/utils';
+import STEP_COMPONENT_LIST from 'utils/variables/stepComponnetList';
+import type { StepLayoutPropsType } from 'types/StepLayoutPropsType';
 
-interface StepLayoutProps {
-    title: string;
-    children: React.ReactNode;
-    disabled: boolean;
-}
-
-interface ComponentType {
-    [title: string]: {
-        id: number;
-        clickActive?: React.ReactElement<React.SVGProps<SVGSVGElement>>;
-        button: string;
-    };
-}
-
-const COMPONENT_LIST: ComponentType = {
-    회원가입: {
-        id: 1,
-        clickActive: <Back />,
-        button: '가입완료',
-    },
-    '커플 코드': {
-        id: 2,
-        clickActive: <Close />,
-        button: '연결하기',
-    },
-    '커플이 된 날은 언제인가요?': {
-        id: 3,
-        button: '꾸욱 시작',
-    },
-};
-
-const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
+const StepLayout = ({ title, children, disabled }: StepLayoutPropsType) => {
     const router = useRouter();
     return (
         <StepLayoutWrapper>
-            {COMPONENT_LIST[title].id !== 3 && (
+            {STEP_COMPONENT_LIST[title].id !== 3 && (
                 <div className="icon-box" onClick={() => router.push('/login')}>
-                    {COMPONENT_LIST[title].clickActive}
+                    {STEP_COMPONENT_LIST[title].clickActive}
                 </div>
             )}
-            <div className={`title-box style${COMPONENT_LIST[title].id}`}>
-                {COMPONENT_LIST[title].id !== 3 && (
+            <div className={`title-box style${STEP_COMPONENT_LIST[title].id}`}>
+                {STEP_COMPONENT_LIST[title].id !== 3 && (
                     <h3 className="layout-title">{title}</h3>
                 )}
                 <div className="step-num">
-                    {Object.entries(COMPONENT_LIST).map((el, i) => {
+                    {Object.entries(STEP_COMPONENT_LIST).map((el, i) => {
                         return (
                             <div
                                 key={i}
                                 className={
-                                    COMPONENT_LIST[title].id >= el[1].id
+                                    STEP_COMPONENT_LIST[title].id >= el[1].id
                                         ? 'active'
                                         : ''
                                 }
@@ -66,7 +35,7 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
                         );
                     })}
                 </div>
-                {COMPONENT_LIST[title].id === 3 && (
+                {STEP_COMPONENT_LIST[title].id === 3 && (
                     <>
                         <Calendar />
                         <h3 className="layout-title">{title}</h3>
@@ -75,7 +44,7 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
             </div>
             <div className="form-box">{children}</div>
             <ElButton type="submit" form={title} _disabled={disabled}>
-                {COMPONENT_LIST[title].button}
+                {STEP_COMPONENT_LIST[title].button}
             </ElButton>
         </StepLayoutWrapper>
     );
