@@ -13,7 +13,7 @@ const Device = ({ children }: PropsWithChildren) => {
         }
     }, []);
 
-    return <div>{children}</div>;
+    return <>{mobileDevice ? <div>{children}</div> : <div>pc 화면</div>}</>;
 };
 
 export default Device;
