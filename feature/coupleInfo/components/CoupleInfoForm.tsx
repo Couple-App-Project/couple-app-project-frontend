@@ -1,17 +1,12 @@
 import styled from 'styled-components';
 import DropDown from 'public/images/icons/drop-down.svg';
-
-interface FormProps {
-    coupleData: { anniversary: string; nickname: string };
-    onChangeCoupleInfo: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    createCoupleInfo: (e: React.FormEvent<HTMLFormElement>) => void;
-}
+import type { FormPropsType } from '../types';
 
 const CoupleInfoForm = ({
     coupleData,
     onChangeCoupleInfo,
     createCoupleInfo,
-}: FormProps) => {
+}: FormPropsType) => {
     return (
         <FormWrapper
             onSubmit={createCoupleInfo}
