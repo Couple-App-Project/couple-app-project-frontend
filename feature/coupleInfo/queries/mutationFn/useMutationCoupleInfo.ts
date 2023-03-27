@@ -7,9 +7,6 @@ const useMutationCoupleInfo = () => {
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation(apiKeys.editCoupleInfo, {
-        onMutate: (variables) => {
-            console.log(variables);
-        },
         onError: (error, variables, context) => {
             console.log(error, variables, context);
         },
