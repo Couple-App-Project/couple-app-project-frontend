@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import DropDown from 'public/images/icons/drop-down.svg';
+import { pixelToRem } from 'utils/utils';
 import type { FormPropsType } from '../types';
 
 const CoupleInfoForm = ({
@@ -46,31 +47,34 @@ export default CoupleInfoForm;
 const FormWrapper = styled.form`
     input {
         width: 100%;
-        padding: 0 0.875rem;
-        line-height: 2.75rem;
-        background-color: ${(props) => props.theme.white};
-        border: 1px solid ${(props) => props.theme.grey_3};
+        padding: 0 ${pixelToRem(14)};
+        line-height: ${pixelToRem(44)};
+        background-color: ${({ theme }) => theme.white};
+        border: 1px solid ${({ theme }) => theme.grey_3};
         border-radius: 4px;
 
         &.selected,
         & {
-            color: ${(props) => props.theme.grey_6};
+            color: ${({ theme }) => theme.grey_6};
         }
         &.placeholder,
         &::placeholder {
-            color: ${(props) => props.theme.grey_4};
+            color: ${({ theme }) => theme.grey_4};
         }
     }
 
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
     input:-webkit-autofill:focus {
-        -webkit-box-shadow: 0 0 0px 40rem ${(props) => props.theme.white} inset;
+        box-shadow: 0 0 0 ${pixelToRem(50)} ${(props) => props.theme.white}
+            inset;
+        -webkit-box-shadow: 0 0 0 ${pixelToRem(50)}
+            ${(props) => props.theme.white} inset;
     }
 
     .date-box {
         display: flex;
-        margin-bottom: 1rem;
+        margin-bottom: ${pixelToRem(16)};
 
         input[type='date'] {
             margin: 0;
@@ -92,13 +96,13 @@ const FormWrapper = styled.form`
             display: none;
         }
         input[type='date']::-webkit-calendar-picker-indicator {
-            background: transparent;
+            background-color: transparent;
         }
         svg {
-            margin-left: -1.75rem;
+            margin-left: -${pixelToRem(28)};
             align-self: center;
             path {
-                stroke: ${(props) => props.theme.grey_4};
+                stroke: ${({ theme }) => theme.grey_4};
             }
         }
     }
@@ -106,8 +110,8 @@ const FormWrapper = styled.form`
     .nickname-box {
         h3 {
             margin-bottom: 0.375rem;
-            color: ${(props) => props.theme.grey_6};
-            ${(props) => props.theme.Body_2}
+            color: ${({ theme }) => theme.grey_6};
+            ${({ theme }) => theme.Body_2}
         }
     }
 `;
