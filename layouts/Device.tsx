@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
-import { detectMobileDevice, detectInAppBrowser } from 'utils/deviceDetector';
+import { detectMobileDevice, detectInAppBrowser } from 'utils/functions';
 
 const Device = ({ children }: PropsWithChildren) => {
     const [mobileDevice, setMobileDevice] = useState(false);

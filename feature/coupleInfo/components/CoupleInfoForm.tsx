@@ -48,6 +48,7 @@ const FormWrapper = styled.form`
     input {
         width: 100%;
         padding: 0 ${pixelToRem(14)};
+        ${({ theme }) => theme.Body_2};
         line-height: ${pixelToRem(44)};
         background-color: ${({ theme }) => theme.white};
         border: 1px solid ${({ theme }) => theme.grey_3};
@@ -96,7 +97,7 @@ const FormWrapper = styled.form`
             display: none;
         }
         input[type='date']::-webkit-calendar-picker-indicator {
-            background-color: transparent;
+            background: transparent;
         }
         svg {
             margin-left: -${pixelToRem(28)};
