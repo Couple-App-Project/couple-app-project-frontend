@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Copy from 'public/images/icons/copy.svg';
 import Share from 'public/images/icons/share.svg';
+import { pixelToRem } from 'utils/utils';
 import type { FormPropsType } from '../types';
 import { handlerCopy, handlerShare } from '../modules/functions';
 
@@ -40,39 +41,39 @@ const CoupleCodeForm = ({
 export default CoupleCodeForm;
 
 const FormWrapper = styled.form`
-    margin-top: 4.875rem;
+    margin-top: ${pixelToRem(78)};
 
     h3,
     input {
-        color: ${(props) => props.theme.grey_6};
+        color: ${({ theme }) => theme.grey_6};
     }
 
     h3 {
-        margin-bottom: 0.375rem;
-        ${(props) => props.theme.Body_2}
+        margin-bottom: ${pixelToRem(5)};
+        ${({ theme }) => theme.Body_2}
     }
 
     input {
         width: 100%;
-        padding: 0 0.875rem;
-        font-size: 0.875rem;
-        font-weight: 400;
+        padding: 0 ${pixelToRem(14)};
+        ${({ theme }) => theme.Body_2};
+        flex: 1;
 
         &::placeholder {
-            color: ${(props) => props.theme.grey_4};
+            color: ${({ theme }) => theme.grey_4};
         }
     }
 
     input,
     .icon-content {
-        line-height: 2.75rem;
-        background-color: ${(props) => props.theme.white};
-        border: 1px solid ${(props) => props.theme.grey_3};
+        line-height: ${pixelToRem(44)};
+        background-color: ${({ theme }) => theme.white};
+        border: 1px solid ${({ theme }) => theme.grey_3};
         border-radius: 4px;
     }
 
     .user-code-content {
-        margin-bottom: 1rem;
+        margin-bottom: ${pixelToRem(16)};
 
         & > div {
             display: flex;
@@ -80,15 +81,16 @@ const FormWrapper = styled.form`
             align-items: center;
 
             .icon-content {
-                width: 2.75rem;
-                margin-left: 5px;
+                width: ${pixelToRem(44)};
+                margin-left: ${pixelToRem(5)};
                 text-align: center;
 
                 svg {
+                    display: inline-block;
                     vertical-align: middle;
 
                     path {
-                        stroke: ${(props) => props.theme.grey_6};
+                        stroke: ${({ theme }) => theme.grey_6};
                     }
                 }
             }
