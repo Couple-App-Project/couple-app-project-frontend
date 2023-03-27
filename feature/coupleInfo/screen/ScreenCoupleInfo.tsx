@@ -15,6 +15,9 @@ const ScreenCoupleInfo = () => {
         });
     };
 
+    /**
+     * 커플 정보 입력
+     */
     const coupleInfoMutation = useMutationCoupleInfo();
 
     const createCoupleInfo = (e: React.FormEvent<HTMLFormElement>) => {
