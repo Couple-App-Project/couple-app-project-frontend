@@ -1,12 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import { ko } from 'date-fns/locale';
 import { getYear } from 'date-fns';
-import type { CalendarMainPropsType } from '../../types/CalendarMainPropsType';
+import { ko } from 'date-fns/locale';
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
 import calendersState from 'recoil/calendersState';
+import type { CalendarMainPropsType } from '../../types';
 import { isSunday, dayArray } from '../../modules/functions';
 import { CalendarCaption, CalendarDay } from '../index';
 
@@ -19,12 +19,20 @@ const Calendar = ({
     yourBirthday,
 }: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
+
+    /**
+     * 데이트 타입 날짜만 추출
+     */
     const date = dayArray(calenderList)
         .filter((v) => v.type === '데이트')
         .reduce((acc, cur) => {
             return acc.concat(...cur.dateArray);
         }, [] as string[])
         .map((el) => new Date(el));
+
+    /**
+     * 기념일 타입 날짜만 추출 후 사귄 날, 생일 추가
+     */
     const anniversary = dayArray(calenderList)
         .filter((v) => v.type === '기념일')
         .reduce((acc, cur) => {

@@ -1,4 +1,4 @@
-import type { CalendarParamsType } from '../types/CalendarParamsType';
+import type { CalendarParamsType } from '../types';
 
 const queryKeys = {
     calendar: (month: string) => ['calendar', month],

@@ -1,9 +1,10 @@
 import { getMonth, getDate, getDay } from 'date-fns';
-import { changeGetDay } from 'utils/functions';
 import styled from 'styled-components';
+import { SearchListPropsType } from 'feature/calender/types';
+import { changeGetDay } from 'utils/functions';
 
-const SearchList = ({ list, search }: any) => {
-    const searchList = list?.map((v: any) => {
+const SearchList = ({ list, search }: SearchListPropsType) => {
+    const searchList = list?.map((v) => {
         return {
             ...v,
             searchDate: `${v.startDate.split('-')[0]}년 ${
@@ -13,12 +14,11 @@ const SearchList = ({ list, search }: any) => {
     });
 
     let searchMonth = list?.map(
-        (v: any) =>
-            `${v.startDate.split('-')[0]}년 ${v.startDate.split('-')[1]}월`,
+        (v) => `${v.startDate.split('-')[0]}년 ${v.startDate.split('-')[1]}월`,
     );
 
-    searchMonth = searchMonth?.filter((el: any, index: any) => {
-        return searchMonth.indexOf(el) === index;
+    searchMonth = searchMonth?.filter((el, i) => {
+        return searchMonth.indexOf(el) === i;
     });
 
     return (
@@ -27,7 +27,7 @@ const SearchList = ({ list, search }: any) => {
                 <p className="not-list">검색 결과가 없습니다</p>
             ) : (
                 <>
-                    {searchMonth?.map((el: any, index: any) => {
+                    {searchMonth?.map((el, index) => {
                         return (
                             <div key={index} className="list-content">
                                 <div>
@@ -37,7 +37,7 @@ const SearchList = ({ list, search }: any) => {
                                     )}
                                 </div>
                                 <ul>
-                                    {searchList.map((cur: any, index: any) => {
+                                    {searchList.map((cur, index) => {
                                         return (
                                             cur.searchDate === el && (
                                                 <li key={index}>

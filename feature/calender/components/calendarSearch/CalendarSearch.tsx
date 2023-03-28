@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQueryCalendarSearch } from 'feature/calender/queries/queryFn';
 import {
     SearchInput,
     SearchType,
     SearchList,
 } from 'feature/calender/components';
+import { useQueryCalendarSearch } from 'feature/calender/queries/queryFn';
 import useInput from 'hooks/useInput';
 
 const CalendarSearch = () => {
     const [keyword, onChangeKeyword] = useInput('');
-    const [type, setType] = useState<null | string>();
+    const [type, setType] = useState<null | string>(null);
 
     const onChangeType = (e: React.MouseEvent<HTMLButtonElement>) => {
         setType(
@@ -26,7 +26,7 @@ const CalendarSearch = () => {
         <SearchContainer>
             <SearchInput keyword={keyword} onChangeKeyword={onChangeKeyword} />
             <SearchType type={type} onChangeType={onChangeType} />
-            <SearchList list={data?.data.data} search={keyword} />
+            <SearchList list={data} search={keyword} />
         </SearchContainer>
     );
 };

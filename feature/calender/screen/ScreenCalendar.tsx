@@ -7,19 +7,28 @@ import { Calendar, CalendarDayDetail, CalendarAddButton } from '../components';
 import { useQueryCalendars } from '../queries/queryFn';
 
 const ScreenCalender = () => {
+    const userInfo = useRecoilValue(userInfoState);
+
+    /**
+     * 사용자 지정 날짜 또는 현재 날짜, 매달 1일
+     */
     const [selectedDay, setSelectedDay] = useState<Date | undefined>(
         new Date(),
     );
 
+    /**
+     * 현재 년.월 또는 사용자 지정 년.월
+     */
     const [selectDate, setSelectDate] = useState(format(new Date(), 'yyMM'));
 
-    const changeDate = (e: any) => {
+    const changeDate = (e: Date) => {
         setSelectDate(format(e, 'yyMM'));
         setSelectedDay(e);
     };
 
-    const userInfo = useRecoilValue(userInfoState);
-
+    /**
+     * Todo.suspense 추후 적용.
+     */
     const { isLoading } = useQueryCalendars(selectDate);
 
     return (

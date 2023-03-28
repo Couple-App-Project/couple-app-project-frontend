@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CalendarSearchPropsType } from 'feature/calender/types/CalendarSearchPropsType';
+import { CalendarSearchPropsType } from '../../types';
 
 const SearchType = ({ type, onChangeType }: CalendarSearchPropsType) => {
     return (
@@ -8,7 +8,7 @@ const SearchType = ({ type, onChangeType }: CalendarSearchPropsType) => {
                 name="type"
                 value="데이트"
                 className={type === '데이트' ? 'date' : ''}
-                onClick={(e) => onChangeType(e)}
+                onClick={(e) => onChangeType!(e)}
             >
                 데이트
             </button>
@@ -16,7 +16,7 @@ const SearchType = ({ type, onChangeType }: CalendarSearchPropsType) => {
                 name="type"
                 value="기념일"
                 className={type === '기념일' ? 'anniversary' : ''}
-                onClick={(e) => onChangeType(e)}
+                onClick={(e) => onChangeType!(e)}
             >
                 기념일
             </button>

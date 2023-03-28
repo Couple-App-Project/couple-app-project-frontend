@@ -1,5 +1,5 @@
 interface CalendarParamsType {
-    month?: any;
+    month?: string;
     keyword?: string;
     type?: string | null;
 }

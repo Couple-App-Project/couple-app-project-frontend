@@ -1,10 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import { CaptionProps, CaptionDropdowns } from 'react-day-picker';
-import Search from 'public/images/icons/search.svg';
 import { useRouter } from 'next/router';
+import React from 'react';
+import { CaptionDropdowns } from 'react-day-picker';
+import styled from 'styled-components';
+import Search from 'public/images/icons/search.svg';
+import type { CaptionPropsType } from 'feature/calender/types';
 
-const CalendarCaption = (props: CaptionProps) => {
+const CalendarCaption = (props: CaptionPropsType) => {
     const router = useRouter();
     return (
         <CaptionWrapper>

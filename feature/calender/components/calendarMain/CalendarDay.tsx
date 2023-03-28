@@ -1,6 +1,7 @@
+/* eslint-disable import/named */
 import React from 'react';
-import styled from 'styled-components';
 import { DayContent, DayContentProps } from 'react-day-picker';
+import styled from 'styled-components';
 
 const CalendarDay = (props: DayContentProps) => {
     return (

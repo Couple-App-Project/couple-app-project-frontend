@@ -1,5 +1,5 @@
 interface CalendarMainPropsType {
-    changeDate?: (e: any) => void;
+    changeDate?: (e: Date) => void;
     selectedDay: Date | undefined;
     setSelectedDay?: React.Dispatch<React.SetStateAction<Date | undefined>>;
     onIsSearch?: (e: React.ChangeEvent<HTMLInputElement>) => void;
