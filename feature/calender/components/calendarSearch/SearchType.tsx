@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { pixelToRem } from 'utils/utils';
 import { CalendarSearchPropsType } from '../../types';
 
 const SearchType = ({ type, onChangeType }: CalendarSearchPropsType) => {
@@ -28,25 +29,25 @@ export default SearchType;
 
 const SearchTypeContainer = styled.div`
     button {
-        width: 4.875rem;
-        padding: 0.375rem 0;
-        border-radius: 62px;
-        border: 1px solid ${(props) => props.theme.grey_2};
-        background-color: ${(props) => props.theme.white};
-        color: ${(props) => props.theme.grey_4};
-        ${(props) => props.theme.Body_1}
+        width: ${pixelToRem(78)};
+        padding: ${pixelToRem(6)} 0;
+        border-radius: 60px;
+        border: 1px solid ${({ theme }) => theme.grey_2};
+        background-color: ${({ theme }) => theme.white};
+        color: ${({ theme }) => theme.grey_4};
+        ${({ theme }) => theme.Body_1}
 
         &:last-child {
-            margin-left: 0.5rem;
+            margin-left: ${pixelToRem(8)};
         }
 
         &.date {
-            background-color: ${(props) => props.theme.primaryPink};
-            color: ${(props) => props.theme.white};
+            background-color: ${({ theme }) => theme.primaryPink};
+            color: ${({ theme }) => theme.white};
         }
         &.anniversary {
-            background-color: ${(props) => props.theme.mediumBlue};
-            color: ${(props) => props.theme.white};
+            background-color: ${({ theme }) => theme.mediumBlue};
+            color: ${({ theme }) => theme.white};
         }
     }
 `;
