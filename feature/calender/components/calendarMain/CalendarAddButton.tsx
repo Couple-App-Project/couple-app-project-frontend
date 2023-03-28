@@ -1,25 +1,30 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 import AddBtnIcon from 'public/images/icons/add-button.svg';
+import { pixelToRem } from 'utils/utils';
 
 const CalendarAddButton = () => {
     return (
-        <AddBtn>
-            <Link href="/calendar/register">
+        <Link href="/calendar/register">
+            <AddBtn>
                 <AddBtnIcon />
-            </Link>
-        </AddBtn>
+            </AddBtn>
+        </Link>
     );
 };
 
 export default CalendarAddButton;
 
-const AddBtn = styled.button`
+const AddBtn = styled.a`
     position: absolute;
-    bottom: 6rem;
-    right: 1rem;
-    width: 3rem;
-    height: 3rem;
-    background-color: #ff6e7f;
+    bottom: ${pixelToRem(20)};
+    right: ${pixelToRem(20)};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: ${pixelToRem(48)};
+    height: ${pixelToRem(48)};
+    margin-bottom: 12vh;
+    background-color: ${({ theme }) => theme.primaryPink};
     border-radius: 50%;
 `;

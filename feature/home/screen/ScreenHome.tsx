@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
-import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
-import useQueryBackground from '../queries/queryFn/useQueryBackground';
-import { getDday } from 'utils/getDday';
-import { pixelToRem, pixelToVh } from 'utils/utils';
 
+import Grid from 'components/Grid';
 import ModalBackground from 'feature/common/components/ModalBackground';
 import ModalInput from 'feature/common/components/ModalInput';
-import UpcomingSchedule from '../components/UpcomingSchedule';
-import Grid from 'components/Grid';
+import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
 
-import Notification from 'public/icons/notification.svg';
 import Heart from 'public/icons/heart.svg';
-import Picture from 'public/icons/picture.svg';
+import Notification from 'public/icons/notification.svg';
 import Pencil from 'public/icons/pencil.svg';
+import Picture from 'public/icons/picture.svg';
+import { getDday } from 'utils/functions';
+import { pixelToRem, pixelToVh } from 'utils/utils';
+import UpcomingSchedule from '../components/UpcomingSchedule';
+import useQueryBackground from '../queries/queryFn/useQueryBackground';
 
 const ProfileSection = styled.section<{ background: string }>`
     height: 100vh;

@@ -6,6 +6,7 @@ import { ko } from 'date-fns/locale';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import calendersState from 'recoil/calendersState';
+import { pixelToRem } from 'utils/utils';
 import type { CalendarMainPropsType } from '../../types';
 import { isSunday, dayArray } from '../../modules/functions';
 import { CalendarCaption, CalendarDay } from '../index';
@@ -79,10 +80,8 @@ const DayPickers = styled(DayPicker)`
         max-width: 100%;
 
         .rdp-head_cell {
-            font-size: 0.75rem;
-            line-height: 1rem;
-            font-weight: 400;
-            color: ${(props) => props.theme.grey_5};
+            ${({ theme }) => theme.Body_3}
+            color: ${({ theme }) => theme.grey_5};
         }
 
         .rdp-cell {
@@ -90,7 +89,7 @@ const DayPickers = styled(DayPicker)`
                 position: relative;
                 width: 100%;
                 max-width: 100%;
-                height: 3rem;
+                height: ${pixelToRem(48)};
             }
 
             .calendar-circle {
@@ -117,20 +116,22 @@ const DayPickers = styled(DayPicker)`
         }
 
         .day-content {
-            color: ${(props) => props.theme.grey_6};
+            ${({ theme }) => theme.Subhead_4}
+            color: ${({ theme }) => theme.grey_6};
         }
 
         .rdp-head_row th:first-child,
         .sunday-class .day-content {
-            color: ${(props) => props.theme.red};
+            color: ${({ theme }) => theme.red};
         }
 
         .rdp-day_selected {
             background-color: transparent;
+
             .day-content {
-                width: 1.875rem;
-                line-height: 1.875rem;
-                background-color: #3b3d49;
+                width: ${pixelToRem(30)};
+                line-height: ${pixelToRem(30)};
+                background-color: ${({ theme }) => theme.grey_6};
                 color: #fff;
                 border-radius: 50%;
             }

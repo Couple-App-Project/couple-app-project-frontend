@@ -4,7 +4,8 @@ import { format } from 'date-fns';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import calendersState from 'recoil/calendersState';
-import { changeDate } from 'utils/functions';
+import { changeDate, getDday } from 'utils/functions';
+import { pixelToRem } from 'utils/utils';
 import type { CalendarMainPropsType } from '../../types';
 import { dayArray } from '../../modules/functions';
 
@@ -17,27 +18,24 @@ const CalendarDayDetail = ({
     yourNickname,
 }: CalendarMainPropsType) => {
     const calenderList = useRecoilValue(calendersState);
-    const day = selectedDay && format(selectedDay, 'yyyy-MM-dd');
 
-    const selectDetailList = dayArray(calenderList).filter(
-        (el) => day && el.dateArray.includes(day),
+    const day = format(selectedDay!, 'yyyy-MM-dd');
+
+    /**
+     * 해당 년.월 일정 목록 중 사용자 지정 일정과 일치한 배열
+     */
+    const selectDetailList = dayArray(calenderList).filter((el) =>
+        el.dateArray.includes(day),
     );
 
     return (
         <DayDetailWrpper>
             <div className="day-detail-head">
                 <h3>{changeDate(selectedDay!)}</h3>
-                {Math.floor(
-                    (selectedDay!.getTime() - new Date(coupleDay!).getTime()) /
-                        (1000 * 60 * 60 * 24) +
-                        1,
-                ) > 0 && (
+                {Math.floor(getDday(coupleDay!, selectedDay)) > 0 && (
                     <span>
                         {`사귄 지 ${Math.floor(
-                            (selectedDay!.getTime() -
-                                new Date(coupleDay!).getTime()) /
-                                (1000 * 60 * 60 * 24) +
-                                1,
+                            getDday(coupleDay!, selectedDay),
                         )}일째`}
                     </span>
                 )}
@@ -91,61 +89,60 @@ export default CalendarDayDetail;
 
 const DayDetailWrpper = styled.div`
     flex: 1;
-    background-color: ${(props) => props.theme.grey_1};
-    padding: 1rem 1.5rem;
+    background-color: ${({ theme }) => theme.grey_1};
+    padding: ${pixelToRem(16)} ${pixelToRem(24)};
     margin-bottom: 12vh;
     overflow: auto;
 
     h3,
     h4 {
-        color: ${(props) => props.theme.grey_6};
-        ${(props) => props.theme.Body_2};
+        color: ${({ theme }) => theme.grey_6};
+        ${({ theme }) => theme.Body_2};
     }
 
     .day-detail-head {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 0.75rem;
+        margin-bottom: ${pixelToRem(12)};
 
         span {
-            color: ${(props) => props.theme.grey_4};
-            ${(props) => props.theme.Body_3};
+            color: ${({ theme }) => theme.grey_4};
+            ${({ theme }) => theme.Body_3};
         }
     }
 
     ul {
         li {
             position: relative;
-            padding: 1rem 0 1rem 3rem;
-            background-color: ${(props) => props.theme.white};
-            border: 1px solid ${(props) => props.theme.grey_2};
+            padding: ${pixelToRem(16)} 0 ${pixelToRem(16)} ${pixelToRem(48)};
+            background-color: ${({ theme }) => theme.white};
+            border: 1px solid ${({ theme }) => theme.grey_2};
             border-radius: 6px;
 
             &:not(:last-child) {
-                margin-bottom: 0.5rem;
+                margin-bottom: ${pixelToRem(8)};
             }
 
             div {
                 position: absolute;
-                left: 1.5rem;
+                left: ${pixelToRem(24)};
                 top: 50%;
                 transform: translateY(-50%);
-                width: 0.5rem;
-                height: 0.5rem;
+                width: ${pixelToRem(8)};
+                height: ${pixelToRem(8)};
                 border-radius: 50%;
 
                 &.기념일 {
-                    background-color: ${(props) => props.theme.mediumBlue};
+                    background-color: ${({ theme }) => theme.mediumBlue};
                 }
                 &.데이트 {
-                    background-color: ${(props) => props.theme.primaryPink};
+                    background-color: ${({ theme }) => theme.primaryPink};
                 }
             }
 
             span {
-                font-size: 0.75rem;
-                font-weight: 400;
+                ${({ theme }) => theme.Body_3}
                 color: ${(props) => props.theme.grey_4};
             }
         }

@@ -1,9 +1,10 @@
-/* eslint-disable import/named */
 import React from 'react';
-import { DayContent, DayContentProps } from 'react-day-picker';
+import { DayContent } from 'react-day-picker';
 import styled from 'styled-components';
+import { pixelToRem } from 'utils/utils';
+import type { DayContentPropsType } from 'feature/calender/types';
 
-const CalendarDay = (props: DayContentProps) => {
+const CalendarDay = (props: DayContentPropsType) => {
     return (
         <DayWrapper className="day-content">
             <DayContent {...props} />
@@ -18,30 +19,26 @@ const CalendarDay = (props: DayContentProps) => {
 export default CalendarDay;
 
 const DayWrapper = styled.div`
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 700;
-
     .calendar-circle {
         position: absolute;
         left: 0px;
-        bottom: 2px;
+        bottom: 0px;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
 
         li {
-            width: 0.25rem;
-            height: 0.25rem;
+            width: ${pixelToRem(4)};
+            height: ${pixelToRem(4)};
             border-radius: 50%;
 
             &.anniversary-circle {
-                background-color: ${(props) => props.theme.mediumBlue};
+                background-color: ${({ theme }) => theme.mediumBlue};
             }
             &.date-circle {
                 margin-left: 0.1rem;
-                background-color: ${(props) => props.theme.primaryPink};
+                background-color: ${({ theme }) => theme.primaryPink};
             }
         }
     }

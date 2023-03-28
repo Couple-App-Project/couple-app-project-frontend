@@ -3,6 +3,7 @@ import React from 'react';
 import { CaptionDropdowns } from 'react-day-picker';
 import styled from 'styled-components';
 import Search from 'public/images/icons/search.svg';
+import { pixelToRem } from 'utils/utils';
 import type { CaptionPropsType } from 'feature/calender/types';
 
 const CalendarCaption = (props: CaptionPropsType) => {
@@ -23,7 +24,7 @@ const CaptionWrapper = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: ${pixelToRem(16)};
 
     .rdp-caption_dropdowns {
         display: flex;
@@ -33,23 +34,21 @@ const CaptionWrapper = styled.div`
 
         .rdp-dropdown_month {
             .rdp-caption_label {
-                margin-left: 0.875rem;
+                margin-left: ${pixelToRem(12)};
             }
         }
 
         .rdp-caption_label {
             padding: 0;
             border: 0;
-            font-size: 1.5rem;
-            line-height: 2rem;
-            font-weight: 700;
-            color: ${(props) => props.theme.grey_6};
+            ${({ theme }) => theme.Subhead_1}
+            color: ${({ theme }) => theme.grey_6};
         }
     }
 
     svg {
         path {
-            fill: ${(props) => props.theme.grey_6};
+            fill: ${({ theme }) => theme.grey_6};
         }
     }
 `;
