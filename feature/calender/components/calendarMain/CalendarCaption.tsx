@@ -11,9 +11,7 @@ const CalendarCaption = (props: CaptionPropsType) => {
     return (
         <CaptionWrapper>
             <CaptionDropdowns displayMonth={props.displayMonth} />
-            <div onClick={() => router.push('/calendar/search')}>
-                <Search />
-            </div>
+            <Search onClick={() => router.push('/calendar/search')} />
         </CaptionWrapper>
     );
 };

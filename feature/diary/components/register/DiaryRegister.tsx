@@ -8,6 +8,7 @@ import {
 } from 'feature/diary/queries/mutationFn';
 import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
 import { EmojiClickDataType } from 'feature/diary/types';
+import { pixelToRem } from 'utils/utils';
 import { RegisterHead, RegisterContent, RegisterBar } from '../index';
 
 const DiaryWrite = () => {
@@ -109,4 +110,8 @@ const DiaryWrite = () => {
 
 export default DiaryWrite;
 
-const DiaryWriteWrapper = styled.div``;
+const DiaryWriteWrapper = styled.div`
+    position: relative;
+    height: 100vh;
+    padding-top: ${pixelToRem(16)};
+`;

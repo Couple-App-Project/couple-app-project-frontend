@@ -195,8 +195,6 @@ const CalendarForm = () => {
                         pathname: '/diary/detail/[id]',
                         query: {
                             id: calendarId,
-                            startDate: schedule.startDate,
-                            endDate: schedule.endDate,
                         },
                     }}
                     as={`/diary/detail/${calendarId}`}
@@ -223,7 +221,6 @@ const CalendarForm = () => {
                             endDate: schedule.endDate,
                         },
                     }}
-                    as={`/diary/register/${calendarId}`}
                 >
                     <WriteDiaryButton>
                         <Plus />

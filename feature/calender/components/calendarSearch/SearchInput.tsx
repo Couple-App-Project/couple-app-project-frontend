@@ -9,9 +9,7 @@ const SearchInput = ({ keyword, onChangeKeyword }: CalendarSearchPropsType) => {
 
     return (
         <SearchInputContainer className="search-input">
-            <div onClick={() => router.push('/calendar')}>
-                <Back />
-            </div>
+            <Back onClick={() => router.push('/calendar')} />
             <div className="input-content">
                 <input
                     type="text"

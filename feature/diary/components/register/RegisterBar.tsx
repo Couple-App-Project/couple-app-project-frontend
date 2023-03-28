@@ -3,6 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Emoticon from 'public/images/icons/emoticon.svg';
 import ImageUpload from 'public/images/icons/image-upload.svg';
+import { pixelToRem } from 'utils/utils';
 import type { RegisterBarPropsType } from 'feature/diary/types';
 
 /**
@@ -42,10 +43,14 @@ const RegisterBar = ({ handleUpload, onEmojiClick }: RegisterBarPropsType) => {
 export default RegisterBar;
 
 const RegisterBarContainer = styled.div`
+    position: absolute;
+    left: 0;
+    bottom: 0;
     display: flex;
     align-items: center;
-    padding: 1rem 2rem;
-    border-top: 1px solid ${(props) => props.theme.grey_2};
+    width: 100%;
+    padding: ${pixelToRem(16)} ${pixelToRem(38)};
+    border-top: 1px solid ${({ theme }) => theme.grey_2};
     .image-upload-content {
         input {
             display: none;

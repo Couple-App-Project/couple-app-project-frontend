@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Close from 'public/images/icons/close.svg';
+import { pixelToRem } from 'utils/utils';
 import type { DiaryDetailDataType } from '../../types';
 
 const RegisterHead = ({
@@ -26,19 +27,19 @@ const RegisterHeadContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 1.5rem;
-    margin-bottom: 1.75rem;
+    padding: 0 ${pixelToRem(24)};
+    margin-bottom: ${pixelToRem(30)};
 
     h2,
     button {
-        color: ${(props) => props.theme.grey_6};
+        color: ${({ theme }) => theme.grey_6};
     }
 
     h2 {
-        ${(props) => props.theme.Title_4}
+        ${({ theme }) => theme.Title_4}
     }
     button {
         background-color: transparent;
-        ${(props) => props.theme.Body_3}
+        ${({ theme }) => theme.Body_3}
     }
 `;
