@@ -124,6 +124,8 @@ const IconContainer = styled.div`
     }
 `;
 const ScheduleContainer = styled.section`
+    width: 100%;
+    overflow: auto;
     display: flex;
     gap: 8px;
     margin-top: 8px;
