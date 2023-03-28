@@ -1,20 +1,21 @@
-import styled from 'styled-components';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 import Close from 'public/images/icons/close.svg';
+import type { DiaryDetailDataType } from '../../types';
 
 const RegisterHead = ({
-    onSendDiary,
+    sendDiary,
     isEdit,
 }: {
-    onSendDiary: () => void;
-    isEdit: any;
+    sendDiary: () => void;
+    isEdit: DiaryDetailDataType;
 }) => {
     const router = useRouter();
     return (
         <RegisterHeadContainer>
             <Close onClick={() => router.push('/diary')} />
             <h2>다이어리</h2>
-            <button onClick={onSendDiary}>{isEdit ? '수정' : '저장'}</button>
+            <button onClick={sendDiary}>{isEdit ? '수정' : '저장'}</button>
         </RegisterHeadContainer>
     );
 };

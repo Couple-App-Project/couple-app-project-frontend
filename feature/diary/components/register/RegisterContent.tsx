@@ -1,16 +1,8 @@
-import styled from 'styled-components';
 import Image from 'next/image';
+import styled from 'styled-components';
 import Close from 'public/images/icons/close.svg';
+import type { RegisterContentPropsType } from '../../types';
 import Content from '../common/Content';
-
-interface RegisterContentPropsType {
-    startDate: string;
-    imgUrl: string[];
-    calendarTitle: string;
-    diary: { title: string; content: string };
-    onChangeContent: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleDelete: (index: number) => void;
-}
 
 const RegisterContent = ({
     startDate,

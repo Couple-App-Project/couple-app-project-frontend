@@ -1,22 +1,32 @@
+import { useRouter } from 'next/router';
 import { useEffect, useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 import useImage from 'feature/diary/hook/useImage';
 import {
     useMutationCreateDiary,
     useMutationEditDiary,
 } from 'feature/diary/queries/mutationFn';
-import { RegisterHead, RegisterContent, RegisterBar } from '../index';
 import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
+import { EmojiClickDataType } from 'feature/diary/types';
+import { RegisterHead, RegisterContent, RegisterBar } from '../index';
 
 const DiaryWrite = () => {
+    /**
+     * 캘린더 상세에서 query로 넘어온 데이터
+     */
     const router = useRouter();
-    const { id, startDate } = router.query;
+    const { id, title, startDate } = router.query;
 
-    const { isLoading, data } = useQueryDiaryDetail(id);
+    /**
+     * 다이어리 상세 조회
+     */
+    const { isLoading, data } = useQueryDiaryDetail(Number(id));
 
     const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
 
+    /**
+     * res img blob 객체로 변환 후 업로드
+     */
     const urlToFile = useCallback(async () => {
         let imgArray = [];
 
@@ -32,7 +42,7 @@ const DiaryWrite = () => {
         }
 
         handleUpload({ target: { files: imgArray } });
-    }, []);
+    }, [data]);
 
     useEffect(() => {
         if (data) {
@@ -49,20 +59,23 @@ const DiaryWrite = () => {
         });
     };
 
-    const onEmojiClick = (emojiObject: any) => {
+    const onEmojiClick = (emojiObject: EmojiClickDataType) => {
+        console.log(typeof emojiObject.emoji);
         setDiary((prev) => {
             return { ...prev, content: prev.content + emojiObject.emoji };
         });
     };
 
+    /**
+     * 다이어리 생성 또는 수정
+     */
     const createDiaryMutation = useMutationCreateDiary();
-    const editDiaryMutation = useMutationEditDiary(id);
+    const editDiaryMutation = useMutationEditDiary(Number(id));
 
-    const onSendDiary = () => {
+    const sendDiary = () => {
         const formData = new FormData();
 
-        //@ts-ignore
-        formData.append('calendarId', id);
+        formData.append('calendarId', id as string);
         formData.append('title', diary.title);
         formData.append('content', diary.content);
 
@@ -77,10 +90,10 @@ const DiaryWrite = () => {
 
     return (
         <DiaryWriteWrapper>
-            <RegisterHead onSendDiary={onSendDiary} isEdit={data} />
+            <RegisterHead sendDiary={sendDiary} isEdit={data} />
             <RegisterContent
                 startDate={startDate || data?.calendar?.startDate}
-                calendarTitle={'타이틀넣어줘' || data?.calendar?.title}
+                calendarTitle={title || data?.calendar?.title}
                 diary={diary}
                 onChangeContent={onChangeContent}
                 imgUrl={imgUrl}

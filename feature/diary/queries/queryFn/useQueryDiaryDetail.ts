@@ -2,7 +2,12 @@ import { useQuery } from 'react-query';
 import apiKeys from '../apiKeys';
 import queryKeys from '../queryKeys';
 
-const useQueryDiaryDetail = (calendarId: any) => {
+/**
+ * 캘린더 상세 조회 Fn
+ * @param calendarId 해당 캘린더 id
+ * @returns query Fn
+ */
+const useQueryDiaryDetail = (calendarId: number) => {
     return useQuery(
         queryKeys.diaryDetail(calendarId),
         () => apiKeys.getDiaryDetail(calendarId),

@@ -1,14 +1,13 @@
-import styled from 'styled-components';
 import dynamic from 'next/dynamic';
-import ImageUpload from 'public/images/icons/image-upload.svg';
-import Emoticon from 'public/images/icons/emoticon.svg';
 import { useState } from 'react';
+import styled from 'styled-components';
+import Emoticon from 'public/images/icons/emoticon.svg';
+import ImageUpload from 'public/images/icons/image-upload.svg';
+import type { RegisterBarPropsType } from 'feature/diary/types';
 
-interface RegisterBarPropsTtpe {
-    handleUpload: (e: React.ChangeEvent<HTMLInputElement>) => Promise<void>;
-    onEmojiClick: (emojiObject: any) => void;
-}
-
+/**
+ * 동적 가져오기
+ */
 const Picker = dynamic(
     () => {
         return import('emoji-picker-react');
@@ -16,7 +15,7 @@ const Picker = dynamic(
     { ssr: false },
 );
 
-const RegisterBar = ({ handleUpload, onEmojiClick }: RegisterBarPropsTtpe) => {
+const RegisterBar = ({ handleUpload, onEmojiClick }: RegisterBarPropsType) => {
     const [showEmogi, setShowEmogi] = useState(false);
     return (
         <RegisterBarContainer>
