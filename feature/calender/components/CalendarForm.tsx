@@ -282,6 +282,7 @@ const TypeContainer = styled(InputCommon)`
 const TimeInputContainer = styled(InputCommon)`
     padding: 18px 0;
     input {
+        ${(props) => props.theme.Body_1};
         border: none;
         margin-left: 16px;
     }
