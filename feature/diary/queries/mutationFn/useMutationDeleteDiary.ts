@@ -12,18 +12,20 @@ const useMutationDeleteDiary = (calendarId: number) => {
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation(apiKeys.deleteDiary, {
-        onSuccess: () => {
-            queryClient.setQueryData(['diary'], ({ data }: any) => {
-                data.data.filter(
-                    (diary: any) => diary.calendarId !== Number(calendarId),
-                );
-            });
+        onSuccess: (data) => {
+            queryClient.setQueryData(
+                ['diaryDetail', calendarId],
+                (oldData: any) => {
+                    return { ...oldData, ...data };
+                },
+            );
         },
         onSettled: () => {
             queryClient.invalidateQueries({
                 queryKey: ['diaryDetail', calendarId],
                 refetchActive: false,
             });
+            queryClient.invalidateQueries(['diary']);
             router.push('/diary');
         },
     });

@@ -12,10 +12,12 @@ const useMutationEditDiary = (calendarId: number) => {
     const queryClient = useQueryClient();
 
     const { mutate } = useMutation(apiKeys.editDiary, {
-        onSuccess: ({ data }) => {
+        onSuccess: (data) => {
             queryClient.setQueryData(
                 ['diaryDetail', calendarId],
-                data.updatedDiary,
+                (oldData: any) => {
+                    return { ...oldData, ...data };
+                },
             );
         },
         onSettled: () => {
@@ -23,6 +25,7 @@ const useMutationEditDiary = (calendarId: number) => {
                 queryKey: ['diaryDetail', calendarId],
                 refetchActive: false,
             });
+            queryClient.invalidateQueries(['diary']);
             router.push(`/diary/detail/${calendarId}`);
         },
     });
