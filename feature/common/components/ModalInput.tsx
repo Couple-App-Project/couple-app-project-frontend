@@ -30,11 +30,12 @@ const Form = styled.form`
     position: relative;
 
     button {
-        position: sticky;
+        ${(props) => props.theme.Body_2};
+        position: fixed;
+        bottom: 0;
         height: ${pixelToVh(48)};
         background: ${(props) => props.theme.primaryPink};
         color: #fff;
-        bottom: 0;
         width: 100%;
     }
 `;

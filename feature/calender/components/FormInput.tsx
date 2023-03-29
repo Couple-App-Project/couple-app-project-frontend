@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Input = styled.input`
-    ${(props) => props.theme.Input_1};
+    ${(props) => props.theme.Body_1};
     width: 100%;
     padding: 18px 0;
     border: none;

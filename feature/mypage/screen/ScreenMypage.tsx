@@ -76,17 +76,6 @@ const ScreenMypage = () => {
         if (confirm('정말 로그아웃 하시겠습니까?')) logoutMutate();
     };
 
-    // @ts-ignore
-    // const setPreview = (e) => {
-    //     const file = e.target.files[0];
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onloadend = () => {
-    //         // @ts-ignore
-    //         setProfile(reader.result);
-    //     };
-    // };
-
     useEffect(() => {
         setAnniversary(coupleInfo?.anniversary);
     }, [coupleInfo]);

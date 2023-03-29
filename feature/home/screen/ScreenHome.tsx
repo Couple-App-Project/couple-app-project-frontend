@@ -124,6 +124,8 @@ const IconContainer = styled.div`
     }
 `;
 const ScheduleContainer = styled.section`
+    width: 100%;
+    overflow: auto;
     display: flex;
     gap: 8px;
     margin-top: 8px;
@@ -134,7 +136,9 @@ export default function ScreenHome() {
     const coupleInfoQuery = useQueryCoupleInfo();
     const coupleInfo = coupleInfoQuery?.data?.data?.data;
     const backgroundQuery = useQueryBackground();
-    const [backgroundImage, setBackground] = useState('/slider_img.png');
+    const [backgroundImage, setBackground] = useState(
+        '/images/background_image.jpg',
+    );
 
     const [openBgModal, setBgModal] = useState(false);
     const [openCommentModal, setCommentModal] = useState(false);
@@ -151,8 +155,10 @@ export default function ScreenHome() {
     };
 
     useEffect(() => {
-        const url = backgroundQuery?.data?.data?.data[0] ?? '/slider_img.png';
-        if (url !== '/slider_img.png') {
+        const url =
+            backgroundQuery?.data?.data?.data[0] ??
+            '/images/background_image.jpg';
+        if (url !== '/images/background_image.jpg') {
             urlToSrc(url);
         }
     }, [backgroundQuery?.data?.data?.data]);
