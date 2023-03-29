@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import apiKeys from '../apiKeys';
 
 /**
@@ -8,8 +8,11 @@ import apiKeys from '../apiKeys';
  */
 const useMutationCreateDiary = () => {
     const router = useRouter();
+    const queryClient = useQueryClient();
+
     const { mutate } = useMutation(apiKeys.createDiary, {
         onSuccess: () => {
+            queryClient.invalidateQueries(['diary']);
             router.push('/diary');
         },
     });

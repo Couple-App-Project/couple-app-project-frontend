@@ -21,6 +21,7 @@ const DiaryDetail = () => {
         Number(id),
     );
 
+    console.log(id, data);
     /**
      * modal Fn
      */

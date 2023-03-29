@@ -14,6 +14,7 @@ const useQueryDiaryDetail = (calendarId: number) => {
         {
             enabled: !!calendarId,
             select: (data) => data.data.data[0],
+            refetchOnMount: true,
         },
     );
 };
