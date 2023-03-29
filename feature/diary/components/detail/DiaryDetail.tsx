@@ -1,28 +1,34 @@
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { Sliders } from 'components';
-import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
-import { Content, DetailHead } from '../index';
 import { useMutationDeleteDiary } from 'feature/diary/queries/mutationFn';
+import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
+import { DiaryDetailDataType } from 'feature/diary/types';
+import { Content, DetailHead } from '../index';
 
 const DiaryDetail = () => {
     const router = useRouter();
     const { id } = router.query;
-    const { isLoading, data } = useQueryDiaryDetail(id);
+    const { data }: { data?: DiaryDetailDataType } = useQueryDiaryDetail(
+        Number(id),
+    );
 
-    const deleteDiaryMutation = useMutationDeleteDiary(id);
+    /**
+     * 캘린더 삭제
+     */
+    const deleteDiaryMutation = useMutationDeleteDiary(Number(id));
 
     const handlerDelete = () => {
-        deleteDiaryMutation(data?.id);
+        deleteDiaryMutation(data?.id!);
     };
 
     return (
         <DiaryDetailWrapper>
             <div className="slider-container">
-                <DetailHead bookmark={data?.labeled} />
+                <DetailHead bookmark={data?.labeled!} />
                 <Sliders className="sliders" margin="1.25rem">
-                    {data?.images.map((el: string, i: number) => {
+                    {data?.images.map((el, i) => {
                         return (
                             <div className="slider-items" key={i}>
                                 <Image
@@ -39,14 +45,14 @@ const DiaryDetail = () => {
             </div>
             <div className="inner">
                 <Content
-                    calendarTitle={data?.calendar.title}
-                    title={data?.title}
-                    content={data?.content}
-                    date={data?.calendar?.startDate}
+                    calendarTitle={data?.calendar.title!}
+                    title={data?.title!}
+                    content={data?.content!}
+                    date={data?.calendar?.startDate!}
                     disabled
                     edit
                     handlerDelete={handlerDelete}
-                    id={id}
+                    id={Number(id)}
                 />
             </div>
         </DiaryDetailWrapper>

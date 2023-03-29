@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import type { SliderPropsType } from 'types/SliderPropsType';
 import styled from 'styled-components';
+import type { SliderPropsType } from 'types/SliderPropsType';
 
 const Sliders = ({
     children,
@@ -14,6 +14,9 @@ const Sliders = ({
 }: SliderPropsType) => {
     const [activeSlider, setActiveSlideer] = useState(1);
 
+    /**
+     * option
+     */
     const settings = {
         dots: dots ? true : false,
         infinite: true,

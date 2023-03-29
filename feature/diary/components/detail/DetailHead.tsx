@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import Close from 'public/images/icons/close.svg';
-import Bookmark from 'public/icons/bookmark.svg';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
+import Bookmark from 'public/icons/bookmark.svg';
+import Close from 'public/images/icons/close.svg';
 
-const DetailHead = ({ bookmark }: any) => {
+const DetailHead = ({ bookmark }: { bookmark: boolean }) => {
     const router = useRouter();
     return (
         <DetailHeadContainer>

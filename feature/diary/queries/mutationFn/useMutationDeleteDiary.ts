@@ -2,7 +2,12 @@ import { useRouter } from 'next/router';
 import { useMutation, useQueryClient } from 'react-query';
 import apiKeys from '../apiKeys';
 
-const useMutationDeleteDiary = (calendarId: any) => {
+/**
+ * 캘린더 삭제 Fn
+ * @param calendarId 캘린더 id
+ * @returns mutation Fn
+ */
+const useMutationDeleteDiary = (calendarId: number) => {
     const router = useRouter();
     const queryClient = useQueryClient();
 
