@@ -1,8 +1,5 @@
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import Delete from 'public/icons/trash.svg';
 import CalendarIcon from 'public/images/icons/calendar-icon.svg';
-import Edit from 'public/images/icons/edit.svg';
 import { changeDate } from 'utils/functions';
 import { pixelToRem } from 'utils/utils';
 import type { ContentPropsType } from 'feature/diary/types';
@@ -15,28 +12,25 @@ const Content = ({
     disabled,
     date,
     edit,
-    handlerDelete,
-    id,
+    handleModal,
 }: ContentPropsType) => {
-    const router = useRouter();
     return (
         <ContentContainer>
             <div className="calendar-title">
-                <CalendarIcon />
-                <span>{calendarTitle}</span>
-            </div>
-            <div className="date-content">
-                <div>
-                    <span>{changeDate(new Date(date))}</span>
+                <div className="title-box">
+                    <CalendarIcon />
+                    <span>{calendarTitle}</span>
                 </div>
                 {edit && (
-                    <div>
-                        <Edit
-                            onClick={() => router.push(`/diary/register/${id}`)}
-                        />
-                        <Delete onClick={handlerDelete} />
+                    <div className="edit-icon" onClick={handleModal}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </div>
                 )}
+            </div>
+            <div className="date-content">
+                <span>{changeDate(new Date(date))}</span>
             </div>
             <input
                 type="text"
@@ -70,18 +64,36 @@ export default Content;
 const ContentContainer = styled.div`
     .calendar-title {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        width: fit-content;
         margin-bottom: ${pixelToRem(16)};
-        padding: ${pixelToRem(6)} ${pixelToRem(7)};
-        border: 1px solid ${({ theme }) => theme.grey_2};
-        border-radius: 5px;
+        .title-box {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            padding: ${pixelToRem(6)} ${pixelToRem(7)};
+            border: 1px solid ${({ theme }) => theme.grey_2};
+            border-radius: 5px;
 
-        span {
-            margin-left: ${pixelToRem(8)};
-            color: ${({ theme }) => theme.grey_6};
-            ${({ theme }) => theme.Body_3};
+            span {
+                margin-left: ${pixelToRem(8)};
+                color: ${({ theme }) => theme.grey_6};
+                ${({ theme }) => theme.Body_3};
+            }
+        }
+
+        .edit-icon {
+            span {
+                display: block;
+                width: ${pixelToRem(3)};
+                height: ${pixelToRem(3)};
+                background-color: ${({ theme }) => theme.grey_6};
+                border-radius: 50%;
+
+                &:not(:last-child) {
+                    margin-bottom: ${pixelToRem(3)};
+                }
+            }
         }
     }
     .date-content {

@@ -6,8 +6,7 @@ interface ContentPropsType {
     disabled: boolean;
     date: string;
     edit: boolean;
-    handlerDelete?: () => void;
-    id?: number;
+    handleModal: () => void;
 }
 
 export type { ContentPropsType };
