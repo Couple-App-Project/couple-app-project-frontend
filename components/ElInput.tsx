@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { pixelToRem } from 'utils/utils';
 
 interface ElInputProps {
     className: string;
@@ -59,17 +60,16 @@ const ElInputWrapper = styled.div`
     }
     input {
         width: 100%;
-        line-height: 2.5rem;
+        padding: ${pixelToRem(18)} 0;
+        ${({ theme }) => theme.Body_2}
+        color: ${({ theme }) => theme.grey_6};
         border-top: none;
         border-left: none;
         border-right: none;
-        border-bottom: 1px solid ${(props) => props.theme.grey_2};
+        border-bottom: 1px solid ${({ theme }) => theme.grey_2};
 
         &::placeholder {
-            font-size: 0.875rem;
-            line-height: 1.25rem;
-            font-weight: 400;
-            color: ${(props) => props.theme.grey_4};
+            color: ${({ theme }) => theme.grey_4};
         }
     }
 `;

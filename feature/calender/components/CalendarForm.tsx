@@ -1,28 +1,27 @@
-import React from 'react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
-import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
-import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar';
-import useMutationDeleteCalendar from '../queries/mutationFn/useMutationDeleteCalendar';
+
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Grid from 'components/Grid';
 import useQueryCalendarDiary from 'feature/diary/queries/queryFn/useQueryCalendarDiary';
 
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import styled from 'styled-components';
-import { pixelToVh, pixelToVw } from 'utils/utils';
-import Grid from 'components/Grid';
-import Button from './Button';
-import FormInput from './FormInput';
-
-import Cancel from 'public/icons/cancel.svg';
 import Calendar from 'public/icons/calendar.svg';
+import Cancel from 'public/icons/cancel.svg';
+import ChevronRight from 'public/icons/chevron-right.svg';
 import Clock from 'public/icons/clock.svg';
 import MarkerPin from 'public/icons/marker-pin.svg';
 import Memo from 'public/icons/memo.svg';
 import Plus from 'public/icons/plus.svg';
 import Trash from 'public/icons/trash.svg';
-import ChevronRight from 'public/icons/chevron-right.svg';
+import { pixelToVh, pixelToVw } from 'utils/utils';
+import Button from './Button';
+import FormInput from './FormInput';
+import useMutationDeleteCalendar from '../queries/mutationFn/useMutationDeleteCalendar';
+import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
+import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar';
+import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
 
 const CalendarForm = () => {
     const router = useRouter();
@@ -196,8 +195,6 @@ const CalendarForm = () => {
                         pathname: '/diary/detail/[id]',
                         query: {
                             id: calendarId,
-                            startDate: schedule.startDate,
-                            endDate: schedule.endDate,
                         },
                     }}
                     as={`/diary/detail/${calendarId}`}
@@ -219,11 +216,11 @@ const CalendarForm = () => {
                         pathname: '/diary/register/[id]',
                         query: {
                             id: calendarId,
+                            title: schedule.title,
                             startDate: schedule.startDate,
                             endDate: schedule.endDate,
                         },
                     }}
-                    as={`/diary/register/${calendarId}`}
                 >
                     <WriteDiaryButton>
                         <Plus />
@@ -282,6 +279,7 @@ const TypeContainer = styled(InputCommon)`
 const TimeInputContainer = styled(InputCommon)`
     padding: 18px 0;
     input {
+        ${(props) => props.theme.Body_1};
         border: none;
         margin-left: 16px;
     }

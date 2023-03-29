@@ -1,3 +1,6 @@
+/**
+ * 회원가입 성별 select box constant
+ */
 const GENDER_LIST = {
     male: { value: 'M', text: '남성' },
     female: { value: 'F', text: '여성' },

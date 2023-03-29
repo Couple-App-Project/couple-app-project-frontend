@@ -2,19 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import Cancel from 'public/icons/cancel.svg';
 
-const ModalContainer = styled.section`
+const ModalContainer = styled.section<{ _height: string }>`
     position: absolute;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    top: 0;
+    left: 0;
 
-    z-index: 10;
-
-    section {
+    .modal-content {
         position: fixed;
         bottom: 0;
         width: 100%;
-        height: 375px;
+        height: ${(props) => (props._height ? props._height : '375px')};
         background: #fff;
         border-radius: 8px 8px 0px 0px;
         animation: fadeUp 0.5s;
@@ -54,8 +55,8 @@ const Modal = (props: any) => {
     const { closeButton, children, title } = props;
 
     return (
-        <ModalContainer>
-            <section>
+        <ModalContainer _height={props._height}>
+            <section className="modal-content">
                 <header className="modalHeader">
                     {title ? <h1>{title}</h1> : null}
                     <Cancel width="11px" height="11px" onClick={closeButton} />

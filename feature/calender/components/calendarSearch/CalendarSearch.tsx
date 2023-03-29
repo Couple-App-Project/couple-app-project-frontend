@@ -1,17 +1,22 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQueryCalendarSearch } from 'feature/calender/queries/queryFn';
 import {
     SearchInput,
     SearchType,
     SearchList,
 } from 'feature/calender/components';
+import { useQueryCalendarSearch } from 'feature/calender/queries/queryFn';
 import useInput from 'hooks/useInput';
+import { pixelToRem } from 'utils/utils';
 
 const CalendarSearch = () => {
     const [keyword, onChangeKeyword] = useInput('');
-    const [type, setType] = useState<null | string>();
+    const [type, setType] = useState<null | string>(null);
 
+    /**
+     * 일정 종류 필터
+     * @param e MouseEvent
+     */
     const onChangeType = (e: React.MouseEvent<HTMLButtonElement>) => {
         setType(
             (e.target as HTMLButtonElement).value === type
@@ -20,13 +25,16 @@ const CalendarSearch = () => {
         );
     };
 
+    /**
+     * 검색 조회
+     */
     const { data } = useQueryCalendarSearch({ keyword, type });
 
     return (
         <SearchContainer>
             <SearchInput keyword={keyword} onChangeKeyword={onChangeKeyword} />
             <SearchType type={type} onChangeType={onChangeType} />
-            <SearchList list={data?.data.data} search={keyword} />
+            <SearchList list={data} search={keyword} />
         </SearchContainer>
     );
 };
@@ -34,8 +42,8 @@ const CalendarSearch = () => {
 export default CalendarSearch;
 
 const SearchContainer = styled.div`
-    padding: 1.5rem;
+    padding: ${pixelToRem(24)};
     width: 100%;
     height: 100%;
-    background: ${(props) => props.theme.white};
+    background: ${({ theme }) => theme.white};
 `;

@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
 
 import styled from 'styled-components';
-import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
-import useQueryBackground from '../queries/queryFn/useQueryBackground';
-import { getDday } from 'utils/getDday';
-import { pixelToRem, pixelToVh } from 'utils/utils';
 
+import Grid from 'components/Grid';
 import ModalBackground from 'feature/common/components/ModalBackground';
 import ModalInput from 'feature/common/components/ModalInput';
-import UpcomingSchedule from '../components/UpcomingSchedule';
-import Grid from 'components/Grid';
+import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
 
-import Notification from 'public/icons/notification.svg';
 import Heart from 'public/icons/heart.svg';
-import Picture from 'public/icons/picture.svg';
+import Notification from 'public/icons/notification.svg';
 import Pencil from 'public/icons/pencil.svg';
+import Picture from 'public/icons/picture.svg';
+import { getDday } from 'utils/functions';
+import { pixelToRem, pixelToVh } from 'utils/utils';
+import UpcomingSchedule from '../components/UpcomingSchedule';
+import useQueryBackground from '../queries/queryFn/useQueryBackground';
 
 const ProfileSection = styled.section<{ background: string }>`
     height: 100vh;
@@ -124,6 +124,8 @@ const IconContainer = styled.div`
     }
 `;
 const ScheduleContainer = styled.section`
+    width: 100%;
+    overflow: auto;
     display: flex;
     gap: 8px;
     margin-top: 8px;
@@ -134,7 +136,9 @@ export default function ScreenHome() {
     const coupleInfoQuery = useQueryCoupleInfo();
     const coupleInfo = coupleInfoQuery?.data?.data?.data;
     const backgroundQuery = useQueryBackground();
-    const [backgroundImage, setBackground] = useState('/slider_img.png');
+    const [backgroundImage, setBackground] = useState(
+        '/images/background_image.jpg',
+    );
 
     const [openBgModal, setBgModal] = useState(false);
     const [openCommentModal, setCommentModal] = useState(false);
@@ -151,8 +155,10 @@ export default function ScreenHome() {
     };
 
     useEffect(() => {
-        const url = backgroundQuery?.data?.data?.data[0] ?? '/slider_img.png';
-        if (url !== '/slider_img.png') {
+        const url =
+            backgroundQuery?.data?.data?.data[0] ??
+            '/images/background_image.jpg';
+        if (url !== '/images/background_image.jpg') {
             urlToSrc(url);
         }
     }, [backgroundQuery?.data?.data?.data]);

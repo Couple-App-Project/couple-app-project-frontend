@@ -1,3 +1,7 @@
+/**
+ * 사용자 코드 공유 Fn
+ * @param userCode 사용자 코드
+ */
 const handlerShare = (userCode: string) => {
     if (navigator.share) {
         navigator

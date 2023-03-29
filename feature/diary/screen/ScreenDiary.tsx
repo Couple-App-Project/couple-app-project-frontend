@@ -4,6 +4,7 @@ import DiaryCard from '../components/DiaryCard';
 import useQueryDiary from 'feature/diary/queries/queryFn/useQueryDiary';
 import Bookmark from 'public/icons/bookmark.svg';
 import { useEffect, useState } from 'react';
+import { pixelToVh } from 'utils/utils';
 
 const BookmarkButton = styled.button<{ labelStatus: boolean }>`
     all: unset;
@@ -25,7 +26,9 @@ const BookmarkButton = styled.button<{ labelStatus: boolean }>`
 
 const ScreenDiary = () => {
     const diaryQuery = useQueryDiary();
-    const totalDiaries = diaryQuery?.data?.data?.data;
+    const totalDiaries = diaryQuery?.data?.data?.data.sort(
+        (a: any, b: any) => b.id - a.id,
+    );
 
     const [isShowLabels, toggleLabels] = useState(false);
     const [diaries, setDiaries] = useState(totalDiaries);
@@ -67,6 +70,8 @@ const ScreenDiary = () => {
 export default ScreenDiary;
 
 const DiaryWrapper = styled.div`
+    padding-bottom: ${pixelToVh(80)};
+
     section {
         display: grid;
         grid-template-columns: 1fr 1fr;
