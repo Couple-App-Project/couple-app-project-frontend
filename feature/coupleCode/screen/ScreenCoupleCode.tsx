@@ -1,15 +1,19 @@
 import React from 'react';
+import useInput from 'hooks/useInput';
 import StepLayout from 'layouts/StepLayout';
 import { CoupleCodeForm } from '../components';
-import { useQueryCoupleCode } from '../queries/queryFn';
 import { useMutationCoupleConnent } from '../queries/mutationFn';
-import useInput from 'hooks/useInput';
+import { useQueryCoupleCode } from '../queries/queryFn';
 
 const ScreenCoupleCode = () => {
     const { data } = useQueryCoupleCode();
-    const coupleConnentMutation = useMutationCoupleConnent();
 
     const [inviteCode, onChangeCode] = useInput('');
+
+    /**
+     * 커플 연결
+     */
+    const coupleConnentMutation = useMutationCoupleConnent();
 
     const createCoupleConnet = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,7 +26,7 @@ const ScreenCoupleCode = () => {
             disabled={inviteCode !== '' ? false : true}
         >
             <CoupleCodeForm
-                userCode={data?.data.data.userCode}
+                userCode={data?.userCode}
                 inviteCode={inviteCode}
                 onChangeCode={onChangeCode}
                 createCoupleConnet={createCoupleConnet}

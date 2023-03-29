@@ -1,5 +1,5 @@
 interface IsErrorType {
-    [key: string]: (value: string, pwd?: string) => void;
+    [key: string]: (value: string, password?: string) => void;
 }
 
 export type { IsErrorType };

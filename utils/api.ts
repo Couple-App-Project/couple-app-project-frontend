@@ -1,5 +1,5 @@
-import axios from 'axios';
 import router from 'next/router';
+import axios from 'axios';
 
 let accessToken: string | null = '';
 let refreshToken: string | null = '';

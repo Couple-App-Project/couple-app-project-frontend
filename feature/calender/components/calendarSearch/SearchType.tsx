@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { CalendarSearchPropsType } from 'feature/calender/types/CalendarSearchPropsType';
+import { pixelToRem } from 'utils/utils';
+import { CalendarSearchPropsType } from '../../types';
 
 const SearchType = ({ type, onChangeType }: CalendarSearchPropsType) => {
     return (
@@ -8,7 +9,7 @@ const SearchType = ({ type, onChangeType }: CalendarSearchPropsType) => {
                 name="type"
                 value="데이트"
                 className={type === '데이트' ? 'date' : ''}
-                onClick={(e) => onChangeType(e)}
+                onClick={(e) => onChangeType!(e)}
             >
                 데이트
             </button>
@@ -16,7 +17,7 @@ const SearchType = ({ type, onChangeType }: CalendarSearchPropsType) => {
                 name="type"
                 value="기념일"
                 className={type === '기념일' ? 'anniversary' : ''}
-                onClick={(e) => onChangeType(e)}
+                onClick={(e) => onChangeType!(e)}
             >
                 기념일
             </button>
@@ -28,25 +29,25 @@ export default SearchType;
 
 const SearchTypeContainer = styled.div`
     button {
-        width: 4.875rem;
-        padding: 0.375rem 0;
-        border-radius: 62px;
-        border: 1px solid ${(props) => props.theme.grey_2};
-        background-color: ${(props) => props.theme.white};
-        color: ${(props) => props.theme.grey_4};
-        ${(props) => props.theme.Body_1}
+        width: ${pixelToRem(78)};
+        padding: ${pixelToRem(6)} 0;
+        border-radius: 60px;
+        border: 1px solid ${({ theme }) => theme.grey_2};
+        background-color: ${({ theme }) => theme.white};
+        color: ${({ theme }) => theme.grey_4};
+        ${({ theme }) => theme.Body_1}
 
         &:last-child {
-            margin-left: 0.5rem;
+            margin-left: ${pixelToRem(8)};
         }
 
         &.date {
-            background-color: ${(props) => props.theme.primaryPink};
-            color: ${(props) => props.theme.white};
+            background-color: ${({ theme }) => theme.primaryPink};
+            color: ${({ theme }) => theme.white};
         }
         &.anniversary {
-            background-color: ${(props) => props.theme.mediumBlue};
-            color: ${(props) => props.theme.white};
+            background-color: ${({ theme }) => theme.mediumBlue};
+            color: ${({ theme }) => theme.white};
         }
     }
 `;

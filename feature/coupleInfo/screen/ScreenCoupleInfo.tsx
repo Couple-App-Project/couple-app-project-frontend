@@ -1,5 +1,5 @@
-import StepLayout from 'layouts/StepLayout';
 import { useState } from 'react';
+import StepLayout from 'layouts/StepLayout';
 import CoupleInfoForm from '../components/CoupleInfoForm';
 import { useMutationCoupleInfo } from '../queries/mutationFn';
 
@@ -15,6 +15,9 @@ const ScreenCoupleInfo = () => {
         });
     };
 
+    /**
+     * 커플 정보 입력
+     */
     const coupleInfoMutation = useMutationCoupleInfo();
 
     const createCoupleInfo = (e: React.FormEvent<HTMLFormElement>) => {

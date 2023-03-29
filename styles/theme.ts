@@ -1,5 +1,5 @@
-import { DefaultTheme } from 'styled-components';
 import { pixelToRem } from 'utils/utils';
+import type { DefaultTheme } from 'styled-components';
 
 const defaultTheme: DefaultTheme = {
     primaryPink: '#ff6e7f',
