@@ -5,6 +5,7 @@ import { Sliders } from 'components';
 import { useMutationDeleteDiary } from 'feature/diary/queries/mutationFn';
 import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
 import { DiaryDetailDataType } from 'feature/diary/types';
+import { pixelToRem } from 'utils/utils';
 import { Content, DetailHead } from '../index';
 
 const DiaryDetail = () => {
@@ -81,6 +82,6 @@ const DiaryDetailWrapper = styled.div`
     }
 
     .inner {
-        padding: 0 1.5rem;
+        padding: 0 ${pixelToRem(24)};
     }
 `;

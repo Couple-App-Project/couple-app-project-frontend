@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
+import { pixelToRem } from 'utils/utils';
 import type { SliderPropsType } from 'types/SliderPropsType';
 
 const Sliders = ({
@@ -50,15 +51,15 @@ const SliderWrapper = styled.section<{ margin: string }>`
 
     .custom-paging {
         position: absolute;
-        bottom: 1rem;
-        right: 1.25rem;
-        padding: 3px 10px;
+        bottom: ${pixelToRem(16)};
+        right: ${pixelToRem(24)};
+        padding: ${pixelToRem(4)} ${pixelToRem(10)};
         background-color: rgba(0, 0, 0, 0.4);
-        border-radius: 62px;
-        ${(props) => props.theme.Title_6}
+        border-radius: 60px;
+        ${({ theme }) => theme.Title_6}
 
         span:first-child {
-            color: ${(props) => props.theme.white};
+            color: ${({ theme }) => theme.white};
         }
         span:last-child {
             color: rgba(255, 255, 255, 0.5);
