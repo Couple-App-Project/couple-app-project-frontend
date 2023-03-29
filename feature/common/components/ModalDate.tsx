@@ -17,7 +17,7 @@ const InputContainer = styled.div`
     input {
         all: unset;
         width: 100%;
-        ${(props) => props.theme.Body2}
+        ${(props) => props.theme.Body_2}
     }
 `;
 
