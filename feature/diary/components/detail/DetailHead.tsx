@@ -18,7 +18,7 @@ export default DetailHead;
 
 const DetailHeadContainer = styled.div`
     position: absolute;
-    z-index: 5;
+    z-index: 999;
     top: 0;
     left: 0;
     display: flex;

@@ -5,6 +5,7 @@ import { Sliders } from 'components';
 import { useMutationDeleteDiary } from 'feature/diary/queries/mutationFn';
 import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
 import { DiaryDetailDataType } from 'feature/diary/types';
+import DefaultIcon from 'public/images/icons/diary-default.svg';
 import { pixelToRem } from 'utils/utils';
 import { Content, DetailHead } from '../index';
 
@@ -28,21 +29,29 @@ const DiaryDetail = () => {
         <DiaryDetailWrapper>
             <div className="slider-container">
                 <DetailHead bookmark={data?.labeled!} />
-                <Sliders className="sliders" margin="1.25rem">
-                    {data?.images.map((el, i) => {
-                        return (
-                            <div className="slider-items" key={i}>
-                                <Image
-                                    src={el}
-                                    alt={`slider ${i}`}
-                                    layout="fill"
-                                    className="slider-img"
-                                    priority
-                                />
-                            </div>
-                        );
-                    })}
-                </Sliders>
+                {0 < data?.images.length! ? (
+                    <Sliders className="sliders" margin="1.25rem">
+                        {data!.images.map((el, i) => {
+                            return (
+                                <div className="slider-items" key={i}>
+                                    <Image
+                                        src={el}
+                                        alt={`slider ${i}`}
+                                        layout="fill"
+                                        className="slider-img"
+                                        priority
+                                        placeholder="blur"
+                                        blurDataURL={el}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </Sliders>
+                ) : (
+                    <div className="default-img">
+                        <DefaultIcon />
+                    </div>
+                )}
             </div>
             <div className="inner">
                 <Content
@@ -72,12 +81,22 @@ const DiaryDetailWrapper = styled.div`
 
             & > span {
                 position: unset !important;
-                & .slider-img {
-                    object-fit: cover !important;
-                    position: relative !important;
-                    height: 38vh !important;
-                }
             }
+            .slider-img {
+                object-fit: cover !important;
+                position: relative !important;
+                height: 38vh !important;
+            }
+        }
+
+        .default-img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: ${({ theme }) => theme.softPink};
+            padding: ${pixelToRem(60)};
+            margin-bottom: ${pixelToRem(20)};
+            height: 38vh;
         }
     }
 
