@@ -57,10 +57,7 @@ const ScreenCalender = () => {
         setSelectedDay(e);
     };
 
-    /**
-     * Todo.suspense 추후 적용.
-     */
-    const { isLoading } = useQueryCalendars(selectDate);
+    const { data } = useQueryCalendars(selectDate);
 
     return (
         <CalenderWrapper>
