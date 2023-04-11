@@ -130,7 +130,7 @@ const CalendarForm = () => {
         <Grid>
             <Header>
                 <Cancel
-                    onClick={() => router.push('/calendar')}
+                    onClick={() => router.back()}
                     width="13px"
                     height="13px"
                 />
