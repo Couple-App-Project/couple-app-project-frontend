@@ -25,7 +25,7 @@ import FormInput from './FormInput';
 
 const CalendarForm = () => {
     const router = useRouter();
-    const { calendarId } = router.query;
+    const { calendarId, title, startDate, endDate, type } = router.query;
 
     const { isLoading, data } = useQueryCalendarDiary(calendarId);
     const calendarDiaries = data?.data?.data;
@@ -47,13 +47,22 @@ const CalendarForm = () => {
         location: '',
         content: '',
     };
-    const [schedule, setSchedule] = useState(defaultValue);
+    const [schedule, setSchedule]: any = useState(defaultValue);
     const [activeType, setActiveType] = useState(schedule.type);
 
     const calendarInfo = useQueryCalenderDetail()?.data?.data?.data;
 
     useEffect(() => {
-        if (calendarId !== undefined) {
+        if (calendarId === '0') {
+            setSchedule({
+                ...schedule,
+                title,
+                type,
+                startDate,
+                endDate,
+            });
+            setActiveType(type);
+        } else if (calendarId !== undefined) {
             setSchedule({
                 title: calendarInfo?.title,
                 type: calendarInfo?.type,

@@ -43,10 +43,16 @@ const ScheduleContainer = styled.article`
 `;
 
 const UpcomingSchedule = (props: any) => {
-    const { title, startDate, type, calendarId } = props;
+    const { title, startDate, endDate, type, calendarId } = props;
 
     return (
-        <Link href={`/calendar/${calendarId}`} key={calendarId}>
+        <Link
+            href={{
+                pathname: `/calendar/${calendarId}`,
+                query: { title, startDate, endDate, type },
+            }}
+            key={calendarId}
+        >
             <ScheduleContainer>
                 {type !== '기념일' ? (
                     <CalendarIcon />

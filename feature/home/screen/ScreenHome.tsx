@@ -144,7 +144,6 @@ export default function ScreenHome() {
     const upcomingQuery = useQueryUpcoming();
     const coupleInfo = coupleInfoQuery?.data?.data?.data;
     const upcomingSchedules = upcomingQuery?.data?.data?.data;
-    console.log(upcomingSchedules);
 
     const backgroundQuery = useQueryBackground();
     const [backgroundImage, setBackground] = useState(
@@ -208,6 +207,7 @@ export default function ScreenHome() {
                                 src={backgroundImage}
                                 alt="메인화면 배경사진"
                                 layout="fill"
+                                priority={true}
                             />
                             <div className="colorFilter"></div>
 
