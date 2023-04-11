@@ -97,7 +97,7 @@ const DayDetailWrpper = styled.div`
     flex: 1;
     background-color: ${({ theme }) => theme.grey_1};
     padding: ${pixelToRem(16)} ${pixelToRem(24)};
-    margin-bottom: 12vh;
+    margin-bottom: 9vh;
     overflow: auto;
 
     h3,
