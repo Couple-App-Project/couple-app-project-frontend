@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
-
+import Image from 'next/image';
 import styled from 'styled-components';
 
 import Grid from 'components/Grid';
@@ -16,6 +15,7 @@ import { getDday } from 'utils/functions';
 import { pixelToRem, pixelToVh } from 'utils/utils';
 import UpcomingSchedule from '../components/UpcomingSchedule';
 import useQueryBackground from '../queries/queryFn/useQueryBackground';
+import useQueryUpcoming from '../queries/queryFn/useQueryUpcoming';
 
 const ProfileSection = styled.section<{ background: string }>`
     height: 100vh;
@@ -130,11 +130,22 @@ const ScheduleContainer = styled.section`
     gap: 8px;
     margin-top: 8px;
     padding-left: 24px;
+    padding-right: 24px;
+    -ms-overflow-style: none; // /* IE, Edge */
+    scrollbar-width: none; // /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none; // /* Chrome, Safari, Opera */
+    }
 `;
 
 export default function ScreenHome() {
     const coupleInfoQuery = useQueryCoupleInfo();
+    const upcomingQuery = useQueryUpcoming();
     const coupleInfo = coupleInfoQuery?.data?.data?.data;
+    const upcomingSchedules = upcomingQuery?.data?.data?.data;
+    console.log(upcomingSchedules);
+
     const backgroundQuery = useQueryBackground();
     const [backgroundImage, setBackground] = useState(
         '/images/background_image.jpg',
@@ -221,9 +232,15 @@ export default function ScreenHome() {
                     </Grid>
 
                     <ScheduleContainer>
-                        <UpcomingSchedule></UpcomingSchedule>
-                        <UpcomingSchedule></UpcomingSchedule>
-                        <UpcomingSchedule></UpcomingSchedule>
+                        {upcomingSchedules &&
+                            upcomingSchedules.map((el: any) => {
+                                return (
+                                    <UpcomingSchedule
+                                        {...el}
+                                        key={el.startDate}
+                                    ></UpcomingSchedule>
+                                );
+                            })}
                     </ScheduleContainer>
                 </ProfileSection>
             )}
