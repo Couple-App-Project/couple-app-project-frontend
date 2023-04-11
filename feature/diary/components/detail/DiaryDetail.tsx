@@ -143,6 +143,10 @@ const DiaryDetailWrapper = styled.div`
             padding: ${pixelToRem(60)};
             margin-bottom: ${pixelToRem(20)};
             height: 38vh;
+
+            svg {
+                height: 100%;
+            }
         }
     }
 
