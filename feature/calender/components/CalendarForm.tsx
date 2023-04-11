@@ -151,12 +151,14 @@ const CalendarForm = () => {
                 <Button
                     _onClick={scheduleChange}
                     active={activeType === '데이트'}
+                    type="데이트"
                 >
                     데이트
                 </Button>
                 <Button
                     _onClick={scheduleChange}
                     active={activeType === '기념일'}
+                    type="기념일"
                 >
                     기념일
                 </Button>
@@ -219,7 +221,7 @@ const CalendarForm = () => {
                         <ChevronRight stroke="#ff6e7f" />
                     </DiaryMoveButton>
                 </Link>
-            ) : (
+            ) : router.pathname !== '/calendar/register' ? (
                 <Link
                     href={{
                         pathname: '/diary/register/[id]',
@@ -236,6 +238,8 @@ const CalendarForm = () => {
                         <p>다이어리 작성</p>
                     </WriteDiaryButton>
                 </Link>
+            ) : (
+                ''
             )}
 
             {router.query?.calendarId ? (
