@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Grid from 'components/Grid';
 import useQueryCalendarDiary from 'feature/diary/queries/queryFn/useQueryCalendarDiary';
@@ -16,16 +16,16 @@ import Memo from 'public/icons/memo.svg';
 import Plus from 'public/icons/plus.svg';
 import Trash from 'public/icons/trash.svg';
 import { pixelToVh, pixelToVw } from 'utils/utils';
-import Button from './Button';
-import FormInput from './FormInput';
 import useMutationDeleteCalendar from '../queries/mutationFn/useMutationDeleteCalendar';
 import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
 import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar';
 import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
+import Button from './Button';
+import FormInput from './FormInput';
 
 const CalendarForm = () => {
     const router = useRouter();
-    const { calendarId } = router.query;
+    const { calendarId, title, startDate, endDate, type } = router.query;
 
     const { data } = useQueryCalendarDiary(calendarId);
     const calendarDiaries = data?.data?.data;
@@ -47,13 +47,22 @@ const CalendarForm = () => {
         location: '',
         content: '',
     };
-    const [schedule, setSchedule] = useState(defaultValue);
+    const [schedule, setSchedule]: any = useState(defaultValue);
     const [activeType, setActiveType] = useState(schedule.type);
 
     const calendarInfo = useQueryCalenderDetail()?.data?.data?.data;
 
     useEffect(() => {
-        if (calendarId !== undefined) {
+        if (calendarId === '0') {
+            setSchedule({
+                ...schedule,
+                title,
+                type,
+                startDate,
+                endDate,
+            });
+            setActiveType(type);
+        } else if (calendarId !== undefined) {
             setSchedule({
                 title: calendarInfo?.title,
                 type: calendarInfo?.type,
@@ -121,7 +130,7 @@ const CalendarForm = () => {
         <Grid>
             <Header>
                 <Cancel
-                    onClick={() => router.push('/calendar')}
+                    onClick={() => router.back()}
                     width="13px"
                     height="13px"
                 />
@@ -142,12 +151,14 @@ const CalendarForm = () => {
                 <Button
                     _onClick={scheduleChange}
                     active={activeType === '데이트'}
+                    type="데이트"
                 >
                     데이트
                 </Button>
                 <Button
                     _onClick={scheduleChange}
                     active={activeType === '기념일'}
+                    type="기념일"
                 >
                     기념일
                 </Button>
@@ -210,7 +221,7 @@ const CalendarForm = () => {
                         <ChevronRight stroke="#ff6e7f" />
                     </DiaryMoveButton>
                 </Link>
-            ) : (
+            ) : router.pathname !== '/calendar/register' ? (
                 <Link
                     href={{
                         pathname: '/diary/register/[id]',
@@ -227,6 +238,8 @@ const CalendarForm = () => {
                         <p>다이어리 작성</p>
                     </WriteDiaryButton>
                 </Link>
+            ) : (
+                ''
             )}
 
             {router.query?.calendarId ? (

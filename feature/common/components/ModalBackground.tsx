@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { pixelToVh, pixelToVw } from 'utils/utils';
+
+import Grid from 'components/Grid';
 import { useMutationCoupleInfo } from 'feature/coupleInfo/queries/mutationFn';
 import useMutationCreateBackground from 'feature/home/queries/mutationFn/useMutationCreateBackground';
-
-import Modal from './Modal';
-import Grid from 'components/Grid';
-import { Menu } from 'styles/menuStyle';
 import Camera from 'public/icons/camera.svg';
-import Paint from 'public/icons/paint.svg';
-import ChevronRight from 'public/icons/chevron-right.svg';
 import CheckSmall from 'public/icons/check-small.svg';
+import ChevronRight from 'public/icons/chevron-right.svg';
+import Paint from 'public/icons/paint.svg';
+import { Menu } from 'styles/menuStyle';
+import { pixelToVh, pixelToVw } from 'utils/utils';
+import Modal from './Modal';
 
 const ColorChipsContainer = styled.article`
     display: grid;
