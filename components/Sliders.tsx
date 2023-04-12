@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
-import { pixelToRem, pixelToVh, pixelToVw } from 'utils/utils';
+import { pixelToRem } from 'utils/utils';
 import type { SliderPropsType } from 'types/SliderPropsType';
 
 const Sliders = ({
@@ -24,7 +24,7 @@ const Sliders = ({
         speed: 300,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: false,
+        autoplay: autoplay ? true : false,
         autoplaySpeed: 3000,
         arrows: false,
         afterChange: dots ? undefined : (i: number) => setActiveSlideer(i + 1),

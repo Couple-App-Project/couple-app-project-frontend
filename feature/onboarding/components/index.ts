@@ -1,1 +1,1 @@
-export { default as RouteBtnContent } from './RouteBtnContent';
+export { default as RouteButton } from './RouteButton';

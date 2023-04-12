@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Sliders } from 'components';
 import { pixelToRem } from 'utils/utils';
-import { RouteBtnContent } from '../components';
+import { RouteButton } from '../components';
 import sliderItems from '../modules/variables/sliderItems';
 
 const ScreenOnboarding = () => {
@@ -26,6 +26,7 @@ const ScreenOnboarding = () => {
                     );
                 })}
             </Sliders>
+            <RouteButton />
         </OnboardingWrapper>
     );
 };
@@ -35,6 +36,7 @@ export default ScreenOnboarding;
 const OnboardingWrapper = styled.main`
     height: 100vh;
     background-color: #f9f9f9;
+    position: relative;
     .slider-items {
         width: 100%;
 
@@ -60,7 +62,7 @@ const OnboardingWrapper = styled.main`
             & .slider-img {
                 object-fit: contain !important;
                 position: relative !important;
-                height: auto !important;
+                height: 55vh !important;
             }
         }
     }
