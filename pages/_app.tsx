@@ -67,7 +67,15 @@ function MyApp({
                 <Hydrate state={pageProps.dehydratedState}>
                     <RecoilRoot>
                         <ThemeProvider theme={defaultTheme}>
-                            <Loading />
+                            <Device>
+                                <Head>
+                                    <title>꾸욱</title>
+                                </Head>
+                                <Component {...pageProps} />
+                                {hasBottomNavi(router.pathname) && (
+                                    <BottomNavi />
+                                )}
+                            </Device>
                         </ThemeProvider>
                     </RecoilRoot>
                 </Hydrate>

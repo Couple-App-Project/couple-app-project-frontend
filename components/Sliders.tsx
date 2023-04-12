@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styled from 'styled-components';
-import { pixelToRem } from 'utils/utils';
+import { pixelToRem, pixelToVh, pixelToVw } from 'utils/utils';
 import type { SliderPropsType } from 'types/SliderPropsType';
 
 const Sliders = ({
@@ -24,14 +24,14 @@ const Sliders = ({
         speed: 300,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: autoplay ? true : false,
+        autoplay: false,
         autoplaySpeed: 3000,
         arrows: false,
         afterChange: dots ? undefined : (i: number) => setActiveSlideer(i + 1),
     };
 
     return (
-        <SliderWrapper className={className} margin={margin}>
+        <SliderWrapper className={className} margin={margin ? margin : ''}>
             <Slider {...settings}>{children}</Slider>
             {!dots && (
                 <div className="custom-paging">
@@ -47,8 +47,11 @@ export default Sliders;
 
 const SliderWrapper = styled.section<{ margin: string }>`
     position: relative;
-    margin-bottom: ${(props) => props.margin};
-
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    padding-bottom: ${pixelToRem(100)};
     .custom-paging {
         position: absolute;
         bottom: ${pixelToRem(16)};
@@ -67,7 +70,24 @@ const SliderWrapper = styled.section<{ margin: string }>`
     }
 
     & .slick-dots {
-        position: static;
+        position: fixed;
         bottom: 0px;
+        padding: ${pixelToRem(40)} 0;
+
+        & > li {
+            margin: 0 1px;
+
+            button:before {
+                font-size: 12px;
+                color: ${({ theme }) => theme.grey_3};
+                opacity: 1;
+            }
+
+            &.slick-active {
+                button:before {
+                    color: ${({ theme }) => theme.primaryPink};
+                }
+            }
+        }
     }
 `;
