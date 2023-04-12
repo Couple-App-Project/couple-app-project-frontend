@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import React from 'react';
 import { CaptionDropdowns } from 'react-day-picker';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import Search from 'public/images/icons/search.svg';
 import { pixelToRem } from 'utils/utils';

@@ -1,8 +1,10 @@
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
 import { format } from 'date-fns';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+import BirthDay from 'public/images/icons/birthday.svg';
+import Heart from 'public/images/icons/heart.svg';
 import calendersState from 'recoil/calendersState';
 import { changeDate, getDday } from 'utils/functions';
 import { pixelToRem } from 'utils/utils';
@@ -47,14 +49,18 @@ const CalendarDayDetail = ({
                             <li>
                                 <div className={`${cur.type}`} />
                                 <h4>{cur.title}</h4>
-                                <span>{`${cur.startTime} - ${cur.endTime}`}</span>
+                                <span>
+                                    {cur.startTime
+                                        ? `${cur.startTime} - ${cur.endTime}`
+                                        : '작성 시간이 없어요!'}
+                                </span>
                             </li>
                         </Link>
                     );
                 })}
                 {day?.slice(5) === coupleDay?.slice(5) && (
-                    <li>
-                        <div className="기념일" />
+                    <li className="anniversary special">
+                        <Heart />
                         <h4>
                             {Number(day?.split('-')[0]) -
                                 Number(coupleDay?.split('-')[0]) ===
@@ -70,8 +76,8 @@ const CalendarDayDetail = ({
                 )}
                 {(day?.slice(5) === myBirthday ||
                     day?.slice(5) === yourBirthday) && (
-                    <li>
-                        <div className="기념일" />
+                    <li className="birthday special">
+                        <BirthDay />
                         <h4>{`${
                             day?.slice(5) === myBirthday
                                 ? myNickname
@@ -91,7 +97,7 @@ const DayDetailWrpper = styled.div`
     flex: 1;
     background-color: ${({ theme }) => theme.grey_1};
     padding: ${pixelToRem(16)} ${pixelToRem(24)};
-    margin-bottom: 12vh;
+    margin-bottom: 9vh;
     overflow: auto;
 
     h3,
@@ -115,7 +121,7 @@ const DayDetailWrpper = styled.div`
     ul {
         li {
             position: relative;
-            padding: ${pixelToRem(16)} 0 ${pixelToRem(16)} ${pixelToRem(48)};
+            padding: ${pixelToRem(16)} 0 ${pixelToRem(16)} ${pixelToRem(56)};
             background-color: ${({ theme }) => theme.white};
             border: 1px solid ${({ theme }) => theme.grey_2};
             border-radius: 6px;
@@ -144,6 +150,23 @@ const DayDetailWrpper = styled.div`
             span {
                 ${({ theme }) => theme.Body_3}
                 color: ${(props) => props.theme.grey_4};
+            }
+
+            &.special {
+                &.birthday {
+                    background-color: ${({ theme }) => theme.softPink};
+                    border: 1px solid ${({ theme }) => theme.primaryPink};
+                }
+                &.anniversary {
+                    background-color: ${({ theme }) => theme.softBlue};
+                    border: 1px solid ${({ theme }) => theme.mediumBlue};
+                }
+                svg {
+                    position: absolute;
+                    left: ${pixelToRem(19)};
+                    top: 50%;
+                    transform: translateY(-50%);
+                }
             }
         }
     }

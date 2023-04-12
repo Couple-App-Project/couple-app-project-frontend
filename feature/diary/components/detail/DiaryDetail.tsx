@@ -4,7 +4,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { Sliders } from 'components';
 import Modal from 'feature/common/components/Modal';
-import { useMutationDeleteDiary } from 'feature/diary/queries/mutationFn';
+import {
+    useMutationDeleteDiary,
+    useMutationLabel,
+} from 'feature/diary/queries/mutationFn';
 import { useQueryDiaryDetail } from 'feature/diary/queries/queryFn';
 import { DiaryDetailDataType } from 'feature/diary/types';
 import ChevronRight from 'public/icons/chevron-right.svg';
@@ -21,7 +24,6 @@ const DiaryDetail = () => {
         Number(id),
     );
 
-    console.log(id, data);
     /**
      * modal Fn
      */
@@ -40,10 +42,19 @@ const DiaryDetail = () => {
         deleteDiaryMutation(data?.id!);
     };
 
+    /**
+     * 캘린더 북마크
+     */
+    const toggleLabel = useMutationLabel();
+
     return (
         <DiaryDetailWrapper>
             <div className="slider-container">
-                <DetailHead bookmark={data?.labeled!} />
+                <DetailHead
+                    bookmark={data?.labeled!}
+                    toggleLabel={toggleLabel}
+                    diaryId={Number(data?.id)}
+                />
                 {0 < data?.images.length! ? (
                     <Sliders className="sliders" margin="1.25rem">
                         {data!.images.map((el, i) => {
@@ -143,6 +154,10 @@ const DiaryDetailWrapper = styled.div`
             padding: ${pixelToRem(60)};
             margin-bottom: ${pixelToRem(20)};
             height: 38vh;
+
+            svg {
+                height: 100%;
+            }
         }
     }
 

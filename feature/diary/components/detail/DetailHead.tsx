@@ -4,12 +4,23 @@ import Bookmark from 'public/icons/bookmark.svg';
 import Close from 'public/images/icons/close.svg';
 import { pixelToRem } from 'utils/utils';
 
-const DetailHead = ({ bookmark }: { bookmark: boolean }) => {
+const DetailHead = ({
+    bookmark,
+    toggleLabel,
+    diaryId,
+}: {
+    bookmark: boolean;
+    toggleLabel: any;
+    diaryId: number;
+}) => {
     const router = useRouter();
     return (
         <DetailHeadContainer>
             <Close onClick={() => router.push('/diary')} />
-            <Bookmark className={`bookmark-${bookmark}`} />
+            <Bookmark
+                className={`bookmark-${bookmark}`}
+                onClick={() => toggleLabel(diaryId)}
+            />
         </DetailHeadContainer>
     );
 };
