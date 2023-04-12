@@ -6,13 +6,7 @@ import styled from 'styled-components';
 import { pixelToRem } from 'utils/utils';
 import type { SliderPropsType } from 'types/SliderPropsType';
 
-const Sliders = ({
-    children,
-    className,
-    dots,
-    autoplay,
-    margin,
-}: SliderPropsType) => {
+const Sliders = ({ children, className, dots, autoplay }: SliderPropsType) => {
     const [activeSlider, setActiveSlideer] = useState(1);
 
     /**
@@ -31,7 +25,7 @@ const Sliders = ({
     };
 
     return (
-        <SliderWrapper className={className} margin={margin ? margin : ''}>
+        <SliderWrapper className={className} dots={dots ? true : false}>
             <Slider {...settings}>{children}</Slider>
             {!dots && (
                 <div className="custom-paging">
@@ -45,13 +39,13 @@ const Sliders = ({
 
 export default Sliders;
 
-const SliderWrapper = styled.section<{ margin: string }>`
+const SliderWrapper = styled.section<{ dots: boolean }>`
     position: relative;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: end;
-    padding-bottom: ${pixelToRem(100)};
+    padding-bottom: ${(props) => (!props.dots ? '' : `${pixelToRem(100)}`)};
     .custom-paging {
         position: absolute;
         bottom: ${pixelToRem(16)};
