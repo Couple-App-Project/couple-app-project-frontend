@@ -21,7 +21,7 @@ const DiaryWrite = () => {
     /**
      * 다이어리 상세 조회
      */
-    const { isLoading, data } = useQueryDiaryDetail(Number(id));
+    const { data } = useQueryDiaryDetail(Number(id));
 
     const [imgFile, imgUrl, handleUpload, handleDelete] = useImage();
 

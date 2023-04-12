@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
 import { ThemeProvider } from 'styled-components';
+import Loading from 'components/Loading';
 import BottomNavi from 'feature/common/components/BottomNavi';
 import Device from 'layouts/Device';
 import defaultTheme from 'styles/theme';
@@ -27,6 +28,7 @@ function MyApp({
                     queries: {
                         refetchOnWindowFocus: false,
                         retry: false,
+                        suspense: true,
                     },
                 },
             }),
@@ -59,22 +61,26 @@ function MyApp({
     };
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools />
-            <Hydrate state={pageProps.dehydratedState}>
-                <RecoilRoot>
-                    <ThemeProvider theme={defaultTheme}>
-                        <Device>
-                            <Head>
-                                <title>꾸욱</title>
-                            </Head>
-                            <Component {...pageProps} />
-                            {hasBottomNavi(router.pathname) && <BottomNavi />}
-                        </Device>
-                    </ThemeProvider>
-                </RecoilRoot>
-            </Hydrate>
-        </QueryClientProvider>
+        <React.Suspense fallback={<Loading />}>
+            <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <Hydrate state={pageProps.dehydratedState}>
+                    <RecoilRoot>
+                        <ThemeProvider theme={defaultTheme}>
+                            <Device>
+                                <Head>
+                                    <title>꾸욱</title>
+                                </Head>
+                                <Component {...pageProps} />
+                                {hasBottomNavi(router.pathname) && (
+                                    <BottomNavi />
+                                )}
+                            </Device>
+                        </ThemeProvider>
+                    </RecoilRoot>
+                </Hydrate>
+            </QueryClientProvider>
+        </React.Suspense>
     );
 }
 

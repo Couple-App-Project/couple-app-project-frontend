@@ -1,7 +1,10 @@
 import type { StaticImageDataType } from 'types/StaticImageDataType';
 
 interface Items {
-    src: StaticImageDataType;
+    title: string;
+    contentT: string;
+    contentB: string;
+    src: StaticImageDataType['src'];
     alt: string;
 }
 

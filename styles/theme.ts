@@ -7,6 +7,7 @@ const defaultTheme: DefaultTheme = {
     softPink: '#fff0f2',
     primaryBlue: '#19C1D8',
     mediumBlue: '#48CFE1',
+    softBlue: '#FAFEFF',
     red: '#fa1c37',
     black: '#000',
     white: '#fff',

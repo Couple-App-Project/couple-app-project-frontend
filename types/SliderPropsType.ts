@@ -3,7 +3,7 @@ interface SliderPropsType {
     className?: string;
     dots?: boolean;
     autoplay?: boolean;
-    margin: string;
+    margin?: string;
 }
 
 export type { SliderPropsType };

@@ -6,7 +6,7 @@ interface ContentPropsType {
     disabled: boolean;
     date: string;
     edit: boolean;
-    handleModal: () => void;
+    handleModal?: () => void;
 }
 
 export type { ContentPropsType };

@@ -1,6 +1,4 @@
 import { useQuery } from 'react-query';
-import { useSetRecoilState } from 'recoil';
-import { userInfoState } from 'recoil/userState';
 import apiKeys from '../apiKeys';
 import queryKeys from '../queryKeys';
 
@@ -9,11 +7,12 @@ import queryKeys from '../queryKeys';
  * @returns query Fn
  */
 const useQueryCoupleInfo = () => {
-    const setCoupleInfo = useSetRecoilState(userInfoState);
-
     return useQuery(queryKeys.coupleInfo, apiKeys.getCoupleInfo, {
         onSuccess: ({ data }) => {
-            setCoupleInfo(data.data);
+            window.localStorage.setItem(
+                'coupleInfo',
+                JSON.stringify(data.data),
+            );
         },
     });
 };

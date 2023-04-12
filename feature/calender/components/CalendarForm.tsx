@@ -27,7 +27,7 @@ const CalendarForm = () => {
     const router = useRouter();
     const { calendarId } = router.query;
 
-    const { isLoading, data } = useQueryCalendarDiary(calendarId);
+    const { data } = useQueryCalendarDiary(calendarId);
     const calendarDiaries = data?.data?.data;
 
     const createCalendar = useMutationPostCalendar();
