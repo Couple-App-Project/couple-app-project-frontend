@@ -11,8 +11,8 @@ import ChevronRight from 'public/icons/chevron-right.svg';
 import { Menu } from 'styles/menuStyle';
 
 import { pixelToVh } from 'utils/utils';
-import useMutationLogout from '../queries/mutationFn/useMutationLogout';
 import useMutationDeleteAccount from '../queries/mutationFn/useMutationDeleteAccount';
+import useMutationLogout from '../queries/mutationFn/useMutationLogout';
 
 const ProfileHeader = styled.header`
     width: 100%;
@@ -76,7 +76,12 @@ const ScreenMypage = () => {
         if (confirm('정말 로그아웃 하시겠습니까?')) logoutMutate();
     };
     const handleDeleteAccount = () => {
-        if (confirm('정말 탈퇴 하시겠습니까?')) deleteAccountMutation();
+        if (
+            confirm(
+                '지금 탈퇴하면 모든 정보가 삭제됩니다. 정말 탈퇴 하시겠습니까?',
+            )
+        )
+            deleteAccountMutation();
     };
 
     useEffect(() => {
@@ -122,20 +127,10 @@ const ScreenMypage = () => {
                                 height="18px"
                             />
                         </Icon>
-                        <span>(상대 이름) 애칭 수정</span>
-                        {/* <input
-                                id="backgroundInput"
-                                type="file"
-                                accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
-                            /> */}
+                        <span>상대방 애칭 수정</span>
                     </button>
                     <ChevronRight stroke="#3B3D49" />
                 </Menu>
-                {/* <Input
-                    type="text"
-                    defaultValue={name}
-                    onChange={(e) => setName(e.target.value)}
-                /> */}
                 <Menu onClick={() => setAnniversaryModal(true)}>
                     <button>
                         <Icon>
