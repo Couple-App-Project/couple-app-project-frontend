@@ -35,19 +35,19 @@ function MyApp({
     );
     const router = useRouter();
 
-    if (typeof window !== 'undefined') {
-        const refreshToken = sessionStorage.getItem('refresh');
-        if (
-            router.pathname !== '/login' &&
-            router.pathname !== '/signup' &&
-            router.pathname !== '/couplecode' &&
-            router.pathname !== '/coupleinfo' &&
-            refreshToken === null
-        ) {
-            // alert('로그인 후 사용하세요');
-            router.push('./login');
-        }
-    }
+    // if (typeof window !== 'undefined') {
+    //     const refreshToken = sessionStorage.getItem('refresh');
+    //     if (
+    //         router.pathname !== '/login' &&
+    //         router.pathname !== '/signup' &&
+    //         router.pathname !== '/couplecode' &&
+    //         router.pathname !== '/coupleinfo' &&
+    //         refreshToken === null
+    //     ) {
+    // alert('로그인 후 사용하세요');
+    // router.push('./login');
+    //     }
+    // }
 
     const hasBottomNavi = (pathname: string) => {
         if (
