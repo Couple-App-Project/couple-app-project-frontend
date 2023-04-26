@@ -96,7 +96,7 @@ const CalendarForm = () => {
     };
 
     const saveSchedule = () => {
-        if (schedule.title === '' || schedule.location === '') {
+        if (schedule.title === '') {
             alert('모든 정보를 입력해주세요');
             return;
         }
