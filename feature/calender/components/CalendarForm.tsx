@@ -53,16 +53,7 @@ const CalendarForm = () => {
     const calendarInfo = useQueryCalenderDetail()?.data?.data?.data;
 
     useEffect(() => {
-        if (calendarId === '0') {
-            setSchedule({
-                ...schedule,
-                title,
-                type,
-                startDate,
-                endDate,
-            });
-            setActiveType(type);
-        } else if (calendarId !== undefined) {
+        if (calendarId !== undefined) {
             setSchedule({
                 title: calendarInfo?.title,
                 type: calendarInfo?.type,

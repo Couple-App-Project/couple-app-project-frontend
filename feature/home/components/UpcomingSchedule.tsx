@@ -35,8 +35,12 @@ const ScheduleContainer = styled.article`
             }
             &:nth-child(2) {
                 ${(props) => props.theme.Body_2};
-                font-weight: 400;
+                font-family: Apple SD Gothic Neo;
                 margin: 0;
+                width: ${pixelToVw(96)};
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }
@@ -48,7 +52,7 @@ const UpcomingSchedule = (props: any) => {
     return (
         <Link
             href={{
-                pathname: `/calendar/${calendarId}`,
+                pathname: '/calendar',
                 query: { title, startDate, endDate, type },
             }}
             key={calendarId}
