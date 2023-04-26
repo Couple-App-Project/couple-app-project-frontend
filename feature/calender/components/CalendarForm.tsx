@@ -157,18 +157,20 @@ const CalendarForm = () => {
 
             <TimeInputContainer>
                 <Clock />
-                <input
-                    type="datetime-local"
-                    name="startDateTime"
-                    value={schedule.startDate + 'T' + schedule.startTime}
-                    onChange={scheduleChange}
-                />
-                <input
-                    type="datetime-local"
-                    name="endDateTime"
-                    value={schedule.endDate + 'T' + schedule.endTime}
-                    onChange={scheduleChange}
-                />
+                <div>
+                    <input
+                        type="datetime-local"
+                        name="startDateTime"
+                        value={schedule.startDate + 'T' + schedule.startTime}
+                        onChange={scheduleChange}
+                    />
+                    <input
+                        type="datetime-local"
+                        name="endDateTime"
+                        value={schedule.endDate + 'T' + schedule.endTime}
+                        onChange={scheduleChange}
+                    />
+                </div>
             </TimeInputContainer>
 
             <IconInputContainer>
@@ -284,6 +286,7 @@ const TimeInputContainer = styled(InputCommon)`
     padding: 18px 0;
     input {
         ${(props) => props.theme.Body_1};
+        overflow: visible;
         border: none;
         margin-left: 16px;
     }
