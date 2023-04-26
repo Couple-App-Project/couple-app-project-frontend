@@ -48,7 +48,7 @@ const Icon = styled.div`
 `;
 
 const BottomButtonContainer = styled.section`
-    margin-top: ${pixelToVh(198)};
+    margin-top: ${pixelToVh(150)};
 `;
 const OutButton = styled.button`
     all: unset;
