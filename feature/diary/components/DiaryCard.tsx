@@ -12,7 +12,7 @@ const DiaryCard = (props: any) => {
     const labelMutation = useMutationLabel();
 
     const [backgroundImage, setBackground] = useState(
-        '/images/background_image.jpg',
+        '/images/default_diary.png',
     );
 
     const calendarCreatedAt = new Date(diaryInfo?.calendar.createdAt);
@@ -54,6 +54,7 @@ const DiaryCard = (props: any) => {
                     width="100%"
                     height="100%"
                     layout="responsive"
+                    priority={true}
                     onClick={() =>
                         router.push(`/diary/detail/${diaryInfo?.calendarId}`)
                     }

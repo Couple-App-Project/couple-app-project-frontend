@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
-import useMutationLogout from '../queries/mutationFn/useMutationLogout';
-
-import ModalInput from 'feature/common/components/ModalInput';
-import ModalDate from 'feature/common/components/ModalDate';
 import Grid from 'components/Grid';
-import { Menu } from 'styles/menuStyle';
+import ModalDate from 'feature/common/components/ModalDate';
+import ModalInput from 'feature/common/components/ModalInput';
+import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
+
 import ChevronRight from 'public/icons/chevron-right.svg';
+import { Menu } from 'styles/menuStyle';
 
 import { pixelToVh } from 'utils/utils';
+import useMutationLogout from '../queries/mutationFn/useMutationLogout';
+import useMutationDeleteAccount from '../queries/mutationFn/useMutationDeleteAccount';
 
 const ProfileHeader = styled.header`
     width: 100%;
@@ -46,11 +47,14 @@ const Icon = styled.div`
     align-items: center;
 `;
 
-const LogoutButton = styled.button`
-    all: unset;
+const BottomButtonContainer = styled.section`
     margin-top: ${pixelToVh(198)};
+`;
+const OutButton = styled.button`
+    all: unset;
     width: 100%;
     height: ${pixelToVh(48)};
+    margin-bottom: 15px;
     border: 1px solid ${(props) => props.theme.grey_2};
     text-align: center;
     ${(props) => props.theme.Body_2}
@@ -58,6 +62,7 @@ const LogoutButton = styled.button`
 
 const ScreenMypage = () => {
     const logoutMutate = useMutationLogout();
+    const deleteAccountMutation = useMutationDeleteAccount();
 
     const coupleInfoQuery = useQueryCoupleInfo();
     const coupleInfo = coupleInfoQuery?.data?.data?.data;
@@ -67,13 +72,11 @@ const ScreenMypage = () => {
     const [openNicknameModal, setNicknameModal] = useState(false);
     const [openAnniversaryModal, setAnniversaryModal] = useState(false);
 
-    // const handleAnniversary = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const newAnniversary = event.target.value;
-    //     setAnniversary(newAnniversary);
-    // };
-
     const handleLogout = () => {
         if (confirm('정말 로그아웃 하시겠습니까?')) logoutMutate();
+    };
+    const handleDeleteAccount = () => {
+        if (confirm('정말 탈퇴 하시겠습니까?')) deleteAccountMutation();
     };
 
     useEffect(() => {
@@ -144,21 +147,14 @@ const ScreenMypage = () => {
                             />
                         </Icon>
                         <span>커플 된 날 변경</span>
-                        {/* <input
-                                id="backgroundInput"
-                                type="file"
-                                accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
-                            /> */}
                     </button>
                     <ChevronRight stroke="#3B3D49" />
                 </Menu>
-                {/* D+<span>{dDay} </span> */}
-                {/* <Input
-                    type="date"
-                    defaultValue={anniversary}
-                    onChange={handleAnniversary}
-                /> */}
-                <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+
+                <BottomButtonContainer>
+                    <OutButton onClick={handleLogout}>로그아웃</OutButton>
+                    <OutButton onClick={handleDeleteAccount}>탈퇴</OutButton>
+                </BottomButtonContainer>
             </Grid>
         </>
     );
