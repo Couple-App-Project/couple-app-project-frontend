@@ -20,8 +20,13 @@ const InputContainer = styled.div`
         ${(props) => props.theme.Body_2}
     }
 
-    p > span:last-child {
-        color: ${(props) => props.theme.grey_4};
+    p {
+        width: calc(100% - 30px);
+        text-align: right;
+
+        & > span:last-child {
+            color: ${(props) => props.theme.grey_4};
+        }
     }
 `;
 
