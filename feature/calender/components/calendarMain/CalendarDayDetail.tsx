@@ -36,9 +36,9 @@ const CalendarDayDetail = ({
                 <h3>{changeDate(selectedDay!)}</h3>
                 {Math.floor(getDday(coupleDay!, selectedDay)) > 0 && (
                     <span>
-                        {`사귄 지 ${Math.floor(
-                            getDday(coupleDay!, selectedDay),
-                        )}일째`}
+                        {`사귄 지 ${
+                            Math.floor(getDday(coupleDay!, selectedDay)) - 1
+                        }일째`}
                     </span>
                 )}
             </div>
@@ -52,7 +52,7 @@ const CalendarDayDetail = ({
                                 <span>
                                     {cur.startTime
                                         ? `${cur.startTime} - ${cur.endTime}`
-                                        : '작성 시간이 없어요!'}
+                                        : '하루 종일'}
                                 </span>
                             </li>
                         </Link>
@@ -83,7 +83,7 @@ const CalendarDayDetail = ({
                                 ? myNickname
                                 : yourNickname
                         } 생일`}</h4>
-                        <span>하루종일</span>
+                        <span>하루 종일</span>
                     </li>
                 )}
             </ul>
