@@ -1,89 +1,34 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
-import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
-import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar';
-import useMutationDeleteCalendar from '../queries/mutationFn/useMutationDeleteCalendar';
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { pixelToVh, pixelToVw } from 'utils/utils';
 import Grid from 'components/Grid';
-import Button from './Button';
-import FormInput from './FormInput';
+import useQueryCalendarDiary from 'feature/diary/queries/queryFn/useQueryCalendarDiary';
 
-import Cancel from 'public/icons/cancel.svg';
 import Calendar from 'public/icons/calendar.svg';
+import Cancel from 'public/icons/cancel.svg';
+import ChevronRight from 'public/icons/chevron-right.svg';
 import Clock from 'public/icons/clock.svg';
 import MarkerPin from 'public/icons/marker-pin.svg';
 import Memo from 'public/icons/memo.svg';
+import Plus from 'public/icons/plus.svg';
 import Trash from 'public/icons/trash.svg';
-
-const Header = styled.header`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
-
-    button {
-        background: #fff;
-        font-size: 16px;
-        line-height: 18px;
-    }
-`;
-
-const InputCommon = styled.div`
-    border-bottom: 1px solid ${(props) => props.theme.grey_2};
-    display: flex;
-    align-items: center;
-
-    svg {
-        overflow: visible;
-    }
-`;
-
-const TypeContainer = styled(InputCommon)`
-    padding: 11px 0;
-
-    button {
-        &:nth-child(2) {
-            margin-left: 16px;
-        }
-        &:last-child {
-            margin-left: 8px;
-        }
-    }
-`;
-const TimeInputContainer = styled(InputCommon)`
-    padding: 18px 0;
-    input {
-        border: none;
-        margin-left: 16px;
-    }
-`;
-const IconInputContainer = styled(InputCommon)`
-    input {
-        margin-left: 16px;
-    }
-`;
-
-const DeleteButton = styled.button`
-    all: unset;
-    position: absolute;
-    left: calc(50% - ${pixelToVw(20)});
-    bottom: ${pixelToVh(24)};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px solid ${(props) => props.theme.grey_2};
-`;
+import { pixelToVh, pixelToVw } from 'utils/utils';
+import useMutationDeleteCalendar from '../queries/mutationFn/useMutationDeleteCalendar';
+import useMutationPostCalendar from '../queries/mutationFn/useMutationPostCalendar';
+import useMutationUpdateCalendar from '../queries/mutationFn/useMutationUpdateCalendar';
+import useQueryCalenderDetail from '../queries/queryFn/useQueryCalendarDetail';
+import Button from './Button';
+import FormInput from './FormInput';
 
 const CalendarForm = () => {
     const router = useRouter();
-    const { calendarId } = router.query;
+    const { calendarId, title, startDate, endDate, type } = router.query;
+
+    const { data } = useQueryCalendarDiary(calendarId);
+    const calendarDiaries = data?.data?.data;
 
     const createCalendar = useMutationPostCalendar();
     const updateCalendar = useMutationUpdateCalendar();
@@ -102,7 +47,7 @@ const CalendarForm = () => {
         location: '',
         content: '',
     };
-    const [schedule, setSchedule] = useState(defaultValue);
+    const [schedule, setSchedule]: any = useState(defaultValue);
     const [activeType, setActiveType] = useState(schedule.type);
 
     const calendarInfo = useQueryCalenderDetail()?.data?.data?.data;
@@ -151,12 +96,11 @@ const CalendarForm = () => {
     };
 
     const saveSchedule = () => {
-        if (schedule.title === '' || schedule.location === '') {
+        if (schedule.title === '') {
             alert('모든 정보를 입력해주세요');
             return;
         }
 
-        // console.log(router.query?.calendarId)
         if (router.pathname === '/calendar/register') {
             createCalendar(schedule);
         } else {
@@ -177,11 +121,10 @@ const CalendarForm = () => {
         <Grid>
             <Header>
                 <Cancel
-                    onClick={() => router.push('/calendar')}
+                    onClick={() => router.back()}
                     width="13px"
                     height="13px"
                 />
-                {/* {router.pathname==='/calendar/register'?<h1>일정</h1>:<h1>편집</h1>} */}
                 <button onClick={saveSchedule}>저장</button>
             </Header>
 
@@ -199,12 +142,14 @@ const CalendarForm = () => {
                 <Button
                     _onClick={scheduleChange}
                     active={activeType === '데이트'}
+                    type="데이트"
                 >
                     데이트
                 </Button>
                 <Button
                     _onClick={scheduleChange}
                     active={activeType === '기념일'}
+                    type="기념일"
                 >
                     기념일
                 </Button>
@@ -212,18 +157,20 @@ const CalendarForm = () => {
 
             <TimeInputContainer>
                 <Clock />
-                <input
-                    type="datetime-local"
-                    name="startDateTime"
-                    value={schedule.startDate + 'T' + schedule.startTime}
-                    onChange={scheduleChange}
-                />
-                <input
-                    type="datetime-local"
-                    name="endDateTime"
-                    value={schedule.endDate + 'T' + schedule.endTime}
-                    onChange={scheduleChange}
-                />
+                <div>
+                    <input
+                        type="datetime-local"
+                        name="startDateTime"
+                        value={schedule.startDate + 'T' + schedule.startTime}
+                        onChange={scheduleChange}
+                    />
+                    <input
+                        type="datetime-local"
+                        name="endDateTime"
+                        value={schedule.endDate + 'T' + schedule.endTime}
+                        onChange={scheduleChange}
+                    />
+                </div>
             </TimeInputContainer>
 
             <IconInputContainer>
@@ -246,19 +193,48 @@ const CalendarForm = () => {
                 />
             </IconInputContainer>
 
-            <Link
-                href={{
-                    pathname: '/diary/register/[id]',
-                    query: {
-                        id: calendarId,
-                        startDate: schedule.startDate,
-                        endDate: schedule.endDate,
-                    },
-                }}
-                as={`/diary/register/${calendarId}`}
-            >
-                <p>다이어리 이동</p>
-            </Link>
+            {calendarDiaries?.length ? (
+                <Link
+                    href={{
+                        pathname: '/diary/detail/[id]',
+                        query: {
+                            id: calendarId,
+                        },
+                    }}
+                    as={`/diary/detail/${calendarId}`}
+                >
+                    <DiaryMoveButton>
+                        <Image
+                            src="/icons/pink-diary.png"
+                            alt="다이어리 아이콘"
+                            width="22px"
+                            height="22px"
+                        />
+                        <p>다이어리 이동</p>
+                        <ChevronRight stroke="#ff6e7f" />
+                    </DiaryMoveButton>
+                </Link>
+            ) : router.pathname !== '/calendar/register' ? (
+                <Link
+                    href={{
+                        pathname: '/diary/register/[id]',
+                        query: {
+                            id: calendarId,
+                            title: schedule.title,
+                            startDate: schedule.startDate,
+                            endDate: schedule.endDate,
+                        },
+                    }}
+                >
+                    <WriteDiaryButton>
+                        <Plus />
+                        <p>다이어리 작성</p>
+                    </WriteDiaryButton>
+                </Link>
+            ) : (
+                ''
+            )}
+
             {router.query?.calendarId ? (
                 <DeleteButton onClick={deleteSchedule}>
                     <Trash />
@@ -271,3 +247,97 @@ const CalendarForm = () => {
 };
 
 export default CalendarForm;
+
+const Header = styled.header`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    button {
+        background: #fff;
+        font-size: 16px;
+        line-height: 18px;
+    }
+`;
+
+const InputCommon = styled.div`
+    border-bottom: 1px solid ${(props) => props.theme.grey_2};
+    display: flex;
+    align-items: center;
+
+    svg {
+        overflow: visible;
+    }
+`;
+
+const TypeContainer = styled(InputCommon)`
+    padding: 11px 0;
+
+    button {
+        &:nth-child(2) {
+            margin-left: 16px;
+        }
+        &:last-child {
+            margin-left: 8px;
+        }
+    }
+`;
+const TimeInputContainer = styled(InputCommon)`
+    padding: 18px 0;
+    input {
+        ${(props) => props.theme.Body_1};
+        overflow: visible;
+        border: none;
+        margin-left: 16px;
+    }
+`;
+const IconInputContainer = styled(InputCommon)`
+    input {
+        margin-left: 16px;
+    }
+`;
+
+const DiaryMoveButton = styled.button`
+    display: flex;
+    align-items: center;
+    margin-top: ${pixelToVh(15)};
+    padding: ${pixelToVw(16)};
+    height: ${pixelToVh(48)};
+    width: 100%;
+    border: 1px solid ${(props) => props.theme.mediumPink};
+    border-radius: 6px;
+    background: ${(props) => props.theme.softPink};
+
+    p {
+        margin-left: ${pixelToVw(12)};
+        margin-right: ${pixelToVw(6)};
+        ${(props) => props.theme.Body_1};
+        color: ${(props) => props.theme.primaryPink};
+        text-align: left;
+    }
+`;
+
+const WriteDiaryButton = styled.button`
+    all: unset;
+    display: flex;
+    align-items: center;
+    margin-top: ${pixelToVh(18)};
+
+    p {
+        margin-left: ${pixelToVw(18)};
+    }
+`;
+
+const DeleteButton = styled.button`
+    all: unset;
+    position: absolute;
+    left: calc(50% - ${pixelToVw(20)});
+    bottom: ${pixelToVh(24)};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid ${(props) => props.theme.grey_2};
+`;

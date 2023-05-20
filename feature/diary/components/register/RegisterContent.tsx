@@ -1,16 +1,9 @@
-import styled from 'styled-components';
 import Image from 'next/image';
+import styled from 'styled-components';
 import Close from 'public/images/icons/close.svg';
+import { pixelToRem } from 'utils/utils';
+import type { RegisterContentPropsType } from '../../types';
 import Content from '../common/Content';
-
-interface RegisterContentPropsType {
-    startDate: string;
-    imgUrl: string[];
-    calendarTitle: string;
-    diary: { title: string; content: string };
-    onChangeContent: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleDelete: (index: number) => void;
-}
 
 const RegisterContent = ({
     startDate,
@@ -29,22 +22,21 @@ const RegisterContent = ({
                 _onChange={(e) => onChangeContent(e)}
                 date={startDate}
             />
-            {imgUrl &&
-                imgUrl.map((el, i) => {
-                    return (
-                        <div key={i} className="image-content">
-                            <Image
-                                src={el}
-                                alt="사용자 이미지"
-                                layout="fill"
-                                objectFit="fill"
-                            />
-                            <span onClick={() => handleDelete(i)}>
-                                <Close />
-                            </span>
-                        </div>
-                    );
-                })}
+            {imgUrl?.map((el, i) => {
+                return (
+                    <div key={i} className="image-content">
+                        <Image
+                            src={el}
+                            alt="사용자 이미지"
+                            layout="fill"
+                            objectFit="fill"
+                        />
+                        <span onClick={() => handleDelete(i)}>
+                            <Close />
+                        </span>
+                    </div>
+                );
+            })}
         </RegisterInputContainer>
     );
 };
@@ -52,12 +44,12 @@ const RegisterContent = ({
 export default RegisterContent;
 
 const RegisterInputContainer = styled.div`
-    padding: 0 1.5rem;
+    padding: 0 ${pixelToRem(24)};
 
     .image-content {
         position: relative;
-        width: 5rem;
-        height: 5rem;
+        width: ${pixelToRem(80)};
+        height: ${pixelToRem(80)};
 
         span {
             position: absolute;
@@ -67,12 +59,12 @@ const RegisterInputContainer = styled.div`
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 1.25rem;
-            height: 1.25rem;
+            width: ${pixelToRem(20)};
+            height: ${pixelToRem(20)};
             background-color: #00000050;
 
             svg > path {
-                stroke: #fff;
+                stroke: ${({ theme }) => theme.white};
             }
         }
     }

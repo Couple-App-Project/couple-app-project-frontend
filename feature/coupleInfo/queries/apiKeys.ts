@@ -1,12 +1,10 @@
 import instance from 'utils/api';
+import type { CoupleDataType } from '../types';
 
 const apiKeys = {
-    editCoupleInfo: async (coupleData: {
-        anniversary?: string;
-        nickname?: string;
-        todayComment?: string;
-        backgroundColor?: string;
-    }) => await instance.post(`/couples/info`, coupleData),
+    getCoupleInfo: async () => await instance.get('/couples/info'),
+    editCoupleInfo: async (coupleData: CoupleDataType) =>
+        await instance.post('/couples/info', coupleData),
 };
 
 export default apiKeys;

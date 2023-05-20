@@ -1,6 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styled from 'styled-components';
+import AnniversaryIcon from 'public/icons/upcoming_anniversary.svg';
+import BirthdayIcon from 'public/icons/upcoming_birthday.svg';
+import CalendarIcon from 'public/icons/upcoming_calendar.svg';
 import { pixelToVh, pixelToVw } from 'utils/utils';
 
 const ScheduleContainer = styled.article`
@@ -8,44 +12,65 @@ const ScheduleContainer = styled.article`
     align-items: center;
     padding: ${pixelToVh(11)} ${pixelToVw(19)};
 
-    width: ${pixelToVw(159)};
-    min-width: 159px;
+    // width: ${pixelToVw(159)};
+    min-width: ${pixelToVw(159)};
     height: ${pixelToVh(56)};
     background: #fff;
     border-radius: 4px;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
 
     div {
         margin-left: 11px;
 
         p {
             text-align: left;
-    
+
             &:nth-child(1) {
                 ${(props) => props.theme.Body_4};
                 color: ${(props) => props.theme.grey_4};
             }
             &:nth-child(2) {
                 ${(props) => props.theme.Body_2};
-                font-weight: 400;
+                font-family: Apple SD Gothic Neo;
                 margin: 0;
+                width: ${pixelToVw(96)};
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
+        }
     }
 `;
 
-const UpcomingSchedule = () => {
+const UpcomingSchedule = (props: any) => {
+    const { title, startDate, endDate, type, calendarId } = props;
+
     return (
-        <ScheduleContainer>
-            <Image
-                src="/icons/birthday_pic.png"
-                alt="다가오는 일정 아이콘"
-                width="16px"
-                height="16px"
-            />
-            <div>
-                <p>23.02.28</p>
-                <p>제주도 출발</p>
-            </div>
-        </ScheduleContainer>
+        <Link
+            href={{
+                pathname: '/calendar',
+                query: { title, startDate, endDate, type },
+            }}
+            key={calendarId}
+        >
+            <ScheduleContainer>
+                {type !== '기념일' ? (
+                    <CalendarIcon />
+                ) : title.includes('생일') ? (
+                    <BirthdayIcon />
+                ) : (
+                    <AnniversaryIcon />
+                )}
+                <div>
+                    <p>{startDate}</p>
+                    <p>{title}</p>
+                </div>
+            </ScheduleContainer>
+        </Link>
     );
 };
 

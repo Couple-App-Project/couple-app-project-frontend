@@ -1,49 +1,53 @@
-import React from 'react';
 import type { AppProps } from 'next/app';
-import { ReactQueryDevtools } from 'react-query/devtools';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import {
     Hydrate,
     QueryClient,
     QueryClientProvider,
     DehydratedState,
 } from 'react-query';
-import { useRouter } from 'next/router';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { RecoilRoot } from 'recoil';
 import '../styles/globals.css';
+import { ThemeProvider } from 'styled-components';
+import Loading from 'components/Loading';
 import BottomNavi from 'feature/common/components/BottomNavi';
 import Device from 'layouts/Device';
-import Head from 'next/head';
-import { ThemeProvider } from 'styled-components';
 import defaultTheme from 'styles/theme';
 
 function MyApp({
     Component,
     pageProps,
 }: AppProps<{ dehydratedState: DehydratedState }>) {
-    const [queryClient] = React.useState(
+    const [queryClient] = useState(
         () =>
             new QueryClient({
                 defaultOptions: {
                     queries: {
                         refetchOnWindowFocus: false,
                         retry: false,
+                        suspense: true,
                     },
                 },
             }),
     );
     const router = useRouter();
 
-    if (typeof window !== 'undefined') {
-        const refreshToken = sessionStorage.getItem('refresh');
-        if (
-            router.pathname !== '/login' &&
-            router.pathname !== '/signup' &&
-            refreshToken === null
-        ) {
-            // alert('로그인 후 사용하세요');
-            router.push('./login');
-        }
-    }
+    // if (typeof window !== 'undefined') {
+    //     const refreshToken = sessionStorage.getItem('refresh');
+    //     if (
+    //         router.pathname !== '/login' &&
+    //         router.pathname !== '/signup' &&
+    //         router.pathname !== '/couplecode' &&
+    //         router.pathname !== '/coupleinfo' &&
+    //         refreshToken === null
+    //     ) {
+    // alert('로그인 후 사용하세요');
+    // router.push('./login');
+    //     }
+    // }
 
     const hasBottomNavi = (pathname: string) => {
         if (
@@ -57,22 +61,26 @@ function MyApp({
     };
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools />
-            <ThemeProvider theme={defaultTheme}>
-                <Device>
-                    <Hydrate state={pageProps.dehydratedState}>
-                        <RecoilRoot>
-                            <Head>
-                                <title>꾸욱</title>
-                            </Head>
-                            <Component {...pageProps} />
-                        </RecoilRoot>
-                    </Hydrate>
-                    {hasBottomNavi(router.pathname) ? <BottomNavi /> : ''}
-                </Device>
-            </ThemeProvider>
-        </QueryClientProvider>
+        <React.Suspense fallback={<Loading />}>
+            <QueryClientProvider client={queryClient}>
+                <ReactQueryDevtools />
+                <Hydrate state={pageProps.dehydratedState}>
+                    <RecoilRoot>
+                        <ThemeProvider theme={defaultTheme}>
+                            <Device>
+                                <Head>
+                                    <title>꾸욱</title>
+                                </Head>
+                                <Component {...pageProps} />
+                                {hasBottomNavi(router.pathname) && (
+                                    <BottomNavi />
+                                )}
+                            </Device>
+                        </ThemeProvider>
+                    </RecoilRoot>
+                </Hydrate>
+            </QueryClientProvider>
+        </React.Suspense>
     );
 }
 

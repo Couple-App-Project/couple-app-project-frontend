@@ -1,7 +1,11 @@
+import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import apiKeys from '../apiKeys';
-import { useRouter } from 'next/router';
 
+/**
+ * 커플 연결 Fn
+ * @returns mutation Fn
+ */
 const useMutationCoupleConnent = () => {
     const router = useRouter();
 
@@ -9,9 +13,11 @@ const useMutationCoupleConnent = () => {
         onError: (err: any) => {
             alert(err.response.data.message);
         },
-        onSuccess: (data, variables, context) => {
+        onSuccess: (data) => {
             alert(data.data.data.message);
-            router.push('/coupleinfo');
+            if (!data.data.data.status) {
+                router.push('/coupleinfo');
+            }
         },
     });
 

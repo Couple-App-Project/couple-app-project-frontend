@@ -1,28 +1,27 @@
-import styled from 'styled-components';
-import { CalendarSearchPropsType } from 'feature/calender/types/CalendarSearchPropsType';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 import Back from 'public/images/icons/arrow-back.svg';
+import { pixelToRem } from 'utils/utils';
+import { CalendarSearchPropsType } from '../../types';
 
-const SearchInput = ({ search, onChangeSearch }: CalendarSearchPropsType) => {
+const SearchInput = ({ keyword, onChangeKeyword }: CalendarSearchPropsType) => {
     const router = useRouter();
 
     return (
         <SearchInputContainer className="search-input">
-            <div onClick={() => router.push('/calendar')}>
-                <Back />
-            </div>
+            <Back onClick={() => router.push('/calendar')} />
             <div className="input-content">
                 <input
                     type="text"
                     placeholder="일정을 키워드로 검색해 보세요."
-                    value={search || ''}
+                    value={keyword || ''}
                     name="keyword"
-                    onChange={(e) => onChangeSearch(e)}
+                    onChange={(e) => onChangeKeyword!(e)}
                 />
-                {search && (
+                {keyword && (
                     <div
                         className="search-clear"
-                        onClick={() => onChangeSearch()}
+                        onClick={() => onChangeKeyword!()}
                     />
                 )}
             </div>
@@ -35,43 +34,47 @@ export default SearchInput;
 const SearchInputContainer = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: ${pixelToRem(16)};
 
     .input-content {
         position: relative;
         width: 100%;
-        margin-left: 0.75rem;
+        margin-left: ${pixelToRem(12)};
         input {
             width: 100%;
-            padding: 0.625rem 2rem 0.625rem 1rem;
+            padding: ${pixelToRem(10)} ${pixelToRem(32)} ${pixelToRem(10)};
+            padding-left: ${pixelToRem(16)};
             border: none;
             border-radius: 4px;
-            background-color: ${(props) => props.theme.grey_1} !important;
-            ${(props) => props.theme.Body_1}
+            background-color: ${({ theme }) => theme.grey_1} !important;
+            ${({ theme }) => theme.Body_1}
         }
 
         input:-webkit-autofill,
         input:-webkit-autofill:hover,
         input:-webkit-autofill:focus {
-            -webkit-box-shadow: 0 0 0px 40rem ${(props) => props.theme.grey_1}
+            box-shadow: 0 0 0 ${pixelToRem(50)} ${({ theme }) => theme.grey_1}
                 inset;
+            -webkit-box-shadow: 0 0 0 ${pixelToRem(50)}
+                ${({ theme }) => theme.grey_1} inset;
         }
 
         .search-clear {
             position: absolute;
             top: 50%;
-            right: 0.5rem;
+            right: ${pixelToRem(8)};
             transform: translateY(-50%);
-            width: 1.25rem;
-            height: 1.25rem;
+            width: ${pixelToRem(20)};
+            height: ${pixelToRem(20)};
             border-radius: 50%;
-            background-color: ${(props) => props.theme.grey_3};
-            text-align: center;
+            background-color: ${({ theme }) => theme.grey_3};
+            display: flex;
+            justify-content: center;
 
             &:after {
                 content: '×';
-                ${(props) => props.theme.Title_5}
-                color: ${(props) => props.theme.white};
+                ${({ theme }) => theme.Title_5}
+                color: ${({ theme }) => theme.white};
             }
         }
     }

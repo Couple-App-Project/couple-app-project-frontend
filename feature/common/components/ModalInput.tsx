@@ -17,11 +17,16 @@ const InputContainer = styled.div`
     input {
         all: unset;
         width: 100%;
-        ${(props) => props.theme.Body2}
+        ${(props) => props.theme.Body_2}
     }
 
-    p > span:last-child {
-        color: ${(props) => props.theme.grey_4};
+    p {
+        width: calc(100% - 30px);
+        text-align: right;
+
+        & > span:last-child {
+            color: ${(props) => props.theme.grey_4};
+        }
     }
 `;
 
@@ -30,11 +35,12 @@ const Form = styled.form`
     position: relative;
 
     button {
-        position: sticky;
+        ${(props) => props.theme.Body_2};
+        position: fixed;
+        bottom: 0;
         height: ${pixelToVh(48)};
         background: ${(props) => props.theme.primaryPink};
         color: #fff;
-        bottom: 0;
         width: 100%;
     }
 `;

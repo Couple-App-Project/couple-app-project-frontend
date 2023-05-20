@@ -1,23 +1,26 @@
 import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import apiKeys from '../apiKeys';
 
+/**
+ * 커플 정보 변경 Fn
+ * @returns mutation Fn
+ */
 const useMutationCoupleInfo = () => {
     const router = useRouter();
+    const queryClient = useQueryClient();
 
     const { mutate } = useMutation(apiKeys.editCoupleInfo, {
-        onMutate: (variables) => {
-            console.log(variables);
+        onError: (error) => {
+            console.log(error);
         },
-        onError: (error, variables, context) => {
-            console.log(error, variables, context);
-        },
-        onSuccess: (data, variables, context) => {
-            console.log(data, variables, context);
-
+        onSuccess: (data) => {
             if (router.pathname === '/coupleinfo') {
                 router.push('/home');
             }
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['coupleInfo']);
         },
     });
 

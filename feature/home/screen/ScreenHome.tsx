@@ -1,23 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-
 import styled from 'styled-components';
-import { useQueryClient } from 'react-query';
-import useMutationHome from '../../home/queries/mutationFn/mutationFn';
-import { useMutationCoupleInfo } from 'feature/coupleInfo/queries/mutationFn';
-import { getDday } from 'utils/getDday';
-import { pixelToRem, pixelToVh } from 'utils/utils';
-import { ICoupleInfo } from '../types/CoupleInfo';
 
+import Grid from 'components/Grid';
 import ModalBackground from 'feature/common/components/ModalBackground';
 import ModalInput from 'feature/common/components/ModalInput';
-import UpcomingSchedule from '../components/UpcomingSchedule';
-import Grid from 'components/Grid';
+import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
 
-import Notification from 'public/icons/notification.svg';
 import Heart from 'public/icons/heart.svg';
-import Picture from 'public/icons/picture.svg';
+import Notification from 'public/icons/notification.svg';
 import Pencil from 'public/icons/pencil.svg';
+import Picture from 'public/icons/picture.svg';
+import { getDday } from 'utils/functions';
+import { pixelToRem, pixelToVh } from 'utils/utils';
+import UpcomingSchedule from '../components/UpcomingSchedule';
+import useQueryBackground from '../queries/queryFn/useQueryBackground';
+import useQueryUpcoming from '../queries/queryFn/useQueryUpcoming';
 
 const ProfileSection = styled.section<{ background: string }>`
     height: 100vh;
@@ -126,27 +124,54 @@ const IconContainer = styled.div`
     }
 `;
 const ScheduleContainer = styled.section`
+    width: 100%;
+    overflow: auto;
     display: flex;
     gap: 8px;
     margin-top: 8px;
     padding-left: 24px;
+    padding-right: 24px;
+    -ms-overflow-style: none; // /* IE, Edge */
+    scrollbar-width: none; // /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none; // /* Chrome, Safari, Opera */
+    }
 `;
 
 export default function ScreenHome() {
-    const queryClient = useQueryClient();
-    const mutate = useMutationHome();
-    const coupleInfoMutation = useMutationCoupleInfo();
+    const coupleInfoQuery = useQueryCoupleInfo();
+    const upcomingQuery = useQueryUpcoming();
+    const coupleInfo = coupleInfoQuery?.data?.data?.data;
+    const upcomingSchedules = upcomingQuery?.data?.data?.data;
+
+    const backgroundQuery = useQueryBackground();
+    const [backgroundImage, setBackground] = useState(
+        '/images/background_image.jpg',
+    );
 
     const [openBgModal, setBgModal] = useState(false);
     const [openCommentModal, setCommentModal] = useState(false);
 
-    const coupleInfo: ICoupleInfo | undefined =
-        queryClient.getQueryData('couple-info');
+    const urlToSrc = async (url: string) => {
+        const imgDownload = await fetch(url);
+        const blob = await imgDownload.blob();
+
+        const image = new File([blob], `image ${blob.size}`, {
+            type: blob.type,
+        });
+
+        setBackground(URL.createObjectURL(image));
+    };
 
     useEffect(() => {
-        mutate();
-        // console.log('어어');
-    }, [mutate, coupleInfoMutation]);
+        const url =
+            backgroundQuery?.data?.data?.data[0] ??
+            '/images/background_image.jpg';
+        if (url !== '/images/background_image.jpg') {
+            urlToSrc(url);
+        }
+    }, [backgroundQuery?.data?.data?.data]);
 
     return (
         <>
@@ -179,9 +204,10 @@ export default function ScreenHome() {
 
                         <ImageContainer>
                             <Image
-                                src="/slider_img.png"
+                                src={backgroundImage}
                                 alt="메인화면 배경사진"
                                 layout="fill"
+                                priority={true}
                             />
                             <div className="colorFilter"></div>
 
@@ -206,9 +232,15 @@ export default function ScreenHome() {
                     </Grid>
 
                     <ScheduleContainer>
-                        <UpcomingSchedule></UpcomingSchedule>
-                        <UpcomingSchedule></UpcomingSchedule>
-                        <UpcomingSchedule></UpcomingSchedule>
+                        {upcomingSchedules &&
+                            upcomingSchedules.map((el: any) => {
+                                return (
+                                    <UpcomingSchedule
+                                        {...el}
+                                        key={el.startDate}
+                                    ></UpcomingSchedule>
+                                );
+                            })}
                     </ScheduleContainer>
                 </ProfileSection>
             )}

@@ -1,61 +1,31 @@
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { ElButton } from 'components';
-import Back from 'public/images/icons/back.svg';
-import Close from 'public/images/icons/close.svg';
 import Calendar from 'public/images/illustrations/calendar.svg';
-import { useRouter } from 'next/router';
+import { pixelToRem } from 'utils/utils';
+import STEP_COMPONENT_LIST from 'utils/variables/stepComponnetList';
+import type { StepLayoutPropsType } from 'types/StepLayoutPropsType';
 
-interface StepLayoutProps {
-    title: string;
-    children: React.ReactNode;
-    disabled: boolean;
-}
-
-interface ComponentType {
-    [title: string]: {
-        id: number;
-        clickActive?: React.ReactElement<React.SVGProps<SVGSVGElement>>;
-        button: string;
-    };
-}
-
-const COMPONENT_LIST: ComponentType = {
-    회원가입: {
-        id: 1,
-        clickActive: <Back />,
-        button: '가입완료',
-    },
-    '커플 코드': {
-        id: 2,
-        clickActive: <Close />,
-        button: '연결하기',
-    },
-    '커플이 된 날은 언제인가요?': {
-        id: 3,
-        button: '꾸욱 시작',
-    },
-};
-
-const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
+const StepLayout = ({ title, children, disabled }: StepLayoutPropsType) => {
     const router = useRouter();
     return (
-        <StepLayoutWrapper>
-            {COMPONENT_LIST[title].id !== 3 && (
+        <StepLayoutWrapper className={`style${STEP_COMPONENT_LIST[title].id}`}>
+            {STEP_COMPONENT_LIST[title].id !== 3 && (
                 <div className="icon-box" onClick={() => router.push('/login')}>
-                    {COMPONENT_LIST[title].clickActive}
+                    {STEP_COMPONENT_LIST[title].clickActive}
                 </div>
             )}
-            <div className={`title-box style${COMPONENT_LIST[title].id}`}>
-                {COMPONENT_LIST[title].id !== 3 && (
+            <div className="title-box">
+                {STEP_COMPONENT_LIST[title].id !== 3 && (
                     <h3 className="layout-title">{title}</h3>
                 )}
                 <div className="step-num">
-                    {Object.entries(COMPONENT_LIST).map((el, i) => {
+                    {Object.entries(STEP_COMPONENT_LIST).map((el, i) => {
                         return (
                             <div
                                 key={i}
                                 className={
-                                    COMPONENT_LIST[title].id >= el[1].id
+                                    STEP_COMPONENT_LIST[title].id >= el[1].id
                                         ? 'active'
                                         : ''
                                 }
@@ -65,7 +35,7 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
                         );
                     })}
                 </div>
-                {COMPONENT_LIST[title].id === 3 && (
+                {STEP_COMPONENT_LIST[title].id === 3 && (
                     <>
                         <Calendar />
                         <h3 className="layout-title">{title}</h3>
@@ -74,7 +44,7 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
             </div>
             <div className="form-box">{children}</div>
             <ElButton type="submit" form={title} _disabled={disabled}>
-                {COMPONENT_LIST[title].button}
+                {STEP_COMPONENT_LIST[title].button}
             </ElButton>
         </StepLayoutWrapper>
     );
@@ -83,9 +53,18 @@ const StepLayout = ({ title, children, disabled }: StepLayoutProps) => {
 export default StepLayout;
 
 const StepLayoutWrapper = styled.div`
-    padding: 1.5rem;
+    padding: ${pixelToRem(16)} ${pixelToRem(24)};
     .icon-box {
-        margin-bottom: 2.25rem;
+        margin-bottom: ${pixelToRem(42)};
+        text-align: justify;
+        svg {
+            display: inline-block;
+        }
+    }
+    &.style2 {
+        .icon-box {
+            text-align: end;
+        }
     }
 
     .title-box {
@@ -94,8 +73,8 @@ const StepLayoutWrapper = styled.div`
         align-items: center;
 
         .layout-title {
-            ${(props) => props.theme.Subhead_2};
-            color: ${(props) => props.theme.grey_6};
+            ${({ theme }) => theme.Subhead_2};
+            color: ${({ theme }) => theme.grey_6};
         }
 
         .step-num {
@@ -104,23 +83,23 @@ const StepLayoutWrapper = styled.div`
             align-items: center;
 
             div {
-                width: 1.75rem;
-                ${(props) => props.theme.Subhead_4};
-                line-height: 1.75rem;
-                color: ${(props) => props.theme.white};
-                background-color: ${(props) => props.theme.grey_3};
+                width: ${pixelToRem(28)};
+                ${({ theme }) => theme.Subhead_4};
+                line-height: ${pixelToRem(28)};
+                color: ${({ theme }) => theme.white};
+                background-color: ${({ theme }) => theme.grey_3};
                 border-radius: 50%;
                 text-align: center;
 
                 &:not(:first-child) {
-                    margin-left: 0.5rem;
+                    margin-left: ${pixelToRem(8)};
                 }
 
                 &.active {
                     position: relative;
-                    width: 1.5rem;
-                    line-height: 1.5rem;
-                    background-color: ${(props) => props.theme.primaryPink};
+                    width: ${pixelToRem(24)};
+                    line-height: ${pixelToRem(24)};
+                    background-color: ${({ theme }) => theme.primaryPink};
 
                     &::before {
                         content: '';
@@ -129,9 +108,9 @@ const StepLayoutWrapper = styled.div`
                         left: 50%;
                         z-index: -1;
                         transform: translate(-50%, -50%);
-                        width: 1.75rem;
-                        height: 1.75rem;
-                        background-color: ${(props) => props.theme.mediumPink};
+                        width: ${pixelToRem(28)};
+                        height: ${pixelToRem(28)};
+                        background-color: ${({ theme }) => theme.mediumPink};
                         border-radius: 50%;
                     }
                 }
@@ -139,21 +118,21 @@ const StepLayoutWrapper = styled.div`
         }
     }
 
-    .style3 {
+    &.style3 .title-box {
         flex-direction: column;
 
         .step-num {
             justify-content: flex-end;
             width: 100%;
-            margin-bottom: 1.625rem;
+            margin-bottom: ${pixelToRem(28)};
         }
         .layout-title {
             width: 100%;
-            margin: 2.5rem 0 0.75rem;
+            margin: ${pixelToRem(40)} 0 ${pixelToRem(12)};
         }
     }
 
     .form-box {
-        margin-bottom: 1.5rem;
+        margin-bottom: ${pixelToRem(24)};
     }
 `;

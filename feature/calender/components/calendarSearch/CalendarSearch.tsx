@@ -1,47 +1,40 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useQueryCalendarSearch } from 'feature/calender/queries/queryFn';
 import {
     SearchInput,
     SearchType,
     SearchList,
 } from 'feature/calender/components';
+import { useQueryCalendarSearch } from 'feature/calender/queries/queryFn';
+import useInput from 'hooks/useInput';
+import { pixelToRem } from 'utils/utils';
 
 const CalendarSearch = () => {
-    const [search, setSearch] = useState({ keyword: '', type: null });
+    const [keyword, onChangeKeyword] = useInput('');
+    const [type, setType] = useState<null | string>(null);
 
-    const onChangeSearch = (
-        e?:
-            | React.ChangeEvent<HTMLInputElement>
-            | React.MouseEvent<HTMLButtonElement>,
-    ) => {
-        if (e) {
-            setSearch((prev) => {
-                return {
-                    ...prev,
-                    [e.target.name]: (e.target as HTMLButtonElement).value,
-                };
-            });
-        } else {
-            setSearch((prev) => {
-                return {
-                    ...prev,
-                    keyword: '',
-                };
-            });
-        }
+    /**
+     * 일정 종류 필터
+     * @param e MouseEvent
+     */
+    const onChangeType = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setType(
+            (e.target as HTMLButtonElement).value === type
+                ? null
+                : (e.target as HTMLButtonElement).value,
+        );
     };
 
-    const { data } = useQueryCalendarSearch(search);
+    /**
+     * 검색 조회
+     */
+    const { data } = useQueryCalendarSearch({ keyword, type });
 
     return (
         <SearchContainer>
-            <SearchInput
-                search={search.keyword}
-                onChangeSearch={onChangeSearch}
-            />
-            <SearchType search={search.type} onChangeSearch={onChangeSearch} />
-            <SearchList list={data?.data.data} search={search.keyword} />
+            <SearchInput keyword={keyword} onChangeKeyword={onChangeKeyword} />
+            <SearchType type={type} onChangeType={onChangeType} />
+            <SearchList list={data} search={keyword} />
         </SearchContainer>
     );
 };
@@ -49,8 +42,8 @@ const CalendarSearch = () => {
 export default CalendarSearch;
 
 const SearchContainer = styled.div`
-    padding: 1.5rem;
+    padding: ${pixelToRem(24)};
     width: 100%;
     height: 100%;
-    background: ${(props) => props.theme.white};
+    background: ${({ theme }) => theme.white};
 `;

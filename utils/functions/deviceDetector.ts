@@ -1,3 +1,8 @@
+/**
+ * 사용자 모바일 환경 판별 Fn (모바일 폰)
+ * @param agent 사용자 기기 환경
+ * @returns mobile boolen
+ */
 const detectMobileDevice = (agent: string) => {
     const mobileRegex = [
         /Android/i,
@@ -10,6 +15,11 @@ const detectMobileDevice = (agent: string) => {
     return mobileRegex.some((mobile) => agent.match(mobile));
 };
 
+/**
+ * 사용자 모바일 환경 판별 Fn (모바일 브라우저)
+ * @param agent 사용자 기기 환경
+ * @returns mobile boolen
+ */
 const detectInAppBrowser = (agent: string) => {
     const inappRegex = [
         /KAKAOTALK/i,

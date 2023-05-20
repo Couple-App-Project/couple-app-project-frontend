@@ -2,22 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import useMutationMypage from '../queries/mutationFn/useMutationMypage';
-import useMutationLogout from '../queries/mutationFn/useMutationLogout';
-import { ICoupleInfo } from '../types/CoupleInfo';
-import { useQueryClient } from 'react-query';
-
-import ModalInput from 'feature/common/components/ModalInput';
-import ModalDate from 'feature/common/components/ModalDate';
 import Grid from 'components/Grid';
-import { Menu } from 'styles/menuStyle';
+import ModalDate from 'feature/common/components/ModalDate';
+import ModalInput from 'feature/common/components/ModalInput';
+import useQueryCoupleInfo from 'feature/coupleInfo/queries/queryFn/useQueryCoupleInfo';
+
 import ChevronRight from 'public/icons/chevron-right.svg';
+import { Menu } from 'styles/menuStyle';
 
 import { pixelToVh } from 'utils/utils';
-
-// const Input = styled.input`
-//     all: unset;
-// `;
+import useMutationDeleteAccount from '../queries/mutationFn/useMutationDeleteAccount';
+import useMutationLogout from '../queries/mutationFn/useMutationLogout';
 
 const ProfileHeader = styled.header`
     width: 100%;
@@ -52,54 +47,46 @@ const Icon = styled.div`
     align-items: center;
 `;
 
-const LogoutButton = styled.button`
+const BottomButtonContainer = styled.section`
+    margin-top: ${pixelToVh(150)};
+`;
+const OutButton = styled.button`
     all: unset;
-    margin-top: ${pixelToVh(198)};
     width: 100%;
     height: ${pixelToVh(48)};
+    margin-bottom: 15px;
     border: 1px solid ${(props) => props.theme.grey_2};
     text-align: center;
     ${(props) => props.theme.Body_2}
 `;
 
 const ScreenMypage = () => {
-    const queryClient = useQueryClient();
-    const mutate = useMutationMypage();
     const logoutMutate = useMutationLogout();
+    const deleteAccountMutation = useMutationDeleteAccount();
 
-    const coupleInfo: ICoupleInfo | undefined =
-        queryClient.getQueryData('couple-info');
+    const coupleInfoQuery = useQueryCoupleInfo();
+    const coupleInfo = coupleInfoQuery?.data?.data?.data;
 
     const [anniversary, setAnniversary] = useState(coupleInfo?.anniversary);
 
     const [openNicknameModal, setNicknameModal] = useState(false);
     const [openAnniversaryModal, setAnniversaryModal] = useState(false);
 
-    const handleAnniversary = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newAnniversary = event.target.value;
-        setAnniversary(newAnniversary);
-    };
-
     const handleLogout = () => {
         if (confirm('정말 로그아웃 하시겠습니까?')) logoutMutate();
     };
-
-    // @ts-ignore
-    // const setPreview = (e) => {
-    //     const file = e.target.files[0];
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onloadend = () => {
-    //         // @ts-ignore
-    //         setProfile(reader.result);
-    //     };
-    // };
+    const handleDeleteAccount = () => {
+        if (
+            confirm(
+                '지금 탈퇴하면 모든 정보가 삭제됩니다. 정말 탈퇴 하시겠습니까?',
+            )
+        )
+            deleteAccountMutation();
+    };
 
     useEffect(() => {
         setAnniversary(coupleInfo?.anniversary);
-
-        mutate();
-    }, [coupleInfo, mutate]);
+    }, [coupleInfo]);
 
     return (
         <>
@@ -124,7 +111,7 @@ const ScreenMypage = () => {
                     <h1>
                         <span>{coupleInfo?.myNickname}</span>님
                     </h1>
-                    <h3>이메일주소</h3>
+                    <h3>{coupleInfo?.myEmail}</h3>
                 </Grid>
             </ProfileHeader>
 
@@ -140,20 +127,10 @@ const ScreenMypage = () => {
                                 height="18px"
                             />
                         </Icon>
-                        <span>(상대 이름) 애칭 수정</span>
-                        {/* <input
-                                id="backgroundInput"
-                                type="file"
-                                accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
-                            /> */}
+                        <span>상대방 애칭 수정</span>
                     </button>
-                    <ChevronRight />
+                    <ChevronRight stroke="#3B3D49" />
                 </Menu>
-                {/* <Input
-                    type="text"
-                    defaultValue={name}
-                    onChange={(e) => setName(e.target.value)}
-                /> */}
                 <Menu onClick={() => setAnniversaryModal(true)}>
                     <button>
                         <Icon>
@@ -165,21 +142,14 @@ const ScreenMypage = () => {
                             />
                         </Icon>
                         <span>커플 된 날 변경</span>
-                        {/* <input
-                                id="backgroundInput"
-                                type="file"
-                                accept=".png, .jpg, .jpeg, .gif, .jfif, .webp, image/*;capture=camera"
-                            /> */}
                     </button>
-                    <ChevronRight />
+                    <ChevronRight stroke="#3B3D49" />
                 </Menu>
-                {/* D+<span>{dDay} </span> */}
-                {/* <Input
-                    type="date"
-                    defaultValue={anniversary}
-                    onChange={handleAnniversary}
-                /> */}
-                <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+
+                <BottomButtonContainer>
+                    <OutButton onClick={handleLogout}>로그아웃</OutButton>
+                    <OutButton onClick={handleDeleteAccount}>탈퇴</OutButton>
+                </BottomButtonContainer>
             </Grid>
         </>
     );

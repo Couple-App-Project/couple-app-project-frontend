@@ -1,5 +1,5 @@
 import instance from 'utils/api';
-import type { CalendarParamsType } from '../types/CalendarParamsType';
+import type { CalendarParamsType } from '../types';
 
 const apiKeys = {
     getCalendar: async (data: CalendarParamsType) =>

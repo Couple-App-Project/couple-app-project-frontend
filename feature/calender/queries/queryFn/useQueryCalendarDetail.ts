@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 import apiKeys from '../apiKeys';
 import queryKeys from '../queryKeys';
-import { useRouter } from 'next/router';
 
 const useQueryCalenderDetail = () => {
     const router = useRouter();
@@ -11,7 +11,7 @@ const useQueryCalenderDetail = () => {
         queryKeys.calendarDetail(),
         () => apiKeys.getCalendarDetail(calendarId),
         {
-            enabled: typeof calendarId === 'string',
+            enabled: typeof calendarId === 'string' && calendarId !== '0',
         },
     );
 };

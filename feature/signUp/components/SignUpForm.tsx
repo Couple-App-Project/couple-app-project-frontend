@@ -1,14 +1,13 @@
 import styled from 'styled-components';
-import type { FormPropsType } from '../types/FormPropsType';
-import GENDER_LIST from '../modules/variables/genderList';
 import { ElInput } from 'components';
 import DropDown from 'public/images/icons/drop-down.svg';
+import { pixelToRem } from 'utils/utils';
+import type { FormPropsType } from '../types';
+import GENDER_LIST from '../modules/variables/genderList';
 
 const SignUpFrom = ({
     userInfo,
     onChangeInfo,
-    fieldFocus,
-    focusHandler,
     fieldErr,
     errorHandler,
     checkHandler,
@@ -27,10 +26,6 @@ const SignUpFrom = ({
                         onChangeInfo(e);
                         errorHandler(e);
                     }}
-                    _onFocus={(e) => {
-                        focusHandler(e);
-                        errorHandler(e);
-                    }}
                 >
                     <CheckButton
                         type="button"
@@ -46,7 +41,7 @@ const SignUpFrom = ({
                         중복확인
                     </CheckButton>
                 </ElInput>
-                {fieldFocus.email && fieldErr.email && (
+                {fieldErr.email && (
                     <p className="err-text">
                         이메일 형식에 맞게 입력해 주세요.
                     </p>
@@ -62,12 +57,8 @@ const SignUpFrom = ({
                     onChangeInfo(e);
                     errorHandler(e);
                 }}
-                _onFocus={(e) => {
-                    focusHandler(e);
-                    errorHandler(e);
-                }}
             >
-                {fieldFocus.password && fieldErr.password && (
+                {fieldErr.password && (
                     <p className="err-text">
                         8~20자 이내로 영문 대소문자, 숫자를 3가지 이상 혼용하여
                         입력해 주세요.
@@ -79,17 +70,13 @@ const SignUpFrom = ({
                 placeholder="비밀번호 확인"
                 type="password"
                 name="pwdConfirm"
-                value={userInfo.pwdConfirm}
+                value={userInfo.pwdConfirm!}
                 _onChange={(e) => {
                     onChangeInfo(e);
                     errorHandler(e, userInfo.password);
                 }}
-                _onFocus={(e) => {
-                    focusHandler(e);
-                    errorHandler(e, userInfo.password);
-                }}
             >
-                {fieldFocus.pwdConfirm && fieldErr.pwdConfirm && (
+                {fieldErr.pwdConfirm && (
                     <p className="err-text">비밀번호가 일치하지 않습니다.</p>
                 )}
             </ElInput>
@@ -110,7 +97,7 @@ const SignUpFrom = ({
                     <option value="" disabled hidden>
                         성별
                     </option>
-                    {Object.entries(GENDER_LIST).map((el, i) => {
+                    {Object.entries(GENDER_LIST).map((el) => {
                         return (
                             <option key={el[0]} value={el[1].value}>
                                 {el[1].text}
@@ -140,22 +127,21 @@ const SignUpFrom = ({
 export default SignUpFrom;
 
 const FormWrapper = styled.form`
-    margin-top: 1.25rem;
-
-    & > div:not(:last-child) {
-        margin-bottom: 1rem;
-    }
+    margin-top: ${pixelToRem(20)};
 
     .err-text {
-        margin-top: 5px;
-        color: ${(props) => props.theme.grey_6};
-        ${(props) => props.theme.Body_4};
+        margin-top: ${pixelToRem(5)};
+        color: ${({ theme }) => theme.grey_6};
+        ${({ theme }) => theme.Body_4};
     }
 
     input:-webkit-autofill,
     input:-webkit-autofill:hover,
     input:-webkit-autofill:focus {
-        -webkit-box-shadow: 0 0 0px 40rem ${(props) => props.theme.white} inset;
+        box-shadow: 0 0 0 ${pixelToRem(50)} ${(props) => props.theme.white}
+            inset;
+        -webkit-box-shadow: 0 0 0 ${pixelToRem(50)}
+            ${(props) => props.theme.white} inset;
     }
 
     .select-box,
@@ -163,30 +149,26 @@ const FormWrapper = styled.form`
         display: flex;
         select,
         input[type='date'] {
-            margin: 0;
-            padding: 0;
-            min-width: 0;
             display: block;
             width: 100%;
-            font-size: 0.875rem;
-            line-height: 2.25rem;
-            font-weight: 400;
+            min-width: 0;
+            padding: ${pixelToRem(18)} 0;
+            ${({ theme }) => theme.Body_2}
             border-top: none;
             border-left: none;
             border-right: none;
             border-bottom: 1px solid ${(props) => props.theme.grey_2};
             background-color: transparent;
-            -webkit-appearance: none;
-            -moz-appearance: none;
             appearance: none;
+            -webkit-appearance: none;
             &:focus {
                 outline: none;
             }
             &.selected {
-                color: ${(props) => props.theme.grey_6};
+                color: ${({ theme }) => theme.grey_6};
             }
             &.placeholder {
-                color: ${(props) => props.theme.grey_4};
+                color: ${({ theme }) => theme.grey_4};
             }
         }
         input[type='date']::before {
@@ -200,22 +182,21 @@ const FormWrapper = styled.form`
             background: transparent;
         }
         svg {
-            margin-left: -1.75rem;
+            margin-left: -${pixelToRem(28)};
             align-self: center;
             path {
-                stroke: ${(props) => props.theme.grey_4};
+                stroke: ${({ theme }) => theme.grey_4};
             }
         }
     }
 `;
 
 const CheckButton = styled('button')<{ isEmail: boolean }>`
-    width: 5.7rem;
-    height: 2rem;
-    border: 1px solid ${(props) => props.theme.primaryBlue};
-    border-radius: 50px;
-    font-size: 0.875rem;
-    font-weight: 400;
+    width: ${pixelToRem(90)};
+    height: ${pixelToRem(32)};
+    ${({ theme }) => theme.Body_3};
+    border: 1px solid ${({ theme }) => theme.primaryBlue};
+    border-radius: ${pixelToRem(62)};
     background-color: ${(props) =>
         props.isEmail ? props.theme.primaryBlue : props.theme.white};
     color: ${(props) =>
